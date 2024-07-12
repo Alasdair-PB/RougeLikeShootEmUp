@@ -23,8 +23,8 @@ public class E_StateMachine : MonoBehaviour
         var e_Action = e_Actions[currentActionIndex];
         var elapsedTime = Time.time - timeSinceLastDecision;
 
-        if (e_Action.IsComplete(controller, elapsedTime))
-        {  // || (!e_Action.mustComplete && elapsedTime > decisionTick))
+        if (e_Action.IsComplete(controller, elapsedTime)|| (!e_Action.mustComplete && elapsedTime > decisionTick))
+        {  // 
             SetNewAction(e_Action);
             elapsedTime = 0;
 
@@ -37,7 +37,7 @@ public class E_StateMachine : MonoBehaviour
     private void SetNewAction(E_Action e_Action)
     {
         currentActionIndex = GetNextActionIndex();
-        //decisionTick = Random.Range(decisionTickMin, decisionTickMax);
+        decisionTick = Random.Range(decisionTickMin, decisionTickMax);
         controller.ClearActionStack();
         controller.ClearActionTimeStack();
         timeSinceLastDecision = Time.time;

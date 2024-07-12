@@ -2,6 +2,8 @@ using UnityEngine;
 
 public abstract class E_Action : ScriptableObject
 {
+    public Formation[] projectileFormations; 
+
     public bool mustComplete;
     public float priority;
     public abstract void SetUp(E_Controller my_controller);
