@@ -5,7 +5,7 @@ using UnityEngine;
 public class Formation : ScriptableObject
 {
     public GameObject projectileObject;
-    public float startDelay, burstTime, burstCount;
+    public float startDelay, burstTime, burstCount, angleChange;
     public float[] angle;
 
     // May need randomness?
