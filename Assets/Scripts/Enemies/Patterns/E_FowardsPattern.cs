@@ -22,8 +22,8 @@ public class E_Fowards : PatternBase
 
     public override float2 MoveInDirection(float2 currentPos, float2 direction, float speed, float elapsedTime)
     {
-        float2 target = currentPos + direction * speed * elapsedTime;
-        return MoveTowards(currentPos, target, speed, elapsedTime);
+        float2 target = currentPos + direction * speed;
+        return currentPos + (direction * speed * Time.deltaTime);
     }
 
 }

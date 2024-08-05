@@ -11,10 +11,16 @@ public class E_StateMachine : MonoBehaviour
     private float repeatPriorityModifier = 0, timeSinceLastDecision, decisionTick = .5f, decisionTickMin = 1f, decisionTickMax = 4f;
     private int lastActionIndex, currentActionIndex;
 
+    private GlobalPooling pooling;
+    [SerializeField] LayerMask layerMask;
+
     private void Awake()
-    {
+    {   
+        // May want to be seperated
+        pooling = FindAnyObjectByType<GlobalPooling>();
+
         controller = GetComponent<E_Controller>();
-        var e_Action = e_Actions[currentActionIndex];
+        var e_Action = e_Actions[currentActionIndex];        
         SetNewAction(e_Action);
     }
 
@@ -31,7 +37,18 @@ public class E_StateMachine : MonoBehaviour
         }
 
         if (e_Action != null)
+        {
             e_Action.TakeAction(controller, elapsedTime);
+            UpdateFormations(e_Action, elapsedTime);
+        }
+    }
+
+    private void UpdateFormations(E_Action e_Action, float elapsedTime)
+    {
+        for (int i = 0; i < e_Action.projectileFormations.Length; i++)
+        {
+            e_Action.projectileFormations[i].UpdateFormation(layerMask, elapsedTime, pooling, controller.GetCurrentPosition());
+        }
     }
 
     private void SetNewAction(E_Action e_Action)

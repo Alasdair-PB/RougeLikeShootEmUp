@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5d887522b016743b07c53d5b68ebfe, type: 3}
   m_Name: MultiAction
   m_EditorClassIdentifier: 
+  projectileFormations:
+  - {fileID: 11400000, guid: 440549b72a3aed74b80e7db495178273, type: 2}
   mustComplete: 1
   priority: 1
   actionList:
