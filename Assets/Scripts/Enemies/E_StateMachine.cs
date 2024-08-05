@@ -39,15 +39,7 @@ public class E_StateMachine : MonoBehaviour
         if (e_Action != null)
         {
             e_Action.TakeAction(controller, elapsedTime);
-            UpdateFormations(e_Action, elapsedTime);
-        }
-    }
-
-    private void UpdateFormations(E_Action e_Action, float elapsedTime)
-    {
-        for (int i = 0; i < e_Action.projectileFormations.Length; i++)
-        {
-            e_Action.projectileFormations[i].UpdateFormation(layerMask, elapsedTime, pooling, controller.GetCurrentPosition());
+            e_Action.UpdateFormations(layerMask,controller, elapsedTime, pooling);
         }
     }
 
@@ -60,6 +52,7 @@ public class E_StateMachine : MonoBehaviour
         timeSinceLastDecision = Time.time;
 
         e_Action = e_Actions[currentActionIndex];
+        e_Action.SetUpFormations(controller);
         e_Action.SetUp(controller);
     }
 

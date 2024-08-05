@@ -1,6 +1,5 @@
 using Unity.Mathematics;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 
 [CreateAssetMenu(fileName = "Formation", menuName = "Formations/Formation")]
@@ -12,14 +11,20 @@ public class Formation : ScriptableObject
     public float[] angle;
 
 
-    public void UpdateFormation(LayerMask layerMask, float elapsedTime, GlobalPooling pooling, float2 position)
+    public int UpdateFormation(LayerMask layerMask, int occurredBursts, float elapsedTime, GlobalPooling pooling, float2 position)
     {
-        int burstsTriggered = Mathf.FloorToInt(elapsedTime / burstCount);
 
-        if (burstsTriggered > burstCount ||
-            elapsedTime < startDelay ||
-            elapsedTime - (burstTime * burstsTriggered) !> burstTime)
-            return;
+        if (elapsedTime < startDelay)
+            return occurredBursts;
+
+        if (occurredBursts >= burstCount)
+            return occurredBursts;
+
+        int burstsTriggered = Mathf.FloorToInt(elapsedTime / burstTime);
+        if (occurredBursts > burstsTriggered)
+            return occurredBursts;
+
+        //float nextBurstTime = burstsTriggered * burstTime + startDelay;
 
         var angleOffset = angleChange * burstsTriggered;
 
@@ -35,5 +40,10 @@ public class Formation : ScriptableObject
                 new float2(position.x, position.y));
         }
 
+        occurredBursts++;
+        return occurredBursts;
     }
+
+
+
 }
