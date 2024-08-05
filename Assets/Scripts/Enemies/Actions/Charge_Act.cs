@@ -20,11 +20,11 @@ public class Charge_Act : E_Action
         my_controller.SetTargetPosition(my_controller.GetCurrentPosition() + chargePositionOffset);
     }
 
-    public override void TakeAction(E_Controller my_controller, float elapsedTime)
+    public override void TakeAction(E_Controller my_controller, float elapsedTime, LayerMask layerMask, GlobalPooling pooling)
     {
-        var targetPos = my_controller.GetTargetPosition();
+        base.TakeAction(my_controller, elapsedTime, layerMask, pooling);
 
-        elapsedTime += Time.deltaTime;
+        var targetPos = my_controller.GetTargetPosition();
         var nextPos = pattern.LerpToPosition(my_controller.GetCurrentPosition(), targetPos, time, elapsedTime);
         my_controller.SetNextPosition(nextPos);
     }

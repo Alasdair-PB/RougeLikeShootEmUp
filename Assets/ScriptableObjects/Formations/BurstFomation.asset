@@ -10,13 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14a3cae9118111648852e6cdb04a7b1e, type: 3}
-  m_Name: CircularFormation
+  m_Name: BurstFomation
   m_EditorClassIdentifier: 
   projectileObject: {fileID: 6246030807850434585, guid: 82d1643761205f74996d7ef1ef308b59, type: 3}
   startDelay: 0
-  burstTime: 0.2
-  burstCount: 2
-  angleChange: 5
+  burstTime: 0.5
+  burstCount: 5
+  angleChange: 0
   angle:
   - 0
+  - 45
+  - 90
+  - 135
   - 180
+  - 225
+  - 270
+  - 315
+  - 360
