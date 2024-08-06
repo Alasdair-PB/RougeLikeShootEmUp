@@ -157,19 +157,19 @@ MonoBehaviour:
   - enemyIndex: 0
     timeStamp: 4
     direction:
-      x: -3
-      y: 2
+      x: 0
+      y: 0
     spawnPosition:
       x: -3
-      y: 5
+      y: 1
   - enemyIndex: 0
     timeStamp: 4
     direction:
-      x: 3
-      y: 2
+      x: 0
+      y: 0
     spawnPosition:
       x: 3
-      y: 5
+      y: 1
   xBounds:
     x: 0
     y: 0

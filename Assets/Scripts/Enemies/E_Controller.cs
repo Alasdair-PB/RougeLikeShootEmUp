@@ -24,8 +24,9 @@ public class E_Controller : MonoBehaviour
     public float2 SetTargetPosition(float2 newTarget) => targetPos = newTarget;
     public void SetNextPosition(float2 newPos) => nextPos = newPos;
 
-    public void InitializeEnemy(float2 direction)
+    public void InitializeEnemy(float2 direction, float2 position)
     {
+        nextPos = position;
         // Reset all stats etc and animation state
     }
 
@@ -34,10 +35,6 @@ public class E_Controller : MonoBehaviour
         // Destory enemy when moving outside of this region
     }
 
-    private void Awake()
-    {
-        nextPos = GetCurrentPosition();
-    }
 
     void FixedUpdate()
     {

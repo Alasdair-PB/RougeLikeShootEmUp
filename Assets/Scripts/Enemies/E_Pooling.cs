@@ -35,7 +35,7 @@ public class EnemyPooling
         enemy.SetBounds(xBounds, yBounds);
         enemy.OnDeath = null;
         enemy.OnDeath += ReturnEnemy;
-        enemy.InitializeEnemy(direction);
+        enemy.InitializeEnemy(direction, position);
     }
 
     public void ReturnEnemy(E_Controller enemy)
