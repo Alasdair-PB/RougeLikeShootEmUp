@@ -33,8 +33,6 @@ public class EnemyScheduler : MonoBehaviour
         // Organize schedule
     }
 
-
-
     private void FixedUpdate()
     {
         var time = Time.time - startTime;

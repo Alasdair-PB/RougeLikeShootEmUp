@@ -153,29 +153,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 9028484030733915984, guid: a2511e85c48fa9e41b5a444e2b5893cc, type: 3}
+  - {fileID: 9028484030733915984, guid: a9f3578ca2d34634b9eedd00c1a062cf, type: 3}
   schedule:
-  - enemyIndex: 0
-    timeStamp: 4
+  - enemyIndex: 1
+    timeStamp: 3
     direction:
       x: 0
       y: 0
     spawnPosition:
-      x: -3
+      x: 6
+      y: 6
+  - enemyIndex: 0
+    timeStamp: 15
+    direction:
+      x: 0
+      y: 0
+    spawnPosition:
+      x: 4
       y: 1
   - enemyIndex: 0
-    timeStamp: 4
+    timeStamp: 15
     direction:
       x: 0
       y: 0
     spawnPosition:
-      x: 3
+      x: -4
       y: 1
   xBounds:
-    x: 0
-    y: 0
+    x: -10
+    y: 10
   yBounds:
-    x: 0
-    y: 0
+    x: -6
+    y: 7
 --- !u!4 &178674507
 Transform:
   m_ObjectHideFlags: 0

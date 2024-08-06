@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5131160836144693305}
   - component: {fileID: 7026460749390218700}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,16 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   e_Actions:
-  - {fileID: 11400000, guid: 1b00cb11ddcd6d4478d3112bcf3c3850, type: 2}
-  - {fileID: 11400000, guid: 1ef6ab75fc373244d81b15dfdcaa651d, type: 2}
-  - {fileID: 11400000, guid: 4d4c58d1f78e3ec4c835c31f6036962d, type: 2}
-  - {fileID: 11400000, guid: 61e99a9bfc4afee498b968d2f68e7300, type: 2}
-  - {fileID: 11400000, guid: b68a281e592670148bdbbc2c118bad74, type: 2}
-  escapeAction: {fileID: 11400000, guid: 92131b4785a6cbb47832a9f71e34c8ec, type: 2}
-  escapeTime: 20
-  decisionTickMin: 1
-  decisionTickMax: 4
-  escapes: 1
+  - {fileID: 11400000, guid: 91e6e31b05dc3a5429ba86eeae332af8, type: 2}
   layerMask:
     serializedVersion: 2
     m_Bits: 0
