@@ -16,8 +16,7 @@ public abstract class E_Action : ScriptableObject
 
     public void SetUpFormations(E_Controller my_controller)
     {
-        int[] newBurstCount = new int[projectileFormations.Length];
-        my_controller.SetBurstCounter(newBurstCount);
+        my_controller.ClearBurstCounter();
     }
 
     public void UpdateFormations(LayerMask layerMask, E_Controller my_controller, float elapsedTime, GlobalPooling pooling)

@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517662ecf76778f45ad50066a8bab132, type: 3}
   m_Name: Player_Data
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 4
   moveFriction: 0.5
   worldFriction: 0.1
   characterHeight: 2
   jumpForce: 20
-  moveMaxVelocity: 3
+  moveMaxVelocity: 4
   moveAcceleration: 0.75
   gravityForce: 0.75
   groundCheckDistance: 0.75
-  quickStepForce: 20
-  dashMaxVelocity: 7
-  dashSpeed: 7
+  quickStepForce: 15
+  dashMaxVelocity: 6
+  dashSpeed: 6

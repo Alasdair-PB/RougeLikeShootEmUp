@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -9,13 +10,12 @@ public class E_Controller : MonoBehaviour
     private float2 targetPos = new float2();
     private float2 nextPos = new float2();
 
+    public Action<E_Controller> OnDeath;
+
     private StackManager<int> actionIndexStack = new StackManager<int>();
     private StackManager<float> actionTimeStampStack = new StackManager<float>();
 
     private int[] burstCounter = new int[5];  // Layer max for formations
-
-    public void SetBurstCounter(int[] newBurstCounter) => burstCounter = newBurstCounter;
-    public int[] GetBurstCounter() => burstCounter;
     public float2 GetCurrentPosition()
         => new float2(transform.position.x, transform.position.y);
     public bool IsAtPosition(float2 currentPos, float2 expectedPos)
@@ -23,6 +23,21 @@ public class E_Controller : MonoBehaviour
     public float2 GetTargetPosition() => targetPos;
     public float2 SetTargetPosition(float2 newTarget) => targetPos = newTarget;
     public void SetNextPosition(float2 newPos) => nextPos = newPos;
+
+    public void InitializeEnemy(float2 direction)
+    {
+        // Reset all stats etc and animation state
+    }
+
+    public void SetBounds(float2 xBounds, float2 yBounds)
+    {
+        // Destory enemy when moving outside of this region
+    }
+
+    private void Awake()
+    {
+        nextPos = GetCurrentPosition();
+    }
 
     void FixedUpdate()
     {
@@ -33,6 +48,10 @@ public class E_Controller : MonoBehaviour
     {
         transform.position = new Vector3(nextPos.x, nextPos.y, 0);
     }
+
+    public void ClearBurstCounter() => burstCounter = new int[5];
+    public void SetBurstCounter(int[] newBurstCounter) => burstCounter = newBurstCounter;
+    public int[] GetBurstCounter() => burstCounter;
 
     public void PushActionTime(float timeStamp) => actionTimeStampStack.Push(timeStamp);
     public void ClearActionTimeStack() => actionTimeStampStack.Clear();

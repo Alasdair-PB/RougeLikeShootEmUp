@@ -17,8 +17,8 @@ public class E_StateMachine : MonoBehaviour
     private void Awake()
     {   
         pooling = FindAnyObjectByType<GlobalPooling>();
-
         controller = GetComponent<E_Controller>();
+
         var e_Action = e_Actions[currentActionIndex];        
         SetNewAction(e_Action);
     }
@@ -29,34 +29,29 @@ public class E_StateMachine : MonoBehaviour
         var elapsedTime = Time.time - timeSinceLastDecision;
 
         if (e_Action.IsComplete(controller, elapsedTime)|| (!e_Action.mustComplete && elapsedTime > decisionTick))
-        {  
+        {
             SetNewAction(e_Action);
             elapsedTime = 0;
         }
 
+        e_Action = e_Actions[currentActionIndex];
+
         if (e_Action != null)
-        {
             e_Action.TakeAction(controller, elapsedTime, layerMask, pooling);
-        }
     }
 
     private void SetNewAction(E_Action e_Action)
     {        
-        controller.ClearActionStack();
-        controller.ClearActionTimeStack();
-
-        currentActionIndex = GetNextActionIndex();
+        currentActionIndex = GetNextActionIndex();        
+        e_Action = e_Actions[currentActionIndex];    
+        
+        e_Action.SetUpFormations(controller);
         decisionTick = Random.Range(decisionTickMin, decisionTickMax);
-
         timeSinceLastDecision = Time.time;
 
-        e_Action = e_Actions[currentActionIndex];
+        controller.ClearActionStack();
+        controller.ClearActionTimeStack();
         e_Action.SetUp(controller);
-        e_Action.SetUpFormations(controller);
-
-
-
-
     }
 
 

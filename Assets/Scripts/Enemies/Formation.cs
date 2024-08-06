@@ -11,9 +11,18 @@ public class Formation : ScriptableObject
     public float[] angle;
 
 
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="layerMask"> Damage layer mask- player or enemy </param>
+    /// <param name="occurredBursts"> how many bursts have happened </param>
+    /// <param name="elapsedTime"> elapsed time since state began </param>
+    /// <param name="pooling"> pooling system used to spawn projectiles </param>
+    /// <param name="position"> position of formation center </param>
+    /// <returns></returns>
     public int UpdateFormation(LayerMask layerMask, int occurredBursts, float elapsedTime, GlobalPooling pooling, float2 position)
     {
-
         if (elapsedTime < startDelay)
             return occurredBursts;
 
@@ -24,20 +33,17 @@ public class Formation : ScriptableObject
         if (occurredBursts > burstsTriggered)
             return occurredBursts;
 
-        //float nextBurstTime = burstsTriggered * burstTime + startDelay;
-
         var angleOffset = angleChange * burstsTriggered;
 
         for (int i = 0; i < angle.Length; i++)
         {
-            var objectInPool = pooling.GetPool(projectileObject, 10, 999);
+            var objectInPool = pooling.GetProjectilePool(projectileObject, 10, 999);
 
             float degrees = angle[i] + angleOffset;
             float radians = degrees * Mathf.Deg2Rad;
             float2 direction = new float2(Mathf.Cos(radians), Mathf.Sin(radians));
 
-            objectInPool.InstantiateProjectile(direction, layerMask,
-                new float2(position.x, position.y));
+            objectInPool.InstantiateProjectile(direction, layerMask, position);
         }
 
         occurredBursts++;

@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c6df56dcc8f30e445a2bff6b16cef08a, type: 2}
+  - {fileID: 2100000, guid: 0f787aaa7c2ea944db90a2ce4bde170f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 7315177020823869578}
   - component: {fileID: 1701195439943799903}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: HomingProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

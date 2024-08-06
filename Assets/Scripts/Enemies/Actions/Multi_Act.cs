@@ -26,16 +26,16 @@ public class Multi_Act : E_Action
     private bool IsFinal(int actionIndex) => actionIndex >= actionList.Length - 1;
 
     public override void TakeAction(E_Controller my_controller, float elapsedTime, LayerMask layerMask, GlobalPooling pooling)
-    {
-        var actionIndex = my_controller.GetActionIndexDirty();
-
+    {        
         var timeAtLastAction = elapsedTime - my_controller.GetActionTimeDirty();
+        var actionIndex = my_controller.GetActionIndexDirty();
 
         if (actionList[actionIndex].IsComplete(my_controller, timeAtLastAction)){
 
             if (IsFinal(actionIndex))
             {
-                // Should never really be called
+                // Should never really be called#
+                Debug.Log("final called");
                 my_controller.ReturnLastItemToStackTimeModified(elapsedTime);
                 my_controller.ReturnLastItemToStackIndexModified(actionIndex);
                 return;
@@ -46,11 +46,11 @@ public class Multi_Act : E_Action
                 timeAtLastAction = 0;
                 actionList[actionIndex].SetUp(my_controller);
                 actionList[actionIndex].SetUpFormations(my_controller);
-
             }
         }
+
         actionList[actionIndex].TakeAction(my_controller, timeAtLastAction, layerMask, pooling);
-        actionList[actionIndex].UpdateFormations(layerMask, my_controller, elapsedTime, pooling);
+        actionList[actionIndex].UpdateFormations(layerMask, my_controller, timeAtLastAction, pooling);
 
 
         if (timeAtLastAction == 0)
