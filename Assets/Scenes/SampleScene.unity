@@ -292,7 +292,28 @@ MonoBehaviour:
   actions: {fileID: 470575812}
   controller: {fileID: 470575811}
   weapons:
-  - burstInterval: 1
+  - burstInterval: 0.1
+    formations:
+    - angle: -15
+      positionOffset:
+        x: 0.25
+        y: 0
+    - angle: 0
+      positionOffset:
+        x: 0
+        y: 0
+    - angle: 15
+      positionOffset:
+        x: -0.25
+        y: 0
+    - angle: -7
+      positionOffset:
+        x: 0.12
+        y: 0
+    - angle: 7
+      positionOffset:
+        x: -0.12
+        y: 0
     projectilePrefab: {fileID: 6246030807850434585, guid: c2fd65ab23c1ae2458c69c79af985627, type: 3}
 --- !u!1 &519420028
 GameObject:

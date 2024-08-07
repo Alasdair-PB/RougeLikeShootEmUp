@@ -1,5 +1,6 @@
 using Player;
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Player
@@ -32,10 +33,25 @@ namespace Player
 
         private void LaunchProjectile()
         {
-            var direction = controller.GetProjectileDirctionFloat2();
-            var position = controller.GetPosition();
-            var objectInPool = projectilePool.GetProjectilePool(weapons[weaponIndex].projectilePrefab, 10, 999);
-            objectInPool.InstantiateProjectile(direction, projectileMask, position);
+            var weapon = weapons[weaponIndex];
+            for (int i = 0; i < weapon.formations.Length; i++) {
+
+                var playerCurrentRotation = controller.GetProjectileDirctionFloat2();
+                float degrees = weapon.formations[i].angle;
+                float radians = degrees * Mathf.Deg2Rad;
+
+                float cos = Mathf.Cos(radians);
+                float sin = Mathf.Sin(radians);
+
+                float2 direction = new float2(
+                    playerCurrentRotation.x * cos - playerCurrentRotation.y * sin,
+                    playerCurrentRotation.x * sin + playerCurrentRotation.y * cos
+                );
+
+                var position = controller.GetPosition() + weapon.formations[i].positionOffset;
+                var objectInPool = projectilePool.GetProjectilePool(weapon.projectilePrefab, 10, 999);
+                objectInPool.InstantiateProjectile(direction, projectileMask, position);
+            }
         }
 
         void FixedUpdate()
@@ -46,8 +62,8 @@ namespace Player
             if (Time.time - timeSinceLastFired < weapons[weaponIndex].burstInterval)
                 return;
 
-            LaunchProjectile();
-            //actions.A_LaunchProjectile?.Invoke();
+            //LaunchProjectile();
+            actions.A_LaunchProjectile?.Invoke();
             timeSinceLastFired = Time.time;
         }
 
@@ -55,7 +71,15 @@ namespace Player
         public struct PlayerWeapon
         {
             public float burstInterval;
+            public Variation[] formations; 
             public GameObject projectilePrefab;
+
+            [Serializable]
+            public struct Variation
+            {
+                public int angle;
+                public float2 positionOffset;
+            }
         }
 
     }

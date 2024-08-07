@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: DiagDOfScr_Bl
   m_EditorClassIdentifier: 
   projectileFormations:
-  - {fileID: 11400000, guid: a1be225331687f74d8bad8d25eab2dfe, type: 2}
+  - {fileID: 11400000, guid: 988d6262bacc68343b94658d88d7ce06, type: 2}
   mustComplete: 1
   priority: 1
   pattern: {fileID: 11400000, guid: 4c3d8d848459d7242820ba88dfef723a, type: 2}
   time: 20
-  speed: 3
+  speed: 2
   direction:
     x: -1
     y: -1
