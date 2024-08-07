@@ -135,7 +135,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4d4c58d1f78e3ec4c835c31f6036962d, type: 2}
   - {fileID: 11400000, guid: 61e99a9bfc4afee498b968d2f68e7300, type: 2}
   - {fileID: 11400000, guid: b68a281e592670148bdbbc2c118bad74, type: 2}
-  escapeAction: {fileID: 11400000, guid: 92131b4785a6cbb47832a9f71e34c8ec, type: 2}
+  escapeAction: {fileID: 11400000, guid: 3b5404bc939e0714a8ac5a5ffcf922d3, type: 2}
   escapeTime: 20
   decisionTickMin: 1
   decisionTickMax: 4

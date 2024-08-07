@@ -13,5 +13,7 @@ namespace Player
         public Action<Collider> OnCollision;
         public Action SuccessfulDropEvent, TryDrop, TryCollect, OnRespawn, OnQuickStep;
         public Action<bool> OnDashEvent;
+        public Action A_LaunchProjectile;
+
     }
 }

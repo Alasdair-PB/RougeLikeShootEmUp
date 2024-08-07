@@ -1,6 +1,5 @@
 using UnityEngine;
 using Unity.Mathematics;
-using System;
 
 [CreateAssetMenu(fileName = "ChargeAction", menuName = "Actions/ChargeAction")]
 public class Charge_Act : E_Action

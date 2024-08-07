@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 470575812}
   - component: {fileID: 470575811}
   - component: {fileID: 470575810}
+  - component: {fileID: 470575813}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -275,6 +276,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a9adbce9f1cde4dba6b7bfa0167681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &470575813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470575808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e3fa43f9eb739479e1cdca16c476fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePool: {fileID: 1400574721}
+  actions: {fileID: 470575812}
+  controller: {fileID: 470575811}
+  weapons:
+  - burstInterval: 1
+    projectilePrefab: {fileID: 6246030807850434585, guid: c2fd65ab23c1ae2458c69c79af985627, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
