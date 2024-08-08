@@ -13,29 +13,29 @@ public class Formation : Formation_Base
 
 
     // Actual stack: not a copy
-    public override bool IsComplete(Stack<int> occurredBursts, float elapsedTime, float2 position)
+    public override bool IsComplete(Stack<int> occurredBursts, float elapsedTime, float ex_elapsedTime, float2 position)
     {
         var my_occuredBursts = occurredBursts.Pop();
         bool isComplete = false;
 
         if (my_occuredBursts >= burstCount)
-            isComplete =  true;
-
+        {
+            isComplete = true;
+        }
 
         occurredBursts.Push(my_occuredBursts);
-
-        Debug.Log(isComplete);
-
         return isComplete;
     }
 
 
-    public override Stack<int> UpdateFormation(LayerMask layerMask, Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling, float2 position)
+    public override Stack<int> UpdateFormation(LayerMask layerMask, Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling, float2 position, ref float ex_elapsedTime)
     {        
         var my_occuredBursts = occurredBursts.Pop();
-        int burstsTriggered = Mathf.FloorToInt(elapsedTime / burstTime);
+        var my_ElapsedTime = elapsedTime - ex_elapsedTime;
 
-        if (my_occuredBursts > burstsTriggered || elapsedTime < startDelay)
+        int burstsTriggered = Mathf.FloorToInt(my_ElapsedTime / burstTime);
+
+        if (my_occuredBursts > burstsTriggered || my_ElapsedTime < startDelay)
         {
             occurredBursts.Push(my_occuredBursts);
             return occurredBursts;
@@ -55,6 +55,7 @@ public class Formation : Formation_Base
         }
 
         my_occuredBursts++;
+
         occurredBursts.Push(my_occuredBursts);
 
         return occurredBursts;

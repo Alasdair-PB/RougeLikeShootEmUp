@@ -154,8 +154,10 @@ MonoBehaviour:
   prefabs:
   - {fileID: 9028484030733915984, guid: a2511e85c48fa9e41b5a444e2b5893cc, type: 3}
   - {fileID: 9028484030733915984, guid: a9f3578ca2d34634b9eedd00c1a062cf, type: 3}
+  - {fileID: 9028484030733915984, guid: 54b756c6241aaac498c0f0ea13598d71, type: 3}
   schedule:
-  - enemyIndex: 1
+  - active: 0
+    enemyIndex: 1
     timeStamp: 3
     direction:
       x: 0
@@ -163,7 +165,8 @@ MonoBehaviour:
     spawnPosition:
       x: 6
       y: 6
-  - enemyIndex: 0
+  - active: 0
+    enemyIndex: 0
     timeStamp: 15
     direction:
       x: 0
@@ -171,13 +174,23 @@ MonoBehaviour:
     spawnPosition:
       x: 4
       y: 1
-  - enemyIndex: 0
+  - active: 0
+    enemyIndex: 0
     timeStamp: 15
     direction:
       x: 0
       y: 0
     spawnPosition:
       x: -4
+      y: 1
+  - active: 1
+    enemyIndex: 2
+    timeStamp: 2
+    direction:
+      x: 0
+      y: 0
+    spawnPosition:
+      x: 0
       y: 1
   xBounds:
     x: -10

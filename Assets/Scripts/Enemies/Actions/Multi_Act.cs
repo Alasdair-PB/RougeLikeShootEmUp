@@ -49,8 +49,10 @@ public class Multi_Act : E_Action
             }
         }
 
+        var ex_ElapsedTime = my_controller.GetEx_ElapsedTime();
         actionList[actionIndex].TakeAction(my_controller, timeAtLastAction, layerMask, pooling);
-        actionList[actionIndex].UpdateFormations(layerMask, my_controller, timeAtLastAction, pooling);
+        actionList[actionIndex].UpdateFormations(layerMask, my_controller, timeAtLastAction, pooling, ref ex_ElapsedTime);
+        my_controller.SetEx_ElapsedTime(ex_ElapsedTime);
 
 
         if (timeAtLastAction == 0)

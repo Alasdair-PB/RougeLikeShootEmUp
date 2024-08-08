@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class E_Controller : MonoBehaviour
 {
-    private float tolerance = .05f, moveVelocity = 3, timeAtLastAction;
+    private float tolerance = .05f, moveVelocity = 3, timeAtLastAction, ex_ElapsedTime;
     private float2 targetPos = new float2(), nextPos = new float2(), xBounds = new float2(), yBounds = new float2();
 
     public Action<E_Controller> OnDeath;
@@ -26,6 +26,9 @@ public class E_Controller : MonoBehaviour
     {
         nextPos = GetCurrentPosition();
     }
+
+    public float GetEx_ElapsedTime() => ex_ElapsedTime;
+    public void SetEx_ElapsedTime(float newElapse) => ex_ElapsedTime = newElapse; 
 
     public void SetBounds(float2 xBounds, float2 yBounds)
     {

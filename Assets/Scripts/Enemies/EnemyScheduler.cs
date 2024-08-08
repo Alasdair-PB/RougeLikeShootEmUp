@@ -38,6 +38,9 @@ public class EnemyScheduler : MonoBehaviour
         if (index > schedule.Length - 1)
             return;
 
+        if (!schedule[index].active)
+            index++;
+
         if (schedule[index].timeStamp < time)
         {
             SpawnEnemy();
@@ -56,6 +59,7 @@ public class EnemyScheduler : MonoBehaviour
     [Serializable]
     public struct EnemySchedule
     {
+        public bool active;
         public int enemyIndex;
         public float timeStamp;
         public float2 direction;
