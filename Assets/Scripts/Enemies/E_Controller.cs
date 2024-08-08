@@ -14,7 +14,7 @@ public class E_Controller : MonoBehaviour
     private StackManager<int> actionIndexStack = new StackManager<int>();
     private StackManager<float> actionTimeStampStack = new StackManager<float>();
 
-    private int[] burstCounter = new int[5];  // Layer max for formations
+    private Stack<int>[] burstCounter = new Stack<int>[5];  // Layer max for formations
 
     public void InitializeEnemy(float2 direction, float2 position)
     {
@@ -61,9 +61,9 @@ public class E_Controller : MonoBehaviour
 
     //-------------------------------------Burst Counter calls-----------------------------------------
 
-    public void ClearBurstCounter() => burstCounter = new int[5];
-    public void SetBurstCounter(int[] newBurstCounter) => burstCounter = newBurstCounter;
-    public int[] GetBurstCounter() => burstCounter;
+    public void ClearBurstCounter() => burstCounter = new Stack<int>[5]; 
+    public void SetBurstCounter(Stack<int>[] newBurstCounter) => burstCounter = newBurstCounter;
+    public Stack<int>[] GetBurstCounter() => burstCounter;
 
     //-------------------------------------Elapsed time stack calls-----------------------------------------
 
