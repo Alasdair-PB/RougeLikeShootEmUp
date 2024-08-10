@@ -65,7 +65,6 @@ public abstract class E_Action : ScriptableObject
         {
             if (projectileFormations[i].IsComplete(ref burstCounts[i], elapsedTime, ex_elapsedTime, my_controller.GetCurrentPosition()))
             {
-                Debug.Log("E action says complete");
                 continue;
             }
             burstCounts[i] = projectileFormations[i].UpdateFormation(layerMask, burstCounts[i], elapsedTime, pooling, my_controller.GetCurrentPosition(), ref ex_elapsedTime);

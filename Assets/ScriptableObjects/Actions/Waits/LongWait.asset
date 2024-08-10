@@ -15,5 +15,6 @@ MonoBehaviour:
   projectileFormations:
   - {fileID: 11400000, guid: 80636a1096f932d4d9b0765a4065d7cb, type: 2}
   mustComplete: 1
+  completeOnFormationEnd: 0
   priority: 1
-  time: 25
+  time: 40

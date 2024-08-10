@@ -27,8 +27,7 @@ public class EnemyScheduler : MonoBehaviour
     private void Start()
     {
         startTime = Time.time;
-
-        // Organize schedule
+        schedule = organizeSchedule(schedule);
     }
 
     private void FixedUpdate()
@@ -39,9 +38,14 @@ public class EnemyScheduler : MonoBehaviour
             return;
 
         if (!schedule[index].active)
+        {
             index++;
+            return;
+        }
 
-        if (schedule[index].timeStamp < time)
+
+
+        if (schedule[index].timeStamp < time )
         {
             SpawnEnemy();
             index++;
@@ -49,6 +53,11 @@ public class EnemyScheduler : MonoBehaviour
 
     }
 
+    private EnemySchedule[] organizeSchedule(EnemySchedule[] enemySchedule)
+    {
+        Array.Sort(enemySchedule, (a, b) => a.timeStamp.CompareTo(b.timeStamp));
+        return enemySchedule;
+    }
     private void SpawnEnemy()
     {
         var scheduledEnemy = schedule[index];
@@ -59,7 +68,7 @@ public class EnemyScheduler : MonoBehaviour
     [Serializable]
     public struct EnemySchedule
     {
-        public bool active;
+        public bool active, flipOnX, flipOnY;
         public int enemyIndex;
         public float timeStamp;
         public float2 direction;

@@ -18,12 +18,16 @@ public class Formation : Formation_Base
         var my_occuredBursts = occurredBursts.Pop();
 
         if (my_occuredBursts >= burstCount)
+        {
+            occurredBursts.Push(my_occuredBursts);
             return true;
+        }
 
         occurredBursts.Push(my_occuredBursts);
         return false;
     }
 
+    public override bool IncrementElapsedTime() => true;
 
     public override Stack<int> UpdateFormation(LayerMask layerMask, Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling, float2 position, ref float ex_elapsedTime)
     {        

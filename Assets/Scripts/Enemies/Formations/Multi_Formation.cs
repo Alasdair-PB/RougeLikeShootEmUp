@@ -14,7 +14,6 @@ public class Multi_Formation : Formation_Base
         base.SetUp(occuredBursts);
         int my_occuredBursts = occuredBursts.Peek();
         occuredBursts = formations[my_occuredBursts].SetUp(occuredBursts);
-        //occuredBursts.Push(my_occuredBursts);
         return occuredBursts;
     }
 
@@ -22,11 +21,16 @@ public class Multi_Formation : Formation_Base
     {
         var my_occuredBursts = occurredBursts.Pop();
         if (my_occuredBursts >= formations.Length)
+        {
+            occurredBursts.Push(my_occuredBursts);
             return true;
+        }
 
         occurredBursts.Push(my_occuredBursts);
         return false;
     }
+
+    public override bool IncrementElapsedTime() => false;
 
     public override Stack<int> UpdateFormation(LayerMask layerMask, Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling, float2 position, ref float ex_elapsedTime)
     {
@@ -34,20 +38,17 @@ public class Multi_Formation : Formation_Base
 
         if (my_occuredBursts >= formations.Length)
         {
-            Debug.Log("looping");
             occurredBursts.Push(my_occuredBursts);
             return occurredBursts;
         }
 
         formations[my_occuredBursts].UpdateFormation(layerMask, occurredBursts, elapsedTime, pooling, position, ref ex_elapsedTime);
-        Debug.Log("updating index: " + my_occuredBursts);
-
 
         if (formations[my_occuredBursts].IsComplete(ref occurredBursts, elapsedTime, ex_elapsedTime, position))
         {
-            Debug.Log("incrementing index:" + my_occuredBursts);
+            if (formations[my_occuredBursts].IncrementElapsedTime())
+                ex_elapsedTime = elapsedTime;
 
-            ex_elapsedTime += elapsedTime;
             my_occuredBursts++;
 
             if (my_occuredBursts < formations.Length)
