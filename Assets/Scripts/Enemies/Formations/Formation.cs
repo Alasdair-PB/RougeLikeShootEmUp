@@ -29,7 +29,8 @@ public class Formation : Formation_Base
 
     public override bool IncrementElapsedTime() => true;
 
-    public override Stack<int> UpdateFormation(LayerMask layerMask, Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling, float2 position, ref float ex_elapsedTime)
+    public override Stack<int> UpdateFormation(LayerMask layerMask, Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling, 
+        float2 position, ref float ex_elapsedTime, bool reversed)
     {        
         var my_occuredBursts = occurredBursts.Pop();
         var my_ElapsedTime = elapsedTime - ex_elapsedTime;
@@ -44,11 +45,11 @@ public class Formation : Formation_Base
 
         var angleOffset = angleChange * burstsTriggered;
 
-        for (int i = 0; i < angle.Length; i++)
+        for (int i = reversed ? angle.Length - 1 : 0; reversed? i >= 0 : i < angle.Length; i += reversed? -1 : 1)
         {
             var objectInPool = pooling.GetProjectilePool(projectileObject, 10, 999);
+            float degrees = reversed ? angle[i] - angleOffset: angle[i] + angleOffset;
 
-            float degrees = angle[i] + angleOffset;
             float radians = degrees * Mathf.Deg2Rad;
             float2 direction = new float2(Mathf.Cos(radians), Mathf.Sin(radians));
 

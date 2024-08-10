@@ -32,7 +32,8 @@ public class Multi_Formation : Formation_Base
 
     public override bool IncrementElapsedTime() => false;
 
-    public override Stack<int> UpdateFormation(LayerMask layerMask, Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling, float2 position, ref float ex_elapsedTime)
+    public override Stack<int> UpdateFormation(LayerMask layerMask, Stack<int> occurredBursts, float elapsedTime, 
+        GlobalPooling pooling, float2 position, ref float ex_elapsedTime, bool reversed)
     {
         var my_occuredBursts = occurredBursts.Pop();
 
@@ -42,7 +43,7 @@ public class Multi_Formation : Formation_Base
             return occurredBursts;
         }
 
-        formations[my_occuredBursts].UpdateFormation(layerMask, occurredBursts, elapsedTime, pooling, position, ref ex_elapsedTime);
+        formations[my_occuredBursts].UpdateFormation(layerMask, occurredBursts, elapsedTime, pooling, position, ref ex_elapsedTime, reversed);
 
         if (formations[my_occuredBursts].IsComplete(ref occurredBursts, elapsedTime, ex_elapsedTime, position))
         {

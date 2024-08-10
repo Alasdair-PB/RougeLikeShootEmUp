@@ -67,7 +67,8 @@ public abstract class E_Action : ScriptableObject
             {
                 continue;
             }
-            burstCounts[i] = projectileFormations[i].UpdateFormation(layerMask, burstCounts[i], elapsedTime, pooling, my_controller.GetCurrentPosition(), ref ex_elapsedTime);
+            burstCounts[i] = projectileFormations[i].UpdateFormation(layerMask, burstCounts[i], elapsedTime, pooling, 
+                my_controller.GetCurrentPosition(), ref ex_elapsedTime, false);
         }
 
         my_controller.SetBurstCounter(burstCounts);

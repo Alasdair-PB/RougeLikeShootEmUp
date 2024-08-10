@@ -3,12 +3,10 @@ using UnityEngine;
 using System.Collections.Generic;
 
 
-[CreateAssetMenu(fileName = "Formation", menuName = "Formations/Loop_Formation")]
-public class Loop_Formation : Formation_Base
+[CreateAssetMenu(fileName = "Formation", menuName = "Formations/Reverse_Formation")]
+public class Reverse_Formation : Formation_Base
 {
     public Formation_Base formation;
-    public int loopCount;
-    public bool loopEndless; 
 
     public override Stack<int> SetUp(Stack<int> occuredBursts)
     {
@@ -21,11 +19,11 @@ public class Loop_Formation : Formation_Base
     public override bool IsComplete(ref Stack<int> occurredBursts, float elapsedTime, float ex_elapsedTime, float2 position)
     {
         var my_occuredBursts = occurredBursts.Pop();
-        if (my_occuredBursts >= loopCount && !loopEndless)
+        if (my_occuredBursts >= 1)
         {
             occurredBursts.Push(my_occuredBursts);
             return true;
-        } 
+        }
 
         occurredBursts.Push(my_occuredBursts);
         return false;
@@ -33,35 +31,25 @@ public class Loop_Formation : Formation_Base
 
     public override bool IncrementElapsedTime() => false;
 
-    public override Stack<int> UpdateFormation(LayerMask layerMask, Stack<int> occurredBursts, float elapsedTime, 
+    public override Stack<int> UpdateFormation(LayerMask layerMask, Stack<int> occurredBursts, float elapsedTime,
         GlobalPooling pooling, float2 position, ref float ex_elapsedTime, bool reversed)
     {
         var my_occuredBursts = occurredBursts.Pop();
 
-        if (my_occuredBursts >= loopCount)
+        if (my_occuredBursts >= 1)
         {
-            if (loopEndless)
-            {
-                occurredBursts.Clear();
-                return SetUp(occurredBursts);
-            }
-
             occurredBursts.Push(my_occuredBursts);
             return occurredBursts;
         }
 
-        formation.UpdateFormation(layerMask, occurredBursts, elapsedTime, pooling, 
-            position, ref ex_elapsedTime, reversed);
+        formation.UpdateFormation(layerMask, occurredBursts, elapsedTime, pooling,
+            position, ref ex_elapsedTime, !reversed);
 
         if (formation.IsComplete(ref occurredBursts, elapsedTime, ex_elapsedTime, position))
         {
             if (formation.IncrementElapsedTime())
                 ex_elapsedTime = elapsedTime;
-
             my_occuredBursts++;
-
-            if (my_occuredBursts < loopCount)
-                formation.SetUp(occurredBursts);
         }
 
         occurredBursts.Push(my_occuredBursts);
