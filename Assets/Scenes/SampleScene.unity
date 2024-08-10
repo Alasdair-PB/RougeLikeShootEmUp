@@ -157,6 +157,8 @@ MonoBehaviour:
   - {fileID: 9028484030733915984, guid: 54b756c6241aaac498c0f0ea13598d71, type: 3}
   schedule:
   - active: 0
+    flipOnX: 0
+    flipOnY: 0
     enemyIndex: 1
     timeStamp: 3
     direction:
@@ -166,8 +168,10 @@ MonoBehaviour:
       x: 6
       y: 6
   - active: 0
+    flipOnX: 0
+    flipOnY: 0
     enemyIndex: 0
-    timeStamp: 15
+    timeStamp: 3
     direction:
       x: 0
       y: 0
@@ -175,8 +179,10 @@ MonoBehaviour:
       x: 4
       y: 1
   - active: 0
+    flipOnX: 0
+    flipOnY: 0
     enemyIndex: 0
-    timeStamp: 15
+    timeStamp: 3
     direction:
       x: 0
       y: 0
@@ -184,6 +190,8 @@ MonoBehaviour:
       x: -4
       y: 1
   - active: 1
+    flipOnX: 0
+    flipOnY: 0
     enemyIndex: 2
     timeStamp: 2
     direction:
