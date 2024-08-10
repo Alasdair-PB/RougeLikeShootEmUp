@@ -6,6 +6,7 @@ public abstract class E_Action : ScriptableObject
     public Formation_Base[] projectileFormations; 
 
     public bool mustComplete;
+    public bool completeOnFormationEnd;
     public float priority;
     public abstract void SetUp(E_Controller my_controller);
     public virtual void TakeAction(E_Controller my_controller, float elapsedTime, LayerMask layerMask, GlobalPooling pooling)
@@ -15,7 +16,29 @@ public abstract class E_Action : ScriptableObject
         my_controller.SetEx_ElapsedTime(ex_ElapsedTime);
     }
 
-    public abstract bool IsComplete(E_Controller my_controller, float elapsedTime);
+    public abstract bool StateIsComplete(E_Controller my_controller, float elapsedTime);
+
+    public bool IsComplete(E_Controller my_controller, float elapsedTime)
+    {
+        if (!completeOnFormationEnd)
+            return StateIsComplete(my_controller, elapsedTime);
+
+        var isComplete = true;
+        var ex_elapsedTime = my_controller.GetEx_ElapsedTime();
+
+        Stack<int>[] burstCounts = my_controller.GetBurstCounter();
+        for (int i = 0; i < projectileFormations.Length; i++)
+        {
+            if (!projectileFormations[i].IsComplete(ref burstCounts[i], elapsedTime, ex_elapsedTime, my_controller.GetCurrentPosition()))
+            {
+                isComplete = false; 
+                break;
+            }
+        }
+
+        return isComplete;
+    }
+
 
     public void SetUpFormations(E_Controller my_controller)
     {
@@ -40,8 +63,11 @@ public abstract class E_Action : ScriptableObject
 
         for (int i = 0; i < projectileFormations.Length; i++)
         {
-            if (projectileFormations[i].IsComplete(burstCounts[i], elapsedTime, ex_elapsedTime, my_controller.GetCurrentPosition()))
+            if (projectileFormations[i].IsComplete(ref burstCounts[i], elapsedTime, ex_elapsedTime, my_controller.GetCurrentPosition()))
+            {
+                Debug.Log("E action says complete");
                 continue;
+            }
             burstCounts[i] = projectileFormations[i].UpdateFormation(layerMask, burstCounts[i], elapsedTime, pooling, my_controller.GetCurrentPosition(), ref ex_elapsedTime);
         }
 

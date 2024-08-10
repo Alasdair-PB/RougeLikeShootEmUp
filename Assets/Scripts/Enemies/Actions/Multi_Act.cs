@@ -6,7 +6,7 @@ public class Multi_Act : E_Action
 {
     [SerializeField] public E_Action[] actionList;
 
-    public override bool IsComplete(E_Controller my_controller, float elapsedTime)
+    public override bool StateIsComplete(E_Controller my_controller, float elapsedTime)
     {
         int index = my_controller.GetActionIndexDirty();
         var tempBool = (index != actionList.Length - 1) ? false : actionList[index].IsComplete(my_controller, elapsedTime);

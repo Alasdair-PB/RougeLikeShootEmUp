@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   formations:
   - {fileID: 11400000, guid: 6a5d8f38464bfc841949e43c97f7ebf0, type: 2}
-  - {fileID: 11400000, guid: 0d6d42021578dcf49ba699ecc0a0654b, type: 2}
+  - {fileID: 11400000, guid: 6a5d8f38464bfc841949e43c97f7ebf0, type: 2}

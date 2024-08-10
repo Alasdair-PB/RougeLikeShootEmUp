@@ -7,7 +7,7 @@ public class Wait_Act : E_Action
 {
     public float time;
 
-    public override bool IsComplete(E_Controller my_controller, float elapsedTime) => elapsedTime > time;
+    public override bool StateIsComplete(E_Controller my_controller, float elapsedTime) => elapsedTime > time;
 
     public override void SetUp(E_Controller my_controller) {}
 

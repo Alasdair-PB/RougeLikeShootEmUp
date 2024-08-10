@@ -8,7 +8,7 @@ public class MoveInDir_Act : E_Action
     public float time, speed;
     public float2 direction;
 
-    public override bool IsComplete(E_Controller my_controller, float elapsedTime) => elapsedTime > time;
+    public override bool StateIsComplete(E_Controller my_controller, float elapsedTime) => elapsedTime > time;
     public override void SetUp(E_Controller my_controller) { }
     public override void TakeAction(E_Controller my_controller, float elapsedTime, LayerMask layerMask, GlobalPooling pooling)
     {

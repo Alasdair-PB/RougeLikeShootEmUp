@@ -18,16 +18,14 @@ public class Multi_Formation : Formation_Base
         return occuredBursts;
     }
 
-    public override bool IsComplete(Stack<int> occurredBursts, float elapsedTime, float ex_elapsedTime, float2 position)
+    public override bool IsComplete(ref Stack<int> occurredBursts, float elapsedTime, float ex_elapsedTime, float2 position)
     {
-        var isComplete = false;
         var my_occuredBursts = occurredBursts.Pop();
-
         if (my_occuredBursts >= formations.Length)
-            isComplete = true;
+            return true;
 
         occurredBursts.Push(my_occuredBursts);
-        return isComplete;
+        return false;
     }
 
     public override Stack<int> UpdateFormation(LayerMask layerMask, Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling, float2 position, ref float ex_elapsedTime)
@@ -36,14 +34,19 @@ public class Multi_Formation : Formation_Base
 
         if (my_occuredBursts >= formations.Length)
         {
+            Debug.Log("looping");
             occurredBursts.Push(my_occuredBursts);
             return occurredBursts;
         }
 
         formations[my_occuredBursts].UpdateFormation(layerMask, occurredBursts, elapsedTime, pooling, position, ref ex_elapsedTime);
+        Debug.Log("updating index: " + my_occuredBursts);
 
-        if (formations[my_occuredBursts].IsComplete(occurredBursts, elapsedTime, ex_elapsedTime, position))
+
+        if (formations[my_occuredBursts].IsComplete(ref occurredBursts, elapsedTime, ex_elapsedTime, position))
         {
+            Debug.Log("incrementing index:" + my_occuredBursts);
+
             ex_elapsedTime += elapsedTime;
             my_occuredBursts++;
 

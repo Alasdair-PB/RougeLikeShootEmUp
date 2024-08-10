@@ -15,4 +15,3 @@ MonoBehaviour:
   formations:
   - {fileID: 11400000, guid: 440549b72a3aed74b80e7db495178273, type: 2}
   - {fileID: 11400000, guid: d6786ed5e759aa94a89d39cd2cf95c04, type: 2}
-  - {fileID: 11400000, guid: 265ef0c4384a7dd45bc19aea733668d4, type: 2}

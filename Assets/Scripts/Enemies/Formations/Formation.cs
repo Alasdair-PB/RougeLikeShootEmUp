@@ -13,18 +13,15 @@ public class Formation : Formation_Base
 
 
     // Actual stack: not a copy
-    public override bool IsComplete(Stack<int> occurredBursts, float elapsedTime, float ex_elapsedTime, float2 position)
+    public override bool IsComplete(ref Stack<int> occurredBursts, float elapsedTime, float ex_elapsedTime, float2 position)
     {
         var my_occuredBursts = occurredBursts.Pop();
-        bool isComplete = false;
 
         if (my_occuredBursts >= burstCount)
-        {
-            isComplete = true;
-        }
+            return true;
 
         occurredBursts.Push(my_occuredBursts);
-        return isComplete;
+        return false;
     }
 
 

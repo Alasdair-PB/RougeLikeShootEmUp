@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LongWait
   m_EditorClassIdentifier: 
   projectileFormations:
-  - {fileID: 11400000, guid: 6a5d8f38464bfc841949e43c97f7ebf0, type: 2}
+  - {fileID: 11400000, guid: 80636a1096f932d4d9b0765a4065d7cb, type: 2}
   mustComplete: 1
   priority: 1
-  time: 15
+  time: 25

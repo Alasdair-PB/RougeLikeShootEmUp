@@ -9,6 +9,6 @@ public abstract class Formation_Base : ScriptableObject
         return occuredBursts;
     }
 
-    public abstract bool IsComplete(Stack<int> occurredBursts, float elapsedTime, float ex_elapsedTime, float2 position);
+    public abstract bool IsComplete(ref Stack<int> occurredBursts, float elapsedTime, float ex_elapsedTime, float2 position);
     public abstract Stack<int> UpdateFormation(LayerMask layerMask, Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling, float2 position, ref float ex_elapsedTime);
 }
