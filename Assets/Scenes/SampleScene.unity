@@ -200,6 +200,7 @@ MonoBehaviour:
     spawnPosition:
       x: 0
       y: 1
+  game: {fileID: 1244212848}
   xBounds:
     x: -10
     y: 10
@@ -288,6 +289,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   pProps: {fileID: 11400000, guid: beec0fb9af2b35c468fbc22c8b1dbfd8, type: 2}
+  game: {fileID: 1244212848}
 --- !u!114 &470575812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,6 +496,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1244212847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1244212849}
+  - component: {fileID: 1244212848}
+  m_Layer: 0
+  m_Name: Game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1244212848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244212847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c495cc5f4b20fb7429f3e601a0071037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1244212849
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244212847}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.77270067, y: -2.736472, z: -0.0141344825}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1400574718
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,6 +584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81645d2509b5bd4458e0c39f5886fd27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  game: {fileID: 1244212848}
   yBounds:
     x: -10
     y: 10
@@ -635,3 +682,4 @@ SceneRoots:
   - {fileID: 470575809}
   - {fileID: 1400574720}
   - {fileID: 178674507}
+  - {fileID: 1244212849}

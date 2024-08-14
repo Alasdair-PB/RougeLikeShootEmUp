@@ -8,5 +8,6 @@ namespace Enemies
         public Action<E_Controller> OnDeath;
         public Action<Collider> OnCollision;
         public Action<int> OnDamage;
+        public Action Reset;
     }
 }

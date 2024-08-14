@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GlobalPooling : MonoBehaviour
 {
+    [SerializeField] private Game game;
     [SerializeField] private float2 yBounds = new float2(), xBounds = new float2();
 
     private Dictionary<GameObject, ProPooling> globalPool = new Dictionary<GameObject, ProPooling>();
@@ -18,6 +19,25 @@ public class GlobalPooling : MonoBehaviour
         }
         return globalPool[prefab];
     }
+
+    private void OnEnable()
+    {
+        game.Reset += ClearAllPools;
+    }
+
+    private void OnDisable()
+    {
+        game.Reset -= ClearAllPools;
+    }
+
+    private void ClearAllPools()
+    {
+        foreach (var item in globalPool)
+        {
+            item.Value.ClearPool();
+        }
+    }
+
 }
 
 

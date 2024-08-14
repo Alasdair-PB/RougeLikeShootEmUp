@@ -11,6 +11,8 @@ public class ProPooling
 
     private ObjectPool<Pro_Controller> projectilePool;
 
+    public void ClearPool() => projectilePool.ReturnAllToPool();
+
     public ProPooling(GameObject prefab, int initialCapacity, int maxCapacity, float2 newXBounds, float2 newYBounds, Transform parent)
     {
         projectilePrefab = prefab;

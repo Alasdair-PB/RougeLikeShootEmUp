@@ -10,6 +10,7 @@ namespace Player
     {
         [SerializeField] private LayerMask projectileMask;
         [SerializeField] private P_Properties pProps;
+        [SerializeField] private Game game;
 
         private P_Actions pActions;
         private bool isDashing;
@@ -31,6 +32,7 @@ namespace Player
         private void Awake()
         {
             pActions = GetComponent<P_Actions>();
+            game.StartGame += Reset;
         }
 
         private void OnEnable()
@@ -50,10 +52,26 @@ namespace Player
             pActions.OnRespawn -= Respawn;
             pActions.OnDashEvent -= OnDash;
             pActions.OnDeath -= DestroySelf;
-
         }
 
-        private void DestroySelf() => Destroy(this.gameObject);
+
+        private void OnDestroy()
+        {
+            game.StartGame -= Reset;
+        }
+
+        private void Reset()
+        {
+            this.gameObject.SetActive(true);
+            transform.position = startPos;
+            // Reset health
+        }
+
+        private void DestroySelf()
+        {
+            game.EndGame?.Invoke(false);
+            this.gameObject.SetActive(false);
+        }
         public Vector3 GetDirctionVector3() => new Vector3(direction.x, direction.y, 0);
         public float2 GetDirctionFloat2() => new float2(direction.x, direction.y);
         public float2 GetProjectileDirctionFloat2() => new float2(0, 1);

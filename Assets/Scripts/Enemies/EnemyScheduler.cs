@@ -9,10 +9,11 @@ namespace Enemies
     {
         [SerializeField] private GameObject[] prefabs;
         [SerializeField] EnemySchedule[] schedule;
+        [SerializeField] Game game; 
         [SerializeField] float2 xBounds, yBounds;
 
-        private int index;
-        private float startTime;
+        private int index, enemyCount;
+        private float startTime, enemiesDestroyed;
 
         private Dictionary<GameObject, EnemyPooling> globalObjectPool = new Dictionary<GameObject, EnemyPooling>();
 
@@ -26,10 +27,49 @@ namespace Enemies
             return globalObjectPool[prefab];
         }
 
-        private void Start()
+        private void OnEnable()
         {
+            game.Reset += ClearAllPools;
+            game.StartGame += OnGameStart;
+        }
+
+        private void OnDisable()
+        {
+            game.Reset -= ClearAllPools;
+            game.StartGame -= OnGameStart;
+        }
+
+        private void ClearAllPools()
+        {
+            foreach (var item in globalObjectPool)
+            {
+                item.Value.ClearPool();
+            }
+        }
+
+        private void OnGameStart()
+        {
+            enemiesDestroyed = 0;
+            index = 0;
             startTime = Time.time;
             schedule = organizeSchedule(schedule);
+            enemyCount = GetEnemyCount();
+        }
+
+        private void Start()
+        {
+            OnGameStart();
+        }
+
+        private int GetEnemyCount()
+        {
+            int count = 0;
+            for (int i = 0; i < schedule.Length; i++)
+            {
+                if (schedule[i].active)
+                    count++;
+            }
+            return count;
         }
 
         private void FixedUpdate()
@@ -52,6 +92,13 @@ namespace Enemies
             }
         }
 
+        public void CalculateEnemiesRemaining(E_Controller e_Controller)
+        {
+            enemiesDestroyed++;
+            if (enemiesDestroyed >= enemyCount)
+                game.EndGame?.Invoke(true);
+        }
+
         private EnemySchedule[] organizeSchedule(EnemySchedule[] enemySchedule)
         {
             Array.Sort(enemySchedule, (a, b) => a.timeStamp.CompareTo(b.timeStamp));
@@ -60,8 +107,8 @@ namespace Enemies
         private void SpawnEnemy()
         {
             var scheduledEnemy = schedule[index];
-            var objectInPool = GetObjectPool(prefabs[scheduledEnemy.enemyIndex], 1, 999);
-            objectInPool.InstantiateEnemy(scheduledEnemy.direction, scheduledEnemy.spawnPosition, xBounds, yBounds);
+            var objectInPool = GetObjectPool(prefabs[scheduledEnemy.enemyIndex], 1, 999, this.transform);
+            objectInPool.InstantiateEnemy(scheduledEnemy.direction, scheduledEnemy.spawnPosition, xBounds, yBounds, this);
         }
 
         [Serializable]

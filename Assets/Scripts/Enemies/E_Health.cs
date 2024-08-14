@@ -1,6 +1,3 @@
-using Enemies;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemies
@@ -11,6 +8,8 @@ namespace Enemies
         // May change to EnemyProperties file later
         [SerializeField] int health;
         [SerializeField] float iFrames;
+
+        private int currentHealth;
         private E_Actions e_Actions;
         private E_Controller e_Controller;
 
@@ -24,6 +23,7 @@ namespace Enemies
 
         private void OnEnable()
         {
+            currentHealth = health;
             e_Actions.OnDamage += TakeDamage;
         }
 
@@ -36,10 +36,10 @@ namespace Enemies
         {
             if (Time.time - timeAtLastDamage > iFrames)
             {
-                health -= damage;
+                currentHealth -= damage;
                 timeAtLastDamage = Time.time;
 
-                if (health < 0)
+                if (currentHealth < 0)
                     e_Actions.OnDeath?.Invoke(e_Controller);
             }
         }

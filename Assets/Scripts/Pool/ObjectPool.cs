@@ -49,4 +49,17 @@ public class ObjectPool<T> where T : Component
             Object.Destroy(instance.gameObject);
         }
     }
+
+    public void ReturnAllToPool()
+    {
+        T[] instances = parent == null ? Object.FindObjectsOfType<T>() : parent.GetComponentsInChildren<T>(true);
+
+        foreach (T instance in instances)
+        {
+            if (!pool.Contains(instance))
+            {
+                ReturnToPool(instance);
+            }
+        }
+    }
 }

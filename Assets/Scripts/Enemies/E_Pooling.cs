@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using UnityEngine;
 namespace Enemies
@@ -11,6 +12,8 @@ namespace Enemies
 
         private ObjectPool<E_Controller> enemyPool; // May want statemachine instead
 
+        public void ClearPool() => enemyPool.ReturnAllToPool();
+
         public EnemyPooling(GameObject prefab, int initialCapacity, int maxCapacity, Transform parent)
         {
             enemyPrefab = prefab;
@@ -23,15 +26,16 @@ namespace Enemies
         private void SetUp(Transform transform)
         {
             enemyPool = new ObjectPool<E_Controller>(enemyPrefab.GetComponent<E_Controller>(), initialPoolSize, maxPoolSize, transform);
+            
         }
 
-        public void InstantiateEnemy(float2 direction, float2 position, float2 xBounds, float2 yBounds)
+        public void InstantiateEnemy(float2 direction, float2 position, float2 xBounds, float2 yBounds, EnemyScheduler enemyScheduler)
         {
             E_Controller enemy = enemyPool.Get();
-            SetUpEnemy(enemy, direction, position, xBounds, yBounds);
+            SetUpEnemy(enemy, direction, position, xBounds, yBounds, enemyScheduler);
         }
 
-        private void SetUpEnemy(E_Controller enemy, float2 direction, float2 position, float2 xBounds, float2 yBounds)
+        private void SetUpEnemy(E_Controller enemy, float2 direction, float2 position, float2 xBounds, float2 yBounds, EnemyScheduler enemyScheduler)
         {
 
             var eActions = enemy.transform.GetComponent<E_Actions>();
@@ -39,8 +43,10 @@ namespace Enemies
             enemy.SetBounds(xBounds, yBounds);
             eActions.OnDeath = null;
             eActions.OnDeath += ReturnEnemy;
+            eActions.OnDeath += enemyScheduler.CalculateEnemiesRemaining;
             enemy.InitializeEnemy(direction, position);
         }
+
 
         public void ReturnEnemy(E_Controller enemy)
         {
