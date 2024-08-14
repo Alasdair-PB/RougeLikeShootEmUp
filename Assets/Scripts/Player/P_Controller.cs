@@ -8,8 +8,9 @@ namespace Player
 {
     public class P_Controller : MonoBehaviour
     {
-        [SerializeField] private LayerMask collisionMask;
+        [SerializeField] private LayerMask projectileMask;
         [SerializeField] private P_Properties pProps;
+
         private P_Actions pActions;
         private bool isDashing;
 
@@ -21,7 +22,7 @@ namespace Player
         public float2 GetPosition() => new float2(transform.position.x, transform.position.y);
         public void OnDash(bool state) => isDashing = state;
         public P_Properties GetP_Props() => pProps;
-        public LayerMask GetC_Mask() => collisionMask;
+        public LayerMask GetC_Mask() => projectileMask;
 
 
         //[SerializeField] public UnityEvent DropEvent; // Alternative if events want to be serialized
@@ -39,6 +40,7 @@ namespace Player
             pActions.OnMove += SetMoveDirection;
             pActions.OnRespawn += Respawn;
             pActions.OnDashEvent += OnDash;
+            pActions.OnDeath += DestroySelf;
         }
 
         private void OnDisable()
@@ -47,9 +49,11 @@ namespace Player
             pActions.OnMove -= SetMoveDirection;
             pActions.OnRespawn -= Respawn;
             pActions.OnDashEvent -= OnDash;
+            pActions.OnDeath -= DestroySelf;
 
         }
 
+        private void DestroySelf() => Destroy(this.gameObject);
         public Vector3 GetDirctionVector3() => new Vector3(direction.x, direction.y, 0);
         public float2 GetDirctionFloat2() => new float2(direction.x, direction.y);
         public float2 GetProjectileDirctionFloat2() => new float2(0, 1);

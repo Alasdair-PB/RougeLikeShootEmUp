@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5901409c8d784ed48ab5c9b421f4e40f, type: 3}
   m_Name: Loop_Burst
   m_EditorClassIdentifier: 
-  formation: {fileID: 11400000, guid: 6a5d8f38464bfc841949e43c97f7ebf0, type: 2}
+  formation: {fileID: 11400000, guid: 80636a1096f932d4d9b0765a4065d7cb, type: 2}
   loopCount: 2
   loopEndless: 0

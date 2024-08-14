@@ -1,18 +1,20 @@
 using UnityEngine;
-using Unity.Mathematics;
-using System;
 
-[CreateAssetMenu(fileName = "WaitAction", menuName = "Actions/WaitAction")]
-public class Wait_Act : E_Action
+namespace Enemies
 {
-    public float time;
 
-    public override bool StateIsComplete(E_Controller my_controller, float elapsedTime) => elapsedTime > time;
-
-    public override void SetUp(E_Controller my_controller) {}
-
-    public override void TakeAction(E_Controller my_controller, float elapsedTime, LayerMask layerMask, GlobalPooling pooling)
+    [CreateAssetMenu(fileName = "WaitAction", menuName = "Actions/WaitAction")]
+    public class Wait_Act : E_Action
     {
-        base.TakeAction(my_controller, elapsedTime, layerMask, pooling);
+        public float time;
+
+        public override bool StateIsComplete(E_Controller my_controller, float elapsedTime) => elapsedTime > time;
+
+        public override void SetUp(E_Controller my_controller) { }
+
+        public override void TakeAction(E_Controller my_controller, float elapsedTime, LayerMask layerMask, GlobalPooling pooling)
+        {
+            base.TakeAction(my_controller, elapsedTime, layerMask, pooling);
+        }
     }
 }

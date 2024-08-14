@@ -7,15 +7,17 @@ using UnityEngine;
 
 public class Pro_Controller : MonoBehaviour
 {
-    [SerializeField] private Projectile proProperties; 
+    [SerializeField] private Projectile proProperties;
+    private C_OnContact c_OnContact;
     private float2 yBounds = new float2(), xBounds = new float2 ();
 
     private float2 direction = new float2(1,0), nextPos = new float2();
     // Add options for homing in the future
     private float elapsedTime;
-    private LayerMask projectileMask; //Maybe should be a tag?
-    public Action<Pro_Controller> OnReturn; 
+    private LayerMask projectileMask; 
+    public Action<Pro_Controller> OnReturn;
 
+    public int GetLayerMask() => projectileMask;
     public void ReconfigureProjectileData(Projectile proProperties) => this.proProperties = proProperties;
     public Projectile GetProProperties() => proProperties;
     public void SetBounds(float2 newXBounds, float2 newYBounds)
@@ -24,11 +26,16 @@ public class Pro_Controller : MonoBehaviour
         yBounds = newYBounds;
     }
 
+    private void Awake()
+    {
+        c_OnContact = GetComponent<C_OnContact>();
+    }
+
     // Called on instatiated projectile to setUp
     public void InitializePro(float2 direction, LayerMask layerMask)
     {
         elapsedTime = 0;
-        this.projectileMask = layerMask;
+        c_OnContact.SetLayerMask(layerMask);
         this.direction = direction;
         nextPos = new float2 (transform.position.x, transform.position.y);
     }
