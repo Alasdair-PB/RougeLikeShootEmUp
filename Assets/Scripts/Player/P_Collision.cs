@@ -31,15 +31,27 @@ namespace Player
         private void OnTriggerStay(Collider other)
             => pActions.OnCollision?.Invoke(other);
 
-
         public void OnCollision(Collider other)
         {
-            if (other.transform.root.TryGetComponent<C_OnContact>(out var proControlller))
+            Transform currentTransform = other.transform;
+
+            while (currentTransform != null)
             {
-                if (proControlller.GetLayerMask() == damageMask)
-                    pActions.OnDeath?.Invoke();
+                if (currentTransform.TryGetComponent<C_OnContact>(out var proController))
+                {
+                    if (proController.GetLayerMask() == damageMask)
+                    {
+                        pActions.OnDeath?.Invoke();
+                    }
+                    return;
+                }
+                currentTransform = currentTransform.parent;
             }
+            Debug.LogWarning("C_OnContact component not found in the hierarchy.");
         }
+
+
+
 
     }
 }

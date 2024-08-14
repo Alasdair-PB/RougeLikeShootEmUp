@@ -7,7 +7,6 @@ namespace Enemies
 {
 
     [RequireComponent(typeof(E_Actions))]
-
     public class E_Controller : MonoBehaviour
     {
         private E_Actions e_Actions;

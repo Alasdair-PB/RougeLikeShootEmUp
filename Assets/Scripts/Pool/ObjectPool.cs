@@ -12,12 +12,13 @@ public class ObjectPool<T> where T : Component
     public ObjectPool(T prefab, int initialCapacity, int maxCapacity, Transform parent = null)
     {
         this.prefab = prefab;
-        this.parent = parent;
+        this.parent = new GameObject().transform;
+
         this.capacity = maxCapacity;
 
         for (int i = 0; i < initialCapacity; i++)
         {
-            T instance = Object.Instantiate(prefab, parent);
+            T instance = Object.Instantiate(prefab, this.parent);
             instance.gameObject.SetActive(false);
             pool.Push(instance);
         }
@@ -52,6 +53,9 @@ public class ObjectPool<T> where T : Component
 
     public void ReturnAllToPool()
     {
+        if (parent == null)
+            return;
+
         T[] instances = parent == null ? Object.FindObjectsOfType<T>() : parent.GetComponentsInChildren<T>(true);
 
         foreach (T instance in instances)

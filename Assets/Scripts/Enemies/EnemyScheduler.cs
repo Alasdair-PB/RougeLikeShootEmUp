@@ -47,13 +47,17 @@ namespace Enemies
             }
         }
 
+        private void Awake()
+        {
+            schedule = organizeSchedule(schedule);
+            enemyCount = GetEnemyCount();
+        }
+
         private void OnGameStart()
         {
             enemiesDestroyed = 0;
             index = 0;
             startTime = Time.time;
-            schedule = organizeSchedule(schedule);
-            enemyCount = GetEnemyCount();
         }
 
         private void Start()

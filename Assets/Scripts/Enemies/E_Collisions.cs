@@ -22,27 +22,39 @@ namespace Enemies
 
         public void OnCollision(Collider other)
         {
-            if (other.transform.root.TryGetComponent<C_OnContact>(out var onContact))
-            {
-                if (onContact.GetLayerMask() == damageMask)
-                {
-                    var colType = onContact.OnContact();
+            Transform currentTransform = other.transform;
 
-                    for (int i = 0; i < colType.Length; i++) {
-                        switch (colType[i].c_type)
+            while (currentTransform != null)
+            {
+                if (currentTransform.TryGetComponent<C_OnContact>(out var onContact))
+                {
+                    if (onContact.GetLayerMask() == damageMask)
+                    {
+                        var colType = onContact.OnContact();
+
+                        for (int i = 0; i < colType.Length; i++)
                         {
-                            case (C_Types.Damage):
-                                eActions.OnDamage?.Invoke(colType[i].damage);
-                                break;
-                            case C_Types.Death:
-                                eActions.OnDeath?.Invoke(e_Controller); 
-                                break;
-                            default:
-                                break;
+                            switch (colType[i].c_type)
+                            {
+                                case C_Types.Damage:
+                                    eActions.OnDamage?.Invoke(colType[i].damage);
+                                    break;
+                                case C_Types.Death:
+                                    eActions.OnDeath?.Invoke(e_Controller);
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
+                    return;
                 }
+
+                currentTransform = currentTransform.parent;
             }
+
+            Debug.LogWarning("C_OnContact component not found in the hierarchy.");
         }
+
     }
 }

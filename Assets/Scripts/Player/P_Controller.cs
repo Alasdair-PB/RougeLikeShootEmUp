@@ -33,11 +33,11 @@ namespace Player
         {
             pActions = GetComponent<P_Actions>();
             game.StartGame += Reset;
+            startPos = transform.position;
         }
 
         private void OnEnable()
         {
-            startPos = transform.position;
             pActions.OnQuickStep += QuickStep;
             pActions.OnMove += SetMoveDirection;
             pActions.OnRespawn += Respawn;
@@ -70,7 +70,7 @@ namespace Player
         private void DestroySelf()
         {
             game.EndGame?.Invoke(false);
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
         public Vector3 GetDirctionVector3() => new Vector3(direction.x, direction.y, 0);
         public float2 GetDirctionFloat2() => new float2(direction.x, direction.y);

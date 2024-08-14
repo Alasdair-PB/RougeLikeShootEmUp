@@ -25,7 +25,7 @@ public class Game : MonoBehaviour
     }
 
     private IEnumerator DelayedRestart()
-    {
+    {        
         yield return new WaitForSeconds(3);
         Reset?.Invoke();
         yield return new WaitForSeconds(1);
