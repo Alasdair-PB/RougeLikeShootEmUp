@@ -28,8 +28,8 @@ namespace Player
             => pActions.OnCollision?.Invoke(other);
         
 
-        private void OnTriggerStay(Collider other)
-            => pActions.OnCollision?.Invoke(other);
+        //private void OnTriggerStay(Collider other)
+        //    => pActions.OnCollision?.Invoke(other);
 
         public void OnCollision(Collider other)
         {

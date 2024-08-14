@@ -21,9 +21,22 @@ namespace Player
             actions = GetComponent<P_Actions>();
             controller = GetComponent<P_Controller>();
             actions.A_LaunchProjectile += LaunchProjectile;
+            actions.SwitchWeapon += IncrementIndex;
 
             if (projectilePool == null)
                 projectilePool = FindAnyObjectByType<GlobalPooling>();
+        }
+
+        private void OnDestroy()
+        {
+            actions.A_LaunchProjectile -= LaunchProjectile;
+            actions.SwitchWeapon -= IncrementIndex;
+
+        }
+
+        private void OnEnable()
+        {
+            weaponIndex = 0;
         }
 
         private void Start()
@@ -52,6 +65,13 @@ namespace Player
                 var objectInPool = projectilePool.GetProjectilePool(weapon.projectilePrefab, 10, 999);
                 objectInPool.InstantiateProjectile(direction, projectileMask, position);
             }
+        }
+
+        public void IncrementIndex()
+        {
+            weaponIndex++;
+            if (weaponIndex >= weapons.Length)
+                weaponIndex = 0;
         }
 
         void FixedUpdate()

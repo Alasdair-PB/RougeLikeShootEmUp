@@ -11,9 +11,8 @@ namespace Player
         public Action<Vector2> OnMove;
         public Action<bool> OnGrounded;
         public Action<Collider> OnCollision;
-        public Action SuccessfulDropEvent, TryDrop, TryCollect, OnRespawn, OnQuickStep, OnDeath;
+        public Action SuccessfulDropEvent, TryDrop, TryCollect, OnRespawn, OnQuickStep, OnDeath, SwitchWeapon;
         public Action<bool> OnDashEvent;
         public Action A_LaunchProjectile;
-
     }
 }

@@ -8,6 +8,7 @@ namespace Enemies
         // May change to EnemyProperties file later
         [SerializeField] int health;
         [SerializeField] float iFrames;
+        [SerializeField] bool hasIFrames;
 
         private int currentHealth;
         private E_Actions e_Actions;
@@ -34,12 +35,12 @@ namespace Enemies
 
         private void TakeDamage(int damage)
         {
-            if (Time.time - timeAtLastDamage > iFrames)
+            if (!hasIFrames || (Time.time - timeAtLastDamage > iFrames))
             {
                 currentHealth -= damage;
                 timeAtLastDamage = Time.time;
 
-                if (currentHealth < 0)
+                if (currentHealth <= 0)
                     e_Actions.OnDeath?.Invoke(e_Controller);
             }
         }

@@ -12,7 +12,7 @@ public class ObjectPool<T> where T : Component
     public ObjectPool(T prefab, int initialCapacity, int maxCapacity, Transform parent = null)
     {
         this.prefab = prefab;
-        this.parent = new GameObject().transform;
+        this.parent = new GameObject(prefab.name).transform;
 
         this.capacity = maxCapacity;
 

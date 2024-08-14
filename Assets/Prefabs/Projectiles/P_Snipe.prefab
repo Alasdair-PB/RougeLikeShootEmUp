@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8d5a771f61f9bcb43a320e799ec76fa2, type: 2}
+  - {fileID: 2100000, guid: 1b575d938d48dbd49a3bf647f3586702, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 1701195439943799903}
   - component: {fileID: 4313379846801917424}
   m_Layer: 0
-  m_Name: P_Projectile
+  m_Name: P_Snipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3152c44b78507243a943dc3dbf09833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  proProperties: {fileID: 11400000, guid: 5617d7d79bc9ae142903515635a9b340, type: 2}
+  proProperties: {fileID: 11400000, guid: b7565cd3652a5d145b1bf5372f73c051, type: 2}
 --- !u!114 &4313379846801917424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,4 +169,4 @@ MonoBehaviour:
     m_Bits: 0
   my_Results:
   - c_type: 0
-    damage: 1
+    damage: 20

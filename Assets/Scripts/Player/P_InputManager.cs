@@ -21,7 +21,7 @@ namespace Player
         private void OnEnable()
         {
             inputBindings.Enable();
-            inputBindings.TopDownPilot.WeaponSwitch.performed += ctx => my_playerActions.TryCollect?.Invoke();
+            inputBindings.TopDownPilot.WeaponSwitch.performed += ctx => my_playerActions.SwitchWeapon?.Invoke();
             inputBindings.TopDownPilot.Use_Weapon.performed += ctx => my_playerActions.TryDrop?.Invoke();
             inputBindings.TopDownPilot.QuickStep.performed += ctx => my_playerActions.OnQuickStep?.Invoke();
 
@@ -31,7 +31,7 @@ namespace Player
 
         private void OnDisable()
         {
-            inputBindings.TopDownPilot.WeaponSwitch.performed -= ctx => my_playerActions.TryCollect?.Invoke();
+            inputBindings.TopDownPilot.WeaponSwitch.performed -= ctx => my_playerActions.SwitchWeapon?.Invoke();
             inputBindings.TopDownPilot.Use_Weapon.performed -= ctx => my_playerActions.TryDrop?.Invoke();
             inputBindings.TopDownPilot.QuickStep.performed -= ctx => my_playerActions.OnQuickStep?.Invoke();
 

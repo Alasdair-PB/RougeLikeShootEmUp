@@ -18,7 +18,7 @@ namespace Enemies
         private void OnEnable() => eActions.OnCollision += OnCollision;
         private void OnDisable() => eActions.OnCollision -= OnCollision;
         private void OnTriggerEnter(Collider other) => eActions.OnCollision?.Invoke(other);
-        private void OnTriggerStay(Collider other) => eActions.OnCollision?.Invoke(other);
+        //private void OnTriggerStay(Collider other) => eActions.OnCollision?.Invoke(other);
 
         public void OnCollision(Collider other)
         {
