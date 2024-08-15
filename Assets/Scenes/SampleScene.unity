@@ -200,6 +200,17 @@ MonoBehaviour:
     spawnPosition:
       x: 0
       y: 1
+  - active: 0
+    flipOnX: 0
+    flipOnY: 0
+    enemyIndex: 2
+    timeStamp: 0.1
+    direction:
+      x: 0
+      y: 0
+    spawnPosition:
+      x: 0
+      y: 1
   game: {fileID: 1244212848}
   xBounds:
     x: -10
@@ -356,7 +367,7 @@ MonoBehaviour:
         x: -0.12
         y: 0
     projectilePrefab: {fileID: 6246030807850434585, guid: c2fd65ab23c1ae2458c69c79af985627, type: 3}
-  - burstInterval: 0.4
+  - burstInterval: 0.6
     formations:
     - angle: 0
       positionOffset:

@@ -53,7 +53,7 @@ namespace Enemies
                 currentTransform = currentTransform.parent;
             }
 
-            Debug.LogWarning("C_OnContact component not found in the hierarchy.");
+            //Debug.LogWarning("C_OnContact component not found in the hierarchy.");
         }
 
     }

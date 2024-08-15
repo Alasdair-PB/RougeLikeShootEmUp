@@ -38,6 +38,23 @@ public class ObjectPool<T> where T : Component
         }
     }
 
+    public T Get(float3 position)
+    {
+        if (pool.Count > 0)
+        {
+            T instance = pool.Pop();
+            instance.gameObject.transform.position = position;
+            instance.gameObject.SetActive(true);
+            return instance;
+        }
+        else
+        {
+            T instance = Object.Instantiate(prefab, position, Quaternion.identity);
+            instance.transform.SetParent(parent);
+            return instance;
+        }
+    }
+
     public void ReturnToPool(T instance)
     {
         if (pool.Count < capacity)

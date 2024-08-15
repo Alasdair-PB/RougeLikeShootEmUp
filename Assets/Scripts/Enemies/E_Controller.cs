@@ -11,24 +11,21 @@ namespace Enemies
     {
         private E_Actions e_Actions;
         private float tolerance = .05f, moveVelocity = 3, timeAtLastAction, ex_ElapsedTime;
-        private float2 targetPos = new float2(), nextPos = new float2(), xBounds = new float2(), yBounds = new float2();
+        private float2 targetPos = new float2(), nextPos = new float2(), startPos, xBounds = new float2(), yBounds = new float2();
 
         private StackManager<int> actionIndexStack = new StackManager<int>();
         private StackManager<float> actionTimeStampStack = new StackManager<float>();
 
         private Stack<int>[] burstCounter = new Stack<int>[5];  // Layer max for formations
 
+        public void SetStartPos(float2 newStartPos) => startPos = newStartPos;
         private void Awake() => e_Actions = GetComponent<E_Actions>();
-
-        public void InitializeEnemy(float2 direction, float2 position)
-        {
-            nextPos = position;
-            // Reset all stats etc and animation state
-        }
 
         public void OnEnable()
         {
-            nextPos = GetCurrentPosition();
+            startPos = new float2(transform.position.x, transform.position.y);
+            SetNextPosition(startPos);
+            UpdatePosition();
         }
 
         public float GetEx_ElapsedTime() => ex_ElapsedTime;
@@ -65,6 +62,8 @@ namespace Enemies
         public float2 GetTargetPosition() => targetPos;
         public float2 SetTargetPosition(float2 newTarget) => targetPos = newTarget;
         public void SetNextPosition(float2 newPos) => nextPos = newPos;
+
+
 
         //-------------------------------------Burst Counter calls-----------------------------------------
 

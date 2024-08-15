@@ -31,7 +31,7 @@ namespace Enemies
 
         public void InstantiateEnemy(float2 direction, float2 position, float2 xBounds, float2 yBounds, EnemyScheduler enemyScheduler)
         {
-            E_Controller enemy = enemyPool.Get();
+            E_Controller enemy = enemyPool.Get(new float3 (position.x, position.y, 0));
             SetUpEnemy(enemy, direction, position, xBounds, yBounds, enemyScheduler);
         }
 
@@ -39,12 +39,10 @@ namespace Enemies
         {
 
             var eActions = enemy.transform.GetComponent<E_Actions>();
-            enemy.transform.position = new Vector3(position.x, position.y, 0);
             enemy.SetBounds(xBounds, yBounds);
             eActions.OnDeath = null;
             eActions.OnDeath += ReturnEnemy;
             eActions.OnDeath += enemyScheduler.CalculateEnemiesRemaining;
-            enemy.InitializeEnemy(direction, position);
         }
 
 
