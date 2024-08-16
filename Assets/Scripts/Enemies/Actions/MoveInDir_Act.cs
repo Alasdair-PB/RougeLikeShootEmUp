@@ -15,9 +15,10 @@ namespace Enemies
         public override void SetUp(E_Controller my_controller) { }
         public override void TakeAction(E_Controller my_controller, float elapsedTime, LayerMask layerMask, GlobalPooling pooling)
         {
-            base.TakeAction(my_controller, elapsedTime, layerMask, pooling);
             var nextPos = pattern.MoveInDirection(my_controller.GetCurrentPosition(), direction, speed, elapsedTime);
             my_controller.SetNextPosition(nextPos);
+            base.TakeAction(my_controller, elapsedTime, layerMask, pooling);
+
         }
     }
 }

@@ -15,10 +15,11 @@ MonoBehaviour:
   projectileFormations:
   - {fileID: 11400000, guid: 988d6262bacc68343b94658d88d7ce06, type: 2}
   mustComplete: 1
+  completeOnFormationEnd: 0
   priority: 1
   pattern: {fileID: 11400000, guid: 4c3d8d848459d7242820ba88dfef723a, type: 2}
-  time: 20
-  speed: 2
+  time: 40
+  speed: 1
   direction:
     x: -1
     y: -1

@@ -23,11 +23,13 @@ namespace Enemies
 
         public override void TakeAction(E_Controller my_controller, float elapsedTime, LayerMask layerMask, GlobalPooling pooling)
         {
-            base.TakeAction(my_controller, elapsedTime, layerMask, pooling);
 
             var targetPos = my_controller.GetTargetPosition();
             var nextPos = pattern.LerpToPosition(my_controller.GetCurrentPosition(), targetPos, time, elapsedTime);
             my_controller.SetNextPosition(nextPos);
+
+            base.TakeAction(my_controller, elapsedTime, layerMask, pooling);
+
         }
     }
 }

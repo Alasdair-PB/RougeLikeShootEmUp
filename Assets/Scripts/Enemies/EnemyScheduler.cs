@@ -12,8 +12,8 @@ namespace Enemies
         [SerializeField] Game game; 
         [SerializeField] float2 xBounds, yBounds;
 
-        private int index, enemyCount;
-        private float startTime, enemiesDestroyed;
+        private int index, enemyCount, enemiesDestroyed;
+        private float startTime, pauseTime;
 
         private Dictionary<GameObject, EnemyPooling> globalObjectPool = new Dictionary<GameObject, EnemyPooling>();
 
@@ -57,6 +57,7 @@ namespace Enemies
         {
             enemiesDestroyed = 0;
             index = 0;
+            pauseTime = 0;
             startTime = Time.time;
         }
 
@@ -91,8 +92,17 @@ namespace Enemies
 
             if (schedule[index].timeStamp < time)
             {
-                SpawnEnemy();
-                index++;
+                if (enemiesDestroyed >= schedule[index].spawnOnXEnemiesDefeated)
+                {
+                    if (pauseTime > 0)
+                        startTime = (Time.time - pauseTime) + startTime;
+
+                    SpawnEnemy();
+                    pauseTime = 0;
+                    index++;
+                } else if (!(pauseTime > 0))
+                    pauseTime = Time.time;
+                
             }
         }
 
@@ -121,6 +131,7 @@ namespace Enemies
             public bool active, flipOnX, flipOnY;
             public int enemyIndex;
             public float timeStamp;
+            public int spawnOnXEnemiesDefeated; 
             public float2 direction;
             public float2 spawnPosition;
         }

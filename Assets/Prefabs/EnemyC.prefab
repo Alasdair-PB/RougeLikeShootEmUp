@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3625435812922183242}
   - component: {fileID: 5250438935790731567}
   - component: {fileID: 5861983267160334406}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: EnemyModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ecc934191dfbbbe419d6b02236a1e7d1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: -6598739581510397884}
   - component: {fileID: -2339712085410229232}
   - component: {fileID: -3685891303990379413}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: EnemyC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,6 +137,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   e_Actions:
   - {fileID: 11400000, guid: 306d08ea50ff4cd4b8e775898af563c3, type: 2}
+  - {fileID: 11400000, guid: 4d4c58d1f78e3ec4c835c31f6036962d, type: 2}
+  - {fileID: 11400000, guid: 857e7446a7774b944badb32f1ad5484f, type: 2}
   escapeAction: {fileID: 0}
   escapeTime: 15
   decisionTickMin: 1
@@ -157,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 892bb16a293dbab4b9716147a0494d0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 200
   iFrames: 0.2
   hasIFrames: 0
 --- !u!114 &7026460749390218700
