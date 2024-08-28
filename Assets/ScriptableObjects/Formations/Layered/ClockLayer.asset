@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58fbefbcb78440e42bffb614ed16d9a5, type: 3}
-  m_Name: LongWait
+  m_Script: {fileID: 11500000, guid: 40ce6b3b246dad948b8244ebe595ce59, type: 3}
+  m_Name: ClockLayer
   m_EditorClassIdentifier: 
-  projectileFormations:
-  - {fileID: 11400000, guid: e899a353ab29fb040945763b0dd519ef, type: 2}
-  mustComplete: 1
-  completeOnFormationEnd: 0
-  priority: 1
-  time: 40
+  positionOffset:
+    x: 0
+    y: 0
+  formations:
+  - {fileID: 11400000, guid: d6786ed5e759aa94a89d39cd2cf95c04, type: 2}
+  - {fileID: 11400000, guid: 92a7f9eb65d0bd44dacf38eed4b39bd4, type: 2}

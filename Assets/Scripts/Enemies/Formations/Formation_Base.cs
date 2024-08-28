@@ -4,12 +4,26 @@ using System.Collections.Generic;
 
 public abstract class Formation_Base : ScriptableObject
 {
-    public virtual Stack<int> SetUp(Stack<int> occuredBursts) {
+    [SerializeField] public float2 positionOffset;
+
+    public virtual Stack<int> SetUp(ref Stack<int> occuredBursts, ref Stack<float> ex_elapsedTime) {
         occuredBursts.Push(0);
         return occuredBursts;
     }
 
-    public abstract bool IncrementElapsedTime();
-    public abstract bool IsComplete(ref Stack<int> occurredBursts, float elapsedTime, float ex_elapsedTime, float2 position);
-    public abstract Stack<int> UpdateFormation(LayerMask layerMask, Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling, float2 position, ref float ex_elapsedTime, bool reversed);
+    public virtual Depth CalculateNesting(ref Stack<int> occuredBursts, Depth count) {
+        count.nestDepth ++;
+        return count;
 }
+
+
+    public struct Depth
+    {
+        public int nestDepth;
+        public int layerDepth; 
+    }
+    public abstract bool IncrementElapsedTime();
+    public abstract bool IsComplete(ref Stack<int> occurredBursts, float elapsedTime, float2 position);
+    public abstract Stack<int> UpdateFormation(LayerMask layerMask, ref Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling, float2 position, ref Stack<float> ex_elapsedTime, bool reversed);
+}
+

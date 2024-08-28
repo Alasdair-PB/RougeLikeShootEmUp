@@ -31,7 +31,7 @@ namespace Enemies
             Stack<int>[] burstCounts = my_controller.GetBurstCounter();
             for (int i = 0; i < projectileFormations.Length; i++)
             {
-                if (!projectileFormations[i].IsComplete(ref burstCounts[i], elapsedTime, ex_elapsedTime, my_controller.GetCurrentPosition()))
+                if (!projectileFormations[i].IsComplete(ref burstCounts[i], elapsedTime, my_controller.GetCurrentPosition()))
                 {
                     isComplete = false;
                     break;
@@ -51,25 +51,26 @@ namespace Enemies
             {
                 if (burstCounts[i] == null)
                     burstCounts[i] = new Stack<int>();
-                my_controller.SetEx_ElapsedTime(0);
-                burstCounts[i] = projectileFormations[i].SetUp(burstCounts[i]);
+                my_controller.SetEx_ElapsedTime(new Stack<float>(new float[] { 0.0f }));
+                var exElaspedTime = my_controller.GetEx_ElapsedTime();
+                burstCounts[i] = projectileFormations[i].SetUp(ref burstCounts[i], ref exElaspedTime);
 
             }
 
             my_controller.SetBurstCounter(burstCounts);
         }
 
-        public void UpdateFormations(LayerMask layerMask, E_Controller my_controller, float elapsedTime, GlobalPooling pooling, ref float ex_elapsedTime)
+        public void UpdateFormations(LayerMask layerMask, E_Controller my_controller, float elapsedTime, GlobalPooling pooling, ref Stack<float> ex_elapsedTime)
         {
             Stack<int>[] burstCounts = my_controller.GetBurstCounter();
 
             for (int i = 0; i < projectileFormations.Length; i++)
             {
-                if (projectileFormations[i].IsComplete(ref burstCounts[i], elapsedTime, ex_elapsedTime, my_controller.GetCurrentPosition()))
+                if (projectileFormations[i].IsComplete(ref burstCounts[i], elapsedTime, my_controller.GetCurrentPosition()))
                 {
                     continue;
                 }
-                burstCounts[i] = projectileFormations[i].UpdateFormation(layerMask, burstCounts[i], elapsedTime, pooling,
+                burstCounts[i] = projectileFormations[i].UpdateFormation(layerMask, ref burstCounts[i], elapsedTime, pooling,
                     my_controller.GetCurrentPosition(), ref ex_elapsedTime, false);
             }
 

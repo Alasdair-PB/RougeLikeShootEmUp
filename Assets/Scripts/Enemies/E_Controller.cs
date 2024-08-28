@@ -10,11 +10,14 @@ namespace Enemies
     public class E_Controller : MonoBehaviour
     {
         private E_Actions e_Actions;
-        private float tolerance = .05f, moveVelocity = 3, timeAtLastAction, ex_ElapsedTime;
+        private float tolerance = .05f, moveVelocity = 3, timeAtLastAction;
         private float2 targetPos = new float2(), nextPos = new float2(), startPos, xBounds = new float2(), yBounds = new float2();
 
         private StackManager<int> actionIndexStack = new StackManager<int>();
         private StackManager<float> actionTimeStampStack = new StackManager<float>();
+        private Stack<float> ex_ElapsedTime = new Stack<float>(new float[] { 0.0f });
+
+
 
         private Stack<int>[] burstCounter = new Stack<int>[5];  // Layer max for formations
 
@@ -28,8 +31,8 @@ namespace Enemies
             UpdatePosition();
         }
 
-        public float GetEx_ElapsedTime() => ex_ElapsedTime;
-        public void SetEx_ElapsedTime(float newElapse) => ex_ElapsedTime = newElapse;
+        public Stack<float> GetEx_ElapsedTime() => ex_ElapsedTime;
+        public void SetEx_ElapsedTime(Stack<float> newElapse) => ex_ElapsedTime = newElapse;
 
         public void SetBounds(float2 xBounds, float2 yBounds)
         {

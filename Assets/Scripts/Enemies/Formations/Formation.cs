@@ -1,6 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 
 [CreateAssetMenu(fileName = "Formation", menuName = "Formations/Formation")]
@@ -9,11 +10,18 @@ public class Formation : Formation_Base
     public GameObject projectileObject;
     public float startDelay, burstTime;
     public int burstCount, angleChange;
-    public float[] angle;
+    public Variation[] spawnInit;
+
+    [Serializable]
+    public struct Variation
+    {
+        public int angle;
+        public float2 positionOffset;
+    }
 
 
     // Actual stack: not a copy
-    public override bool IsComplete(ref Stack<int> occurredBursts, float elapsedTime, float ex_elapsedTime, float2 position)
+    public override bool IsComplete(ref Stack<int> occurredBursts, float elapsedTime, float2 position)
     {
         var my_occuredBursts = occurredBursts.Pop();
 
@@ -29,37 +37,37 @@ public class Formation : Formation_Base
 
     public override bool IncrementElapsedTime() => true;
 
-    public override Stack<int> UpdateFormation(LayerMask layerMask, Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling, 
-        float2 position, ref float ex_elapsedTime, bool reversed)
-    {        
+    public override Stack<int> UpdateFormation(LayerMask layerMask, ref Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling, 
+        float2 position, ref Stack<float> ex_elapsedTime, bool reversed)
+    {
+        position += positionOffset;
         var my_occuredBursts = occurredBursts.Pop();
-        var my_ElapsedTime = elapsedTime - ex_elapsedTime;
+        var my_ElapsedTime = elapsedTime - ex_elapsedTime.Peek();
 
         int burstsTriggered = Mathf.FloorToInt(my_ElapsedTime / burstTime);
 
         if (my_occuredBursts > burstsTriggered || my_ElapsedTime < startDelay)
         {
+            //Debug.Log("------------" + my_occuredBursts + " > " + burstsTriggered + ": my_elasped time- " + my_ElapsedTime);
             occurredBursts.Push(my_occuredBursts);
             return occurredBursts;
         }
 
         var angleOffset = angleChange * burstsTriggered;
 
-        for (int i = reversed ? angle.Length - 1 : 0; reversed? i >= 0 : i < angle.Length; i += reversed? -1 : 1)
+        for (int i = reversed ? spawnInit.Length - 1 : 0; reversed? i >= 0 : i < spawnInit.Length; i += reversed? -1 : 1)
         {
             var objectInPool = pooling.GetProjectilePool(projectileObject, 10, 999);
-            float degrees = reversed ? angle[i] - angleOffset: angle[i] + angleOffset;
+            float degrees = reversed ? spawnInit[i].angle - angleOffset: spawnInit[i].angle + angleOffset;
 
             float radians = degrees * Mathf.Deg2Rad;
             float2 direction = new float2(Mathf.Cos(radians), Mathf.Sin(radians));
 
-            objectInPool.InstantiateProjectile(direction, layerMask, position);
+            objectInPool.InstantiateProjectile(direction, layerMask, position + spawnInit[i].positionOffset);
         }
 
         my_occuredBursts++;
-
         occurredBursts.Push(my_occuredBursts);
-
         return occurredBursts;
     }
 }

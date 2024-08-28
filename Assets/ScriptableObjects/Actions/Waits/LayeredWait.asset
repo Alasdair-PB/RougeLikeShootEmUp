@@ -9,15 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f514cecb574284428f26d4681cb73c5, type: 3}
-  m_Name: OffscreenForCharge
+  m_Script: {fileID: 11500000, guid: 58fbefbcb78440e42bffb614ed16d9a5, type: 3}
+  m_Name: LayeredWait
   m_EditorClassIdentifier: 
   projectileFormations:
-  - {fileID: 11400000, guid: a1be225331687f74d8bad8d25eab2dfe, type: 2}
+  - {fileID: 11400000, guid: 5b893602cc4e09245ba9744235f27743, type: 2}
   mustComplete: 1
-  priority: 1
-  pattern: {fileID: 11400000, guid: 4c3d8d848459d7242820ba88dfef723a, type: 2}
-  time: 500
-  chargePositionOffset:
-    x: 0
-    y: -8
+  completeOnFormationEnd: 1
+  priority: 0
+  time: 14

@@ -133,8 +133,6 @@ GameObject:
   - component: {fileID: 166615725}
   - component: {fileID: 166615730}
   - component: {fileID: 166615729}
-  - component: {fileID: 166615728}
-  - component: {fileID: 166615727}
   - component: {fileID: 166615726}
   m_Layer: 0
   m_Name: Main Camera
@@ -204,71 +202,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!320 &166615727
-PlayableDirector:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 166615724}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 1271873b6e78dbf4784088f6ad790567, type: 2}
-  m_InitialState: 1
-  m_WrapMode: 2
-  m_DirectorUpdateMode: 1
-  m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: -8972420198818800106, guid: 1271873b6e78dbf4784088f6ad790567, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 3733637695544360138, guid: 1271873b6e78dbf4784088f6ad790567, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 2243164648447696163, guid: 1271873b6e78dbf4784088f6ad790567, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 1066419925109424051, guid: 1271873b6e78dbf4784088f6ad790567, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: -854601210657766838, guid: 1271873b6e78dbf4784088f6ad790567, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 8286331583112274132, guid: 1271873b6e78dbf4784088f6ad790567, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: -2865228505504209629, guid: 1271873b6e78dbf4784088f6ad790567, type: 2}
-    value: {fileID: 0}
-  m_ExposedReferences:
-    m_References: []
---- !u!114 &166615728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 166615724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
-  m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
-  m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
-  m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
-    m_CustomCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
-  m_CameraCutEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CameraActivatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!81 &166615729
 AudioListener:
   m_ObjectHideFlags: 0
@@ -362,7 +295,7 @@ MonoBehaviour:
   - {fileID: 9028484030733915984, guid: a9f3578ca2d34634b9eedd00c1a062cf, type: 3}
   - {fileID: 9028484030733915984, guid: 54b756c6241aaac498c0f0ea13598d71, type: 3}
   schedule:
-  - active: 1
+  - active: 0
     flipOnX: 0
     flipOnY: 0
     enemyIndex: 1
@@ -374,7 +307,7 @@ MonoBehaviour:
     spawnPosition:
       x: 6
       y: 6
-  - active: 1
+  - active: 0
     flipOnX: 0
     flipOnY: 0
     enemyIndex: 0
@@ -386,7 +319,7 @@ MonoBehaviour:
     spawnPosition:
       x: 4
       y: 1
-  - active: 1
+  - active: 0
     flipOnX: 0
     flipOnY: 0
     enemyIndex: 0
@@ -398,10 +331,10 @@ MonoBehaviour:
     spawnPosition:
       x: -4
       y: 1
-  - active: 1
+  - active: 0
     flipOnX: 0
     flipOnY: 0
-    enemyIndex: 2
+    enemyIndex: 1
     timeStamp: 7
     spawnOnXEnemiesDefeated: 3
     direction:
@@ -414,13 +347,13 @@ MonoBehaviour:
     flipOnX: 0
     flipOnY: 0
     enemyIndex: 2
-    timeStamp: 9
-    spawnOnXEnemiesDefeated: 3
+    timeStamp: 1
+    spawnOnXEnemiesDefeated: 0
     direction:
       x: 0
       y: 0
     spawnPosition:
-      x: -2
+      x: 0
       y: 1
   game: {fileID: 1244212848}
   xBounds:
@@ -599,7 +532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
 --- !u!54 &470575816
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -43,7 +43,16 @@ public class Pro_Controller : MonoBehaviour
     private void OnEnable()
     {
         InitializePro(direction, projectileMask);
+        c_OnContact.OnCollision += Return;
     }
+
+    private void OnDisable()
+    {
+        c_OnContact.OnCollision -= Return;
+    }
+
+    private void Return() => OnReturn?.Invoke(this);
+
 
     private void FixedUpdate()
     {
@@ -52,7 +61,7 @@ public class Pro_Controller : MonoBehaviour
 
         if (nextPos.x < xBounds.x || nextPos.x > xBounds.y || nextPos.y < yBounds.x || nextPos.y > yBounds.y)
         {
-            OnReturn?.Invoke(this);
+            Return();
             return;
         }
 

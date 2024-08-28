@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58fbefbcb78440e42bffb614ed16d9a5, type: 3}
-  m_Name: 2ClockWait
+  m_Script: {fileID: 11500000, guid: d58c1270521cf944da22f54ddaa7fcfd, type: 3}
+  m_Name: Multi_FormationRight
   m_EditorClassIdentifier: 
-  projectileFormations:
+  positionOffset:
+    x: 1
+    y: 0
+  formations:
   - {fileID: 11400000, guid: d6786ed5e759aa94a89d39cd2cf95c04, type: 2}
-  - {fileID: 11400000, guid: 92a7f9eb65d0bd44dacf38eed4b39bd4, type: 2}
-  mustComplete: 1
-  completeOnFormationEnd: 0
-  priority: 1
-  time: 4
+  - {fileID: 11400000, guid: 194bbb3e81222cd4491fd10988335c57, type: 2}
