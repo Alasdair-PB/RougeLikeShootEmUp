@@ -44,6 +44,7 @@ namespace Enemies
 
         public void SetUpFormations(E_Controller my_controller)
         {
+            Debug.Log("SET UP NEW FORMATION");
             my_controller.ClearBurstCounter();
             Stack<int>[] burstCounts = my_controller.GetBurstCounter();
 

@@ -1,6 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 using System.Collections.Generic;
+using static Codice.Client.BaseCommands.WkStatus.Printers.PrintPendingChangesInTableFormat;
 
 
 [CreateAssetMenu(fileName = "Formation", menuName = "Formations/Layered_Formation")]
@@ -11,19 +12,22 @@ public class Layered_Formation : Formation_Base
     public override Stack<int> SetUp(ref Stack<int> occuredBursts, ref Stack<float> ex_elapsedTime)
     {
         base.SetUp(ref occuredBursts, ref ex_elapsedTime);
+        var my_ElaspedTime = ex_elapsedTime.Pop();
 
         for (int i = 0; i < formations.Length; i++)
         {
-            ex_elapsedTime.Push(ex_elapsedTime.Peek());
             occuredBursts = formations[i].SetUp(ref occuredBursts, ref ex_elapsedTime);
+            ex_elapsedTime.Push(my_ElaspedTime);
         }
 
+        ex_elapsedTime.Push(my_ElaspedTime);
         return occuredBursts;
     }
 
     public override Depth CalculateNesting(ref Stack<int> occuredBursts, Depth count)
     {
         count.nestDepth++;
+        count.layerDepth++;
         var my_occuredBursts = occuredBursts.Pop();
 
         Depth nestingCount = new Depth() { layerDepth = 0, nestDepth = 0 };
@@ -86,31 +90,31 @@ public class Layered_Formation : Formation_Base
 
         layerStack.Push(ex_elapsedTime.Pop());
 
-        //PrintStack(occurredBursts);
-
         for (int i = 0; i < formations.Length; i++)
         {
+            PrintStack(ex_elapsedTime);
             for (int j = 0; j < nestingCount.nestDepth; j++)
             {
-                if (j < nestingCount.layerDepth - 1)
-                    layerStack.Push(ex_elapsedTime.Pop());
                 depthStack.Push(occurredBursts.Pop());
+            }
+
+            for (int j = 0; j < nestingCount.layerDepth; j++)
+            {
+                layerStack.Push(ex_elapsedTime.Pop());
             }
 
             bool isCompleted = (my_occuredBursts & (1 << i)) != 0;
 
             if (!isCompleted && !formations[i].IsComplete(ref occurredBursts))
             {
-                formations[i].UpdateFormation(layerMask, ref occurredBursts, elapsedTime, pooling, position, ref layerStack, reversed);
-                nestingCount = formations[i].CalculateNesting(ref occurredBursts, new Depth() { nestDepth = 0, layerDepth = 0 });
+                formations[i].UpdateFormation(layerMask, ref occurredBursts, elapsedTime, pooling, position, ref ex_elapsedTime, reversed);
             }
             else if (!isCompleted)
-            {  // First time completed
+            {
                 my_occuredBursts |= (1 << i);
-                Debug.Log("Completed!!");
-                nestingCount.nestDepth = 0;
-                nestingCount.layerDepth = 1;
             }
+
+            nestingCount = formations[i].CalculateNesting(ref occurredBursts, new Depth() { nestDepth = 0, layerDepth = 0 });
         }
 
         ReturnElementsToStack(ref occurredBursts, ref ex_elapsedTime, depthStack, layerStack);

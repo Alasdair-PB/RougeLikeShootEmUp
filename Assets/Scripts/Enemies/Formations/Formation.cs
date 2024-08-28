@@ -42,7 +42,7 @@ public class Formation : Formation_Base
     {
         position += positionOffset;
         var my_occuredBursts = occurredBursts.Pop();
-        var my_ElapsedTime = elapsedTime - ex_elapsedTime.Peek();
+        float my_ElapsedTime = elapsedTime - ex_elapsedTime.Peek();
 
         int burstsTriggered = Mathf.FloorToInt(my_ElapsedTime / burstTime);
 

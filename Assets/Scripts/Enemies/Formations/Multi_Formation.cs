@@ -21,7 +21,6 @@ public class Multi_Formation : Formation_Base
     {
         count.nestDepth++;
         var my_occuredBursts = occuredBursts.Pop();
-        //Debug.Log("Index: " + my_occuredBursts + ", from count: " + formations.Length);
         count = formations[my_occuredBursts].CalculateNesting(ref occuredBursts, count);
         occuredBursts.Push(my_occuredBursts);
         return count;
@@ -58,7 +57,7 @@ public class Multi_Formation : Formation_Base
 
         if (formations[my_occuredBursts].IsComplete(ref occurredBursts))
         {
-            var my_ElaspedTime = ex_elapsedTime.Pop();
+            float my_ElaspedTime = ex_elapsedTime.Pop();
 
             if (formations[my_occuredBursts].IncrementElapsedTime())
                 my_ElaspedTime = elapsedTime;
