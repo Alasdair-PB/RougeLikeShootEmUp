@@ -23,7 +23,7 @@ public abstract class Formation_Base : ScriptableObject
         public int layerDepth; 
     }
     public abstract bool IncrementElapsedTime();
-    public abstract bool IsComplete(ref Stack<int> occurredBursts, float elapsedTime, float2 position);
+    public abstract bool IsComplete(ref Stack<int> occurredBursts);
     public abstract Stack<int> UpdateFormation(LayerMask layerMask, ref Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling, float2 position, ref Stack<float> ex_elapsedTime, bool reversed);
 }
 

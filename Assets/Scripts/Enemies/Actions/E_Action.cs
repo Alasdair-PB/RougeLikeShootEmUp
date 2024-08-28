@@ -31,7 +31,7 @@ namespace Enemies
             Stack<int>[] burstCounts = my_controller.GetBurstCounter();
             for (int i = 0; i < projectileFormations.Length; i++)
             {
-                if (!projectileFormations[i].IsComplete(ref burstCounts[i], elapsedTime, my_controller.GetCurrentPosition()))
+                if (!projectileFormations[i].IsComplete(ref burstCounts[i]))
                 {
                     isComplete = false;
                     break;
@@ -66,7 +66,7 @@ namespace Enemies
 
             for (int i = 0; i < projectileFormations.Length; i++)
             {
-                if (projectileFormations[i].IsComplete(ref burstCounts[i], elapsedTime, my_controller.GetCurrentPosition()))
+                if (projectileFormations[i].IsComplete(ref burstCounts[i]))
                 {
                     continue;
                 }

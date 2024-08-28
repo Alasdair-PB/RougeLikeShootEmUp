@@ -21,7 +21,7 @@ public class Formation : Formation_Base
 
 
     // Actual stack: not a copy
-    public override bool IsComplete(ref Stack<int> occurredBursts, float elapsedTime, float2 position)
+    public override bool IsComplete(ref Stack<int> occurredBursts)
     {
         var my_occuredBursts = occurredBursts.Pop();
 
@@ -48,7 +48,6 @@ public class Formation : Formation_Base
 
         if (my_occuredBursts > burstsTriggered || my_ElapsedTime < startDelay)
         {
-            //Debug.Log("------------" + my_occuredBursts + " > " + burstsTriggered + ": my_elasped time- " + my_ElapsedTime);
             occurredBursts.Push(my_occuredBursts);
             return occurredBursts;
         }

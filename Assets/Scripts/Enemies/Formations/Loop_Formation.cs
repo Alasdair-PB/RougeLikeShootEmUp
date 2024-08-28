@@ -26,7 +26,7 @@ public class Loop_Formation : Formation_Base
         return count; 
     }
 
-    public override bool IsComplete(ref Stack<int> occurredBursts, float elapsedTime, float2 position)
+    public override bool IsComplete(ref Stack<int> occurredBursts)
     {
         var my_occuredBursts = occurredBursts.Pop();
         if (my_occuredBursts >= loopCount && !loopEndless)
@@ -62,7 +62,7 @@ public class Loop_Formation : Formation_Base
         formation.UpdateFormation(layerMask, ref occurredBursts, elapsedTime, pooling, 
             position, ref ex_elapsedTime, reversed);
 
-        if (formation.IsComplete(ref occurredBursts, elapsedTime, position))
+        if (formation.IsComplete(ref occurredBursts))
         {
             if (formation.IncrementElapsedTime())
             {
