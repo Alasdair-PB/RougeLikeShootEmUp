@@ -29,8 +29,9 @@ public class Multi_Formation : Formation_Base
     public override bool IsComplete(ref Stack<int> occurredBursts)
     {
         var my_occuredBursts = occurredBursts.Pop();
-        if (my_occuredBursts > formations.Length) // May be greater than or equal!!!
+        if (my_occuredBursts > formations.Length) 
         {
+            Debug.Log("Look mum I've completed");
             occurredBursts.Push(my_occuredBursts);
             return true;
         }
@@ -57,6 +58,13 @@ public class Multi_Formation : Formation_Base
 
         if (formations[my_occuredBursts].IsComplete(ref occurredBursts))
         {
+
+            if (ex_elapsedTime.Count == 0)
+            {
+                Debug.LogWarning("Attempted to pop from an empty stack in MultiFormation Update.");
+                return occurredBursts;
+            }
+
             float my_ElaspedTime = ex_elapsedTime.Pop();
 
             if (formations[my_occuredBursts].IncrementElapsedTime())
@@ -71,14 +79,19 @@ public class Multi_Formation : Formation_Base
                 {
                     occurredBursts.Pop();
                 }
+
                 for (int j = i.layerDepth; j > 0; j--)
                 {
                     ex_elapsedTime.Pop();
                 }
+
+                // Pushing before setup as multiple ex_elaspedtime's only exist in layers=> we can only expect there to be a single exelapsedtime
                 ex_elapsedTime.Push(my_ElaspedTime);
 
                 my_occuredBursts++;
-                formations[my_occuredBursts].SetUp(ref occurredBursts, ref ex_elapsedTime);
+                formations[my_occuredBursts].SetUp(ref occurredBursts, ref ex_elapsedTime);                
+                
+
             }
         }
 

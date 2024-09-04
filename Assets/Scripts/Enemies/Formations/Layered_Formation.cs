@@ -3,21 +3,23 @@ using UnityEngine;
 using System.Collections.Generic;
 using static Codice.Client.BaseCommands.WkStatus.Printers.PrintPendingChangesInTableFormat;
 
-
 [CreateAssetMenu(fileName = "Formation", menuName = "Formations/Layered_Formation")]
 public class Layered_Formation : Formation_Base
 {
     public Formation_Base[] formations;
+    public override bool IncrementElapsedTime() => false;
 
     public override Stack<int> SetUp(ref Stack<int> occuredBursts, ref Stack<float> ex_elapsedTime)
     {
         base.SetUp(ref occuredBursts, ref ex_elapsedTime);
-        var my_ElaspedTime = ex_elapsedTime.Pop();
+        var my_ElaspedTime = ex_elapsedTime.Peek();
 
         for (int i = 0; i < formations.Length; i++)
         {
             occuredBursts = formations[i].SetUp(ref occuredBursts, ref ex_elapsedTime);
-            ex_elapsedTime.Push(my_ElaspedTime);
+
+            if (i != 0)
+                ex_elapsedTime.Push(my_ElaspedTime);
         }
 
         ex_elapsedTime.Push(my_ElaspedTime);
@@ -27,7 +29,6 @@ public class Layered_Formation : Formation_Base
     public override Depth CalculateNesting(ref Stack<int> occuredBursts, Depth count)
     {
         count.nestDepth++;
-        count.layerDepth++;
         var my_occuredBursts = occuredBursts.Pop();
 
         Depth nestingCount = new Depth() { layerDepth = 0, nestDepth = 0 };
@@ -37,9 +38,18 @@ public class Layered_Formation : Formation_Base
         {
             count.layerDepth++;
 
-            for (int j = nestingCount.nestDepth; j > 0; j--)
+            while (nestingCount.nestDepth > 0)
             {
-                nestStack.Push(occuredBursts.Pop());
+                if (occuredBursts.Count > 0)
+                {
+                    nestStack.Push(occuredBursts.Pop());
+                    nestingCount.nestDepth--;
+                }
+                else
+                {
+                    Debug.LogWarning("Attempted to pop from an empty stack in CalculateNesting.");
+                    break;
+                }
             }
 
             nestingCount = formations[i].CalculateNesting(ref occuredBursts, new Depth() { layerDepth = 0, nestDepth = 0 });
@@ -57,6 +67,12 @@ public class Layered_Formation : Formation_Base
 
     public override bool IsComplete(ref Stack<int> occurredBursts)
     {
+        if (occurredBursts.Count == 0)
+        {
+            Debug.LogWarning("Attempted to pop from an empty stack in IsComplete.");
+            return false;
+        }
+
         var my_occuredBursts = occurredBursts.Pop();
 
         for (int i = 0; i < formations.Length; i++)
@@ -68,39 +84,53 @@ public class Layered_Formation : Formation_Base
                 occurredBursts.Push(my_occuredBursts);
                 return false;
             }
-            else
-                continue;
         }
         occurredBursts.Push(my_occuredBursts);
         return true;
     }
 
-
-    public override bool IncrementElapsedTime() => false;
-
-    public override Stack<int> UpdateFormation(LayerMask layerMask,ref Stack<int> occurredBursts, float elapsedTime,
+    public override Stack<int> UpdateFormation(LayerMask layerMask, ref Stack<int> occurredBursts, float elapsedTime,
         GlobalPooling pooling, float2 position, ref Stack<float> ex_elapsedTime, bool reversed)
     {
         position += positionOffset;
+
+        if (occurredBursts.Count == 0)
+        {
+            Debug.LogWarning("Attempted to pop from an empty stack in UpdateFormation.");
+            return occurredBursts;
+        }
+
+
+        PrintStack(ex_elapsedTime);
+
         var my_occuredBursts = occurredBursts.Pop();
 
         Depth nestingCount = new Depth() { nestDepth = 0, layerDepth = 0 };
         Stack<int> depthStack = new Stack<int>();
         Stack<float> layerStack = new Stack<float>();
 
-        layerStack.Push(ex_elapsedTime.Pop());
-
         for (int i = 0; i < formations.Length; i++)
         {
-            PrintStack(ex_elapsedTime);
             for (int j = 0; j < nestingCount.nestDepth; j++)
             {
-                depthStack.Push(occurredBursts.Pop());
+                if (occurredBursts.Count > 0)
+                    depthStack.Push(occurredBursts.Pop());
+                else
+                {
+                    Debug.LogWarning("Attempted to pop from an empty stack in UpdateFormation.");
+                    break;
+                }
             }
 
             for (int j = 0; j < nestingCount.layerDepth; j++)
             {
-                layerStack.Push(ex_elapsedTime.Pop());
+                if (ex_elapsedTime.Count > 0)
+                    layerStack.Push(ex_elapsedTime.Pop());
+                else
+                {
+                    Debug.LogWarning("Attempted to pop from an empty stack in UpdateFormation.");
+                    break;
+                }
             }
 
             bool isCompleted = (my_occuredBursts & (1 << i)) != 0;
@@ -112,6 +142,14 @@ public class Layered_Formation : Formation_Base
             else if (!isCompleted)
             {
                 my_occuredBursts |= (1 << i);
+
+                if (formations[i].IncrementElapsedTime())
+                {
+                    ex_elapsedTime.Pop();
+                    ex_elapsedTime.Push(elapsedTime);
+                }
+                // Breaking to reset nest count- delays other shots by single frame
+                break;
             }
 
             nestingCount = formations[i].CalculateNesting(ref occurredBursts, new Depth() { nestDepth = 0, layerDepth = 0 });
@@ -123,16 +161,16 @@ public class Layered_Formation : Formation_Base
         return occurredBursts;
     }
 
-    private void ReturnElementsToStack(ref Stack<int> occurredBursts, ref Stack<float> ex_elapsedTime, Stack<int> depthStack, Stack<float> layerStack) {
-
-        foreach (int element in depthStack)
+    private void ReturnElementsToStack(ref Stack<int> occurredBursts, ref Stack<float> ex_elapsedTime, Stack<int> depthStack, Stack<float> layerStack)
+    {
+        while (depthStack.Count > 0)
         {
-            occurredBursts.Push(element);
+            occurredBursts.Push(depthStack.Pop());
         }
 
-        foreach (int element in layerStack)
+        while (layerStack.Count > 0)
         {
-            ex_elapsedTime.Push(element);
+            ex_elapsedTime.Push(layerStack.Pop());
         }
     }
 
@@ -143,10 +181,9 @@ public class Layered_Formation : Formation_Base
         {
             outString += element.ToString() + ", ";
         }
-
         Debug.Log(outString);
-
     }
+
     private void PrintStack(Stack<int> occurredBursts)
     {
         string outString = "";
@@ -154,12 +191,6 @@ public class Layered_Formation : Formation_Base
         {
             outString += element.ToString() + ", ";
         }
-
         Debug.Log(outString);
-
     }
-
-
 }
-
-
