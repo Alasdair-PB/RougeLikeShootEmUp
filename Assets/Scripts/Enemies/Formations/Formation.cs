@@ -25,7 +25,7 @@ public class Formation : Formation_Base
     {
         var my_occuredBursts = occurredBursts.Pop();
 
-        if (my_occuredBursts >= burstCount)
+        if (my_occuredBursts > burstCount)
         {
             occurredBursts.Push(my_occuredBursts);
             return true;
@@ -48,6 +48,10 @@ public class Formation : Formation_Base
 
         if (my_occuredBursts > burstsTriggered || my_ElapsedTime < startDelay)
         {
+
+            if (my_occuredBursts >= burstCount)
+                my_occuredBursts++;
+
             occurredBursts.Push(my_occuredBursts);
             return occurredBursts;
         }

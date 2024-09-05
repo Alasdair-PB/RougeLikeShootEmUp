@@ -21,7 +21,7 @@ public class Multi_Formation : Formation_Base
     {
         count.nestDepth++;
         var my_occuredBursts = occuredBursts.Pop();
-        count = formations[my_occuredBursts].CalculateNesting(ref occuredBursts, count);
+        count = formations[my_occuredBursts >= formations.Length ? formations.Length - 1 : my_occuredBursts].CalculateNesting(ref occuredBursts, count);
         occuredBursts.Push(my_occuredBursts);
         return count;
     }
@@ -29,9 +29,8 @@ public class Multi_Formation : Formation_Base
     public override bool IsComplete(ref Stack<int> occurredBursts)
     {
         var my_occuredBursts = occurredBursts.Pop();
-        if (my_occuredBursts > formations.Length) 
+        if (my_occuredBursts >= formations.Length) 
         {
-            Debug.Log("Look mum I've completed");
             occurredBursts.Push(my_occuredBursts);
             return true;
         }
@@ -50,6 +49,7 @@ public class Multi_Formation : Formation_Base
 
         if (my_occuredBursts >= formations.Length)
         {
+            my_occuredBursts++;
             occurredBursts.Push(my_occuredBursts);
             return occurredBursts;
         }
@@ -87,12 +87,15 @@ public class Multi_Formation : Formation_Base
 
                 // Pushing before setup as multiple ex_elaspedtime's only exist in layers=> we can only expect there to be a single exelapsedtime
                 ex_elapsedTime.Push(my_ElaspedTime);
-
                 my_occuredBursts++;
-                formations[my_occuredBursts].SetUp(ref occurredBursts, ref ex_elapsedTime);                
-                
-
+                formations[my_occuredBursts].SetUp(ref occurredBursts, ref ex_elapsedTime);
             }
+            else
+            {
+                ex_elapsedTime.Push(my_ElaspedTime);
+                my_occuredBursts++;
+            }
+
         }
 
         occurredBursts.Push(my_occuredBursts);

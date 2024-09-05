@@ -1,7 +1,6 @@
 using Unity.Mathematics;
 using UnityEngine;
 using System.Collections.Generic;
-using static Codice.Client.BaseCommands.WkStatus.Printers.PrintPendingChangesInTableFormat;
 
 [CreateAssetMenu(fileName = "Formation", menuName = "Formations/Layered_Formation")]
 public class Layered_Formation : Formation_Base
@@ -100,9 +99,6 @@ public class Layered_Formation : Formation_Base
             return occurredBursts;
         }
 
-
-        PrintStack(ex_elapsedTime);
-
         var my_occuredBursts = occurredBursts.Pop();
 
         Depth nestingCount = new Depth() { nestDepth = 0, layerDepth = 0 };
@@ -111,6 +107,7 @@ public class Layered_Formation : Formation_Base
 
         for (int i = 0; i < formations.Length; i++)
         {
+
             for (int j = 0; j < nestingCount.nestDepth; j++)
             {
                 if (occurredBursts.Count > 0)
@@ -125,7 +122,9 @@ public class Layered_Formation : Formation_Base
             for (int j = 0; j < nestingCount.layerDepth; j++)
             {
                 if (ex_elapsedTime.Count > 0)
+                {
                     layerStack.Push(ex_elapsedTime.Pop());
+                }
                 else
                 {
                     Debug.LogWarning("Attempted to pop from an empty stack in UpdateFormation.");
@@ -142,21 +141,13 @@ public class Layered_Formation : Formation_Base
             else if (!isCompleted)
             {
                 my_occuredBursts |= (1 << i);
-
-                if (formations[i].IncrementElapsedTime())
-                {
-                    ex_elapsedTime.Pop();
-                    ex_elapsedTime.Push(elapsedTime);
-                }
                 // Breaking to reset nest count- delays other shots by single frame
                 break;
             }
-
             nestingCount = formations[i].CalculateNesting(ref occurredBursts, new Depth() { nestDepth = 0, layerDepth = 0 });
         }
 
         ReturnElementsToStack(ref occurredBursts, ref ex_elapsedTime, depthStack, layerStack);
-
         occurredBursts.Push(my_occuredBursts);
         return occurredBursts;
     }

@@ -295,7 +295,7 @@ MonoBehaviour:
   - {fileID: 9028484030733915984, guid: a9f3578ca2d34634b9eedd00c1a062cf, type: 3}
   - {fileID: 9028484030733915984, guid: 54b756c6241aaac498c0f0ea13598d71, type: 3}
   schedule:
-  - active: 0
+  - active: 1
     flipOnX: 0
     flipOnY: 0
     enemyIndex: 1
@@ -307,7 +307,7 @@ MonoBehaviour:
     spawnPosition:
       x: 6
       y: 6
-  - active: 0
+  - active: 1
     flipOnX: 0
     flipOnY: 0
     enemyIndex: 0
@@ -319,7 +319,7 @@ MonoBehaviour:
     spawnPosition:
       x: 4
       y: 1
-  - active: 0
+  - active: 1
     flipOnX: 0
     flipOnY: 0
     enemyIndex: 0
@@ -330,25 +330,37 @@ MonoBehaviour:
       y: 0
     spawnPosition:
       x: -4
-      y: 1
-  - active: 0
+      y: 4
+  - active: 1
     flipOnX: 0
     flipOnY: 0
     enemyIndex: 1
-    timeStamp: 7
+    timeStamp: 8
     spawnOnXEnemiesDefeated: 3
     direction:
       x: 0
       y: 0
     spawnPosition:
+      x: 6
+      y: 6
+  - active: 1
+    flipOnX: 0
+    flipOnY: 0
+    enemyIndex: 1
+    timeStamp: 8
+    spawnOnXEnemiesDefeated: 3
+    direction:
       x: 0
-      y: 1
+      y: 0
+    spawnPosition:
+      x: 6
+      y: 4
   - active: 1
     flipOnX: 0
     flipOnY: 0
     enemyIndex: 2
-    timeStamp: 1
-    spawnOnXEnemiesDefeated: 0
+    timeStamp: 9
+    spawnOnXEnemiesDefeated: 5
     direction:
       x: 0
       y: 0
@@ -532,7 +544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
 --- !u!54 &470575816
 Rigidbody:
   m_ObjectHideFlags: 0

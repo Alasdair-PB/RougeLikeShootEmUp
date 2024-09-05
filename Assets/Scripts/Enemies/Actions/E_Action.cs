@@ -44,7 +44,6 @@ namespace Enemies
 
         public void SetUpFormations(E_Controller my_controller)
         {
-            Debug.Log("SET UP NEW FORMATION");
             my_controller.ClearBurstCounter();
             Stack<int>[] burstCounts = my_controller.GetBurstCounter();
 
@@ -57,7 +56,6 @@ namespace Enemies
                 burstCounts[i] = projectileFormations[i].SetUp(ref burstCounts[i], ref exElaspedTime);
 
             }
-
             my_controller.SetBurstCounter(burstCounts);
         }
 
