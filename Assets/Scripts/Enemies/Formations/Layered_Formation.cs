@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "Formation", menuName = "Formations/Layered_Formation")]
 public class Layered_Formation : Formation_Base
 {
-    public Formation_Base[] formations;
+    public FormationData[] formations;
     public override bool IncrementElapsedTime() => false;
 
     public override Stack<int> SetUp(ref Stack<int> occuredBursts, ref Stack<float> ex_elapsedTime)
@@ -15,7 +15,7 @@ public class Layered_Formation : Formation_Base
 
         for (int i = 0; i < formations.Length; i++)
         {
-            occuredBursts = formations[i].SetUp(ref occuredBursts, ref ex_elapsedTime);
+            occuredBursts = formations[i].formation_Base.SetUp(ref occuredBursts, ref ex_elapsedTime);
 
             if (i != 0)
                 ex_elapsedTime.Push(my_ElaspedTime);
@@ -51,7 +51,7 @@ public class Layered_Formation : Formation_Base
                 }
             }
 
-            nestingCount = formations[i].CalculateNesting(ref occuredBursts, new Depth() { layerDepth = 0, nestDepth = 0 });
+            nestingCount = formations[i].formation_Base.CalculateNesting(ref occuredBursts, new Depth() { layerDepth = 0, nestDepth = 0 });
             count.nestDepth += nestingCount.nestDepth;
             count.layerDepth += nestingCount.layerDepth;
         }
@@ -134,9 +134,11 @@ public class Layered_Formation : Formation_Base
 
             bool isCompleted = (my_occuredBursts & (1 << i)) != 0;
 
-            if (!isCompleted && !formations[i].IsComplete(ref occurredBursts))
+            if (!isCompleted && !formations[i].formation_Base.IsComplete(ref occurredBursts))
             {
-                formations[i].UpdateFormation(layerMask, ref occurredBursts, elapsedTime, pooling, position, ref ex_elapsedTime, reversed);
+                var modifiedPos = position + formations[i].positionOffset;
+                formations[i].formation_Base.UpdateFormation(layerMask, ref occurredBursts, elapsedTime, pooling, modifiedPos, ref ex_elapsedTime, 
+                    formations[i].reversed? !reversed : reversed);
             }
             else if (!isCompleted)
             {
@@ -144,7 +146,7 @@ public class Layered_Formation : Formation_Base
                 // Breaking to reset nest count- delays other shots by single frame
                 break;
             }
-            nestingCount = formations[i].CalculateNesting(ref occurredBursts, new Depth() { nestDepth = 0, layerDepth = 0 });
+            nestingCount = formations[i].formation_Base.CalculateNesting(ref occurredBursts, new Depth() { nestDepth = 0, layerDepth = 0 });
         }
 
         ReturnElementsToStack(ref occurredBursts, ref ex_elapsedTime, depthStack, layerStack);

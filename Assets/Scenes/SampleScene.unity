@@ -354,7 +354,7 @@ MonoBehaviour:
       y: 0
     spawnPosition:
       x: 6
-      y: 4
+      y: 2
   - active: 1
     flipOnX: 0
     flipOnY: 0
@@ -544,7 +544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
 --- !u!54 &470575816
 Rigidbody:
   m_ObjectHideFlags: 0

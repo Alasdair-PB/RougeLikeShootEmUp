@@ -16,5 +16,11 @@ MonoBehaviour:
     x: 0
     y: 0
   formations:
-  - {fileID: 11400000, guid: d6786ed5e759aa94a89d39cd2cf95c04, type: 2}
-  - {fileID: 11400000, guid: 194bbb3e81222cd4491fd10988335c57, type: 2}
+  - formation_Base: {fileID: 11400000, guid: d6786ed5e759aa94a89d39cd2cf95c04, type: 2}
+    positionOffset:
+      x: 0
+      y: 0
+  - formation_Base: {fileID: 11400000, guid: 194bbb3e81222cd4491fd10988335c57, type: 2}
+    positionOffset:
+      x: 0
+      y: 0

@@ -19,8 +19,6 @@ public class Formation : Formation_Base
         public float2 positionOffset;
     }
 
-
-    // Actual stack: not a copy
     public override bool IsComplete(ref Stack<int> occurredBursts)
     {
         var my_occuredBursts = occurredBursts.Pop();

@@ -30,8 +30,9 @@ public abstract class Formation_Base : ScriptableObject
 
 
 [Serializable]
-public struct FormationWithOffset
+public struct FormationData
 {
-    public Formation_Base Formation_Base;
+    public Formation_Base formation_Base;
     public float2 positionOffset;
+    public bool reversed;
 }
