@@ -10,7 +10,8 @@ namespace Player
     public class P_Properties : ScriptableObject
     {
         public float moveSpeed, moveFriction, worldFriction, characterHeight,
-            jumpForce, moveMaxVelocity, moveAcceleration, gravityForce, groundCheckDistance, quickStepForce, dashMaxVelocity, dashSpeed;
+            jumpForce, moveMaxVelocity, moveAcceleration, gravityForce, groundCheckDistance, quickStepForce, 
+            dashMaxVelocity, dashSpeed, transformQSModifier, transformDFModifier, transformDMModifier, transformMMModifier, transformMSModifier;
 
     }
 }

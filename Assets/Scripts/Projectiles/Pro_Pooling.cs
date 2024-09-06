@@ -8,7 +8,6 @@ public class ProPooling
     private int maxPoolSize = 999;
     private float2 yBounds = new float2(), xBounds = new float2();
 
-
     private ObjectPool<Pro_Controller> projectilePool;
 
     public void ClearPool() => projectilePool.ReturnAllToPool();

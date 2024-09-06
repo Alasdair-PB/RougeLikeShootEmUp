@@ -1,4 +1,6 @@
+using GluonGui.WorkspaceWindow.Views.WorkspaceExplorer.Explorer;
 using UnityEngine;
+using static Codice.Client.Common.EventTracking.TrackFeatureUseEvent.Features.DesktopGUI.Filters;
 
 namespace Player
 {
@@ -6,6 +8,7 @@ namespace Player
     public class P_Collision : MonoBehaviour
     {
         private P_Actions pActions;
+        private static string groundTag = "Ground", projectileObject = "DamageObject";
         [SerializeField] private LayerMask damageMask;
 
         private void Awake()
@@ -15,24 +18,52 @@ namespace Player
         
         private void OnEnable()
         {
-            pActions.OnCollision += OnCollision;
+            pActions.OnCollisionEnter += OnCollisionProjectileCheck;
+            pActions.OnCollisionExit += OnCollisionExitGroundCheck;
+            pActions.OnCollisionEnter += OnCollisionEnterGroundCheck;
+            pActions.OnCollisionStay += OnCollisionEnterGroundCheck;
         }
 
         private void OnDisable()
         {
-            pActions.OnCollision -= OnCollision;
+            pActions.OnCollisionEnter -= OnCollisionProjectileCheck;
+            pActions.OnCollisionExit -= OnCollisionExitGroundCheck;
+            pActions.OnCollisionEnter -= OnCollisionEnterGroundCheck;
+            pActions.OnCollisionStay -= OnCollisionEnterGroundCheck;
+
         }
 
-
         private void OnTriggerEnter(Collider other)
-            => pActions.OnCollision?.Invoke(other);
-        
-
-        //private void OnTriggerStay(Collider other)
-        //    => pActions.OnCollision?.Invoke(other);
-
-        public void OnCollision(Collider other)
         {
+            pActions.OnCollisionEnter?.Invoke(other);
+        }
+
+        private void OnTriggerStay(Collider other)
+            => pActions.OnCollisionStay?.Invoke(other);
+
+        private void OnTriggerExit(Collider other)
+        {
+            pActions.OnCollisionExit?.Invoke(other);
+        }
+
+        private void GroundCheck (bool enter, Collider other)
+        {
+
+            if (other.CompareTag(groundTag))
+            {
+                pActions.OnTransformEvent?.Invoke(enter);
+                return;
+            }
+        }
+
+        private void OnCollisionExitGroundCheck(Collider other) => GroundCheck(false, other);
+        private void OnCollisionEnterGroundCheck(Collider other) => GroundCheck(true, other);
+
+        private void OnCollisionProjectileCheck(Collider other)
+        {
+            if (!other.CompareTag(projectileObject))
+                return;
+
             Transform currentTransform = other.transform;
 
             while (currentTransform != null)
@@ -49,9 +80,5 @@ namespace Player
             }
             Debug.LogWarning("C_OnContact component not found in the hierarchy.");
         }
-
-
-
-
     }
 }

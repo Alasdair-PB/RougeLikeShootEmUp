@@ -2,6 +2,8 @@ using Player;
 using System;
 using Unity.Mathematics;
 using UnityEngine;
+using static Codice.Client.Common.Connection.AskCredentialsToUser;
+using static Player.P_ProjectileLauncher.PlayerWeapon;
 
 namespace Player
 {
@@ -15,6 +17,10 @@ namespace Player
         private int weaponIndex = 0;
         private float timeSinceLastFired;
         private LayerMask projectileMask;
+        private bool transformed; 
+
+        private void SetTransformed(bool state) => transformed = state;
+
 
         private void Awake()
         {
@@ -36,7 +42,14 @@ namespace Player
 
         private void OnEnable()
         {
+            actions.OnTransformEvent += SetTransformed;
             weaponIndex = 0;
+        }
+
+
+        private void OnDisable()
+        {
+            actions.OnTransformEvent -= SetTransformed;
         }
 
         private void Start()
@@ -47,10 +60,18 @@ namespace Player
         private void LaunchProjectile()
         {
             var weapon = weapons[weaponIndex];
-            for (int i = 0; i < weapon.formations.Length; i++) {
+            SetLaunchProperties(weapon.formations, weapon.projectilePrefab);
 
+            if (transformed)
+                SetLaunchProperties(weapon.addedFormations, weapon.projectilePrefab);
+        }
+
+        private void SetLaunchProperties(Variation[] formations, GameObject projectilePrefab)
+        {
+            for (int i = 0; i < formations.Length; i++)
+            {
                 var playerCurrentRotation = controller.GetProjectileDirctionFloat2();
-                float degrees = weapon.formations[i].angle;
+                float degrees = formations[i].angle;
                 float radians = degrees * Mathf.Deg2Rad;
 
                 float cos = Mathf.Cos(radians);
@@ -61,8 +82,8 @@ namespace Player
                     playerCurrentRotation.x * sin + playerCurrentRotation.y * cos
                 );
 
-                var position = controller.GetPosition() + weapon.formations[i].positionOffset;
-                var objectInPool = projectilePool.GetProjectilePool(weapon.projectilePrefab, 10, 999);
+                var position = controller.GetPosition() + formations[i].positionOffset;
+                var objectInPool = projectilePool.GetProjectilePool(projectilePrefab, 10, 999);
                 objectInPool.InstantiateProjectile(direction, projectileMask, position);
             }
         }
@@ -91,7 +112,8 @@ namespace Player
         public struct PlayerWeapon
         {
             public float burstInterval;
-            public Variation[] formations; 
+            public Variation[] formations;
+            public Variation[] addedFormations;
             public GameObject projectilePrefab;
 
             [Serializable]

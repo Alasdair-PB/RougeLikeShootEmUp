@@ -45,14 +45,9 @@ namespace Enemies
             eActions.OnDeath += enemyScheduler.CalculateEnemiesRemaining;
         }
 
-
         public void ReturnEnemy(E_Controller enemy)
         {
             enemyPool.ReturnToPool(enemy);
         }
-
-        // Finish this
-
-
     }
 }

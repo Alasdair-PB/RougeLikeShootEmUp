@@ -27,7 +27,7 @@ namespace Player
 
         private void OnEnable()
         {
-            my_playerActions.OnCollision += OnCollectibleCollision;
+            my_playerActions.OnCollisionEnter += OnCollectibleCollision;
             my_playerActions.TryCollect += BeginActiveCollection;
             my_playerActions.TryDrop += DropCollectible; 
             OnCollect += OnCollectible;
@@ -35,7 +35,7 @@ namespace Player
 
         private void OnDisable()
         {
-            my_playerActions.OnCollision -= OnCollectibleCollision;
+            my_playerActions.OnCollisionEnter -= OnCollectibleCollision;
             my_playerActions.TryCollect -= BeginActiveCollection;
             my_playerActions.TryDrop -= DropCollectible;
 

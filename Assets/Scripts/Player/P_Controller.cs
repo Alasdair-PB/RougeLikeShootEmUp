@@ -13,7 +13,7 @@ namespace Player
         [SerializeField] private Game game;
 
         private P_Actions pActions;
-        private bool isDashing;
+        private bool isDashing, isTransformed;
 
         /* Seperated out so players recieve immediate feedback on turning- while it would be more realistic for 
         delayed turning with velocity changes- it isn't fun for the player*/
@@ -22,9 +22,10 @@ namespace Player
 
         public float2 GetPosition() => new float2(transform.position.x, transform.position.y);
         public void OnDash(bool state) => isDashing = state;
+        public void SetTransformed(bool state) => isTransformed = state;
+
         public P_Properties GetP_Props() => pProps;
         public LayerMask GetC_Mask() => projectileMask;
-
 
         //[SerializeField] public UnityEvent DropEvent; // Alternative if events want to be serialized
 
@@ -43,6 +44,7 @@ namespace Player
             pActions.OnRespawn += Respawn;
             pActions.OnDashEvent += OnDash;
             pActions.OnDeath += DestroySelf;
+            pActions.OnTransformEvent += SetTransformed;
         }
 
         private void OnDisable()
@@ -52,6 +54,7 @@ namespace Player
             pActions.OnRespawn -= Respawn;
             pActions.OnDashEvent -= OnDash;
             pActions.OnDeath -= DestroySelf;
+            pActions.OnTransformEvent -= SetTransformed;
         }
 
 
@@ -81,14 +84,27 @@ namespace Player
         // Updates the walkVelocity by new player direction
         private void UpdateMoveVelocity()
         {
+            float maxMagnitude = 0;
+            float accModifier = 0;
 
+            if (isTransformed)
+            {
+                maxMagnitude = isDashing ? pProps.dashMaxVelocity * pProps.transformDMModifier
+                    : pProps.moveMaxVelocity * pProps.transformMMModifier;
+                accModifier = isDashing ? pProps.dashSpeed * pProps.transformDFModifier  // Wrong player stat
+                    : pProps.moveSpeed * pProps.transformMSModifier;
+            }
+            else
+            {
+                maxMagnitude = isDashing ? pProps.dashMaxVelocity : pProps.moveMaxVelocity;
+                accModifier = isDashing ? pProps.dashSpeed : pProps.moveSpeed;
+            }
 
-            Vector3 acceleration = (isDashing ? pProps.dashSpeed : pProps.moveSpeed) * GetDirctionVector3();
-
+            Vector3 acceleration = accModifier * GetDirctionVector3();
             Vector3 updatedVelocity = moveVelocity + acceleration;
-
             updatedVelocity *= pProps.moveFriction;
-            updatedVelocity = Vector3.ClampMagnitude(updatedVelocity, (isDashing ? pProps.dashMaxVelocity : pProps.moveMaxVelocity));
+
+            updatedVelocity = Vector3.ClampMagnitude(updatedVelocity, maxMagnitude);
 
             moveVelocity = updatedVelocity;
         }
@@ -101,7 +117,8 @@ namespace Player
 
         private void QuickStep()
         {
-            ApplyExternalForce(direction, pProps.quickStepForce);
+            var qsForce = isTransformed ? pProps.quickStepForce * pProps.transformQSModifier : pProps.quickStepForce;
+            ApplyExternalForce(direction, qsForce);
         }
 
 

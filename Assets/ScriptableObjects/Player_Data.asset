@@ -24,3 +24,8 @@ MonoBehaviour:
   quickStepForce: 15
   dashMaxVelocity: 6
   dashSpeed: 6
+  transformQSModifier: 1
+  transformDFModifier: 1.3
+  transformDMModifier: 1.3
+  transformMMModifier: 1.3
+  transformMSModifier: 1.3
