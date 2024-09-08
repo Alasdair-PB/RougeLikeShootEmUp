@@ -68,6 +68,32 @@ public class ObjectPool<T> where T : Component
         }
     }
 
+    public void MoveAlongPath(T instance, float elapsedTime, PatternBase pattern, float speed, float2 direction)
+    {
+        float2 nextPos = new float2(instance.transform.position.x, instance.transform.position.y);
+        nextPos = pattern.MoveInDirection(nextPos, direction, speed, elapsedTime);
+        UpdatePosition(nextPos, instance.transform);
+    }
+
+    private void UpdatePosition(float2 nextPos, UnityEngine.Transform myTransform)
+    {
+        myTransform.position = new Vector3(nextPos.x, nextPos.y, myTransform.position.z);
+    }
+
+    public void MoveAllAlongPath(float elapsedTime, PatternBase pattern, float speed, float2 direction)
+    {
+        if (parent == null)
+            return;
+
+        T[] instances = parent == null ? Object.FindObjectsOfType<T>() : parent.GetComponentsInChildren<T>(true);
+
+        foreach (T instance in instances)
+        {
+            MoveAlongPath(instance, elapsedTime, pattern, speed, direction);
+        }
+    }
+
+
     public void ReturnAllToPool()
     {
         if (parent == null)

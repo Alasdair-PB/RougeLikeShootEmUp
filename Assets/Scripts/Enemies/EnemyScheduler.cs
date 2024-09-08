@@ -15,33 +15,17 @@ namespace Enemies
         private int[] activeBackgroundCount; 
 
         [SerializeField] Game game; 
-        [SerializeField] float2 xBounds, yBounds;
+        [SerializeField] float2 xBounds, yBounds, xBoundBackground, yBoundsBackground;
+        [SerializeField] PatternBase pattern;
+        [SerializeField] float backgroundSpeed;
+        [SerializeField] float2 backgroundDirection;
 
         private int index, backgroundIndex, enemyCount, enemiesDestroyed;
-        private float startTime, pauseTime, bPauseTime;
+        private float startTime, pauseTime, bPauseTime, bStartTime, elaspedTime;
 
-        private Dictionary<GameObject, EnemyPooling> globalObjectPool = new Dictionary<GameObject, EnemyPooling>();
-        private Dictionary<GameObject, Background_Pooling> globalBackgroundPool = new Dictionary<GameObject, Background_Pooling>();
+        private Dictionary<GameObject, IObjectPools> globalObjectPool = new Dictionary<GameObject, IObjectPools>();
+        private Dictionary<GameObject, IObjectPools> globalPathedObjectPool = new Dictionary<GameObject, IObjectPools>();
 
-        public EnemyPooling GetObjectPool(GameObject prefab, int initialCapacity, int maxCapacity, Transform parent = null)
-        {
-            if (!globalObjectPool.ContainsKey(prefab))
-            {
-                EnemyPooling newPool = new EnemyPooling(prefab, initialCapacity, maxCapacity, parent);
-                globalObjectPool[prefab] = newPool;
-            }
-            return globalObjectPool[prefab];
-        }
-
-        public Background_Pooling GetObjectBackgroundPool(GameObject prefab, int initialCapacity, int maxCapacity, Transform parent = null)
-        {
-            if (!globalBackgroundPool.ContainsKey(prefab))
-            {
-                Background_Pooling newPool = new Background_Pooling(prefab, initialCapacity, maxCapacity, parent);
-                globalBackgroundPool[prefab] = newPool;
-            }
-            return globalBackgroundPool[prefab];
-        }
 
         private void OnEnable()
         {
@@ -61,8 +45,7 @@ namespace Enemies
             {
                 item.Value.ClearPool();
             }
-
-            foreach (var item in globalBackgroundPool)
+            foreach (var item in globalPathedObjectPool)
             {
                 item.Value.ClearPool();
             }
@@ -70,8 +53,8 @@ namespace Enemies
 
         private void Awake()
         {
-            schedule = organizeSchedule(schedule);
-            backgroundSchedule = organizeSchedule(backgroundSchedule);
+            organizeSchedule(schedule); 
+            organizeSchedule(backgroundSchedule); 
             enemyCount = GetEnemyCount();
             activeBackgroundCount = new int[backgroundSchedule.Length]; 
         }
@@ -80,9 +63,11 @@ namespace Enemies
         {
             enemiesDestroyed = 0;
             index = 0;
+            backgroundIndex = 0;
             pauseTime = 0;
             bPauseTime = 0;
             startTime = Time.time;
+            bStartTime = Time.time;
         }
 
         private void Start()
@@ -103,60 +88,52 @@ namespace Enemies
 
         private void FixedUpdate()
         {
-            var time = Time.time - startTime;
+            if (index <= schedule.Length - 1)
+                SpawnItemOnSchedule(Time.time - startTime, ref pauseTime, ref startTime, ref index, schedule, true);
+            
+            if (backgroundIndex <= backgroundSchedule.Length - 1)
+                SpawnItemOnSchedule(Time.time - bStartTime, ref bPauseTime, ref bStartTime, ref backgroundIndex, backgroundSchedule, false);
 
-            if (index > schedule.Length - 1 && backgroundIndex > backgroundSchedule.Length - 1)
-                return;
-            SpawnEnemyOnSchedule(time);
-            SpawnBackgroundOnSchedule(time);
-            UpdateActiveBackgroundElements();
+            UpdateActiveElementsOnPath();
         }
 
-        private void SpawnEnemyOnSchedule(float time)
+        public IObjectPools GetObjectPool(Dictionary<GameObject, IObjectPools> myObjectPool,GameObject prefab, int initialCapacity, int maxCapacity, bool enemy, Transform parent = null)
         {
-            if (!schedule[index].active)
+            if (!myObjectPool.ContainsKey(prefab))
             {
-                index++;
-                return;
-            }
+                IObjectPools newPool;
 
-            if (schedule[index].timeStamp < time)
-            {
-                if (enemiesDestroyed >= schedule[index].spawnOnXEnemiesDefeated)
-                {
-                    if (pauseTime > 0)
-                        startTime = (Time.time - pauseTime) + startTime;
+                if (enemy)
+                    newPool = new EnemyPooling(prefab, initialCapacity, maxCapacity, parent, xBounds, yBounds);
+                else
+                    newPool = new Background_Pooling(prefab, initialCapacity, maxCapacity, parent, xBoundBackground, yBoundsBackground);
 
-                    SpawnEnemy();
-                    pauseTime = 0;
-                    index++;
-                }
-                else if (!(pauseTime > 0))
-                    pauseTime = Time.time;
+                myObjectPool[prefab] = newPool;
             }
+            return myObjectPool[prefab];
         }
 
-        private void SpawnBackgroundOnSchedule(float time)
+        private void SpawnItemOnSchedule(float time, ref float pauseTimer, ref float myStartTime, ref int indexVal, IScheduleItem[] mySchedule, bool enemy)
         {
-            if (!backgroundSchedule[backgroundIndex].active)
+            if (!mySchedule[indexVal].active)
             {
-                backgroundIndex++;
+                indexVal++;
                 return;
             }
 
-            if (backgroundSchedule[backgroundIndex].timeStamp < time)
+            if (mySchedule[indexVal].timeStamp < time)
             {
-                if (enemiesDestroyed >= backgroundSchedule[backgroundIndex].spawnOnXEnemiesDefeated)
+                if (enemiesDestroyed >= mySchedule[indexVal].spawnOnXEnemiesDefeated)
                 {
-                    if (bPauseTime > 0)
-                        startTime = (Time.time - bPauseTime) + startTime;
+                    if (pauseTimer > 0)
+                        myStartTime = (Time.time - pauseTimer) + myStartTime;
 
-                    SpawnBackgroundItem();
-                    bPauseTime = 0;
-                    backgroundIndex++;
+                    SpawnObject(indexVal, mySchedule, enemy);
+                    pauseTimer = 0;
+                    indexVal++;
                 }
-                else if (!(bPauseTime > 0))
-                    bPauseTime = Time.time;
+                else if (!(pauseTimer > 0))
+                    pauseTimer = Time.time;
             }
         }
 
@@ -167,63 +144,58 @@ namespace Enemies
                 game.EndGame?.Invoke(true);
         }
 
-        private EnemySchedule[] organizeSchedule(EnemySchedule[] enemySchedule)
+        private IScheduleItem[] organizeSchedule(IScheduleItem[] mySchedule)
         {
-            Array.Sort(enemySchedule, (a, b) => a.timeStamp.CompareTo(b.timeStamp));
-            return enemySchedule;
+            Array.Sort(mySchedule, (a, b) => a.timeStamp.CompareTo(b.timeStamp));
+            return mySchedule;
         }
 
-        private BackgroundSchedule[] organizeSchedule(BackgroundSchedule[] backgroundSchedule)
+
+        private void SpawnObject(int indexVal, IScheduleItem[] mySchedule, bool enemy)
         {
-            Array.Sort(backgroundSchedule, (a, b) => a.timeStamp.CompareTo(b.timeStamp));
-            return backgroundSchedule;
+            var item = mySchedule[indexVal];
+            IObjectPools objectInPool;
+
+            if (enemy)
+                objectInPool = GetObjectPool(globalObjectPool, prefabs[item.index], 1, 999, enemy, this.transform);
+            else
+                objectInPool = GetObjectPool(globalPathedObjectPool, backgroundPrefabs[item.index], 1, 999, enemy, this.transform);
+            objectInPool.InstantiateObject(item.direction, item.spawnPosition, this);
         }
 
-        private void SpawnBackgroundItem()
+        private void UpdateActiveElementsOnPath()
         {
-            var scheduledBackgroundItem = backgroundSchedule[backgroundIndex];
-            var objectInPool = GetObjectBackgroundPool(prefabs[scheduledBackgroundItem.backgroundIndex], 1, 999, this.transform);
-            objectInPool.InstantiateBackground(scheduledBackgroundItem.direction, scheduledBackgroundItem.spawnPosition);
-            // Add background item to tracked list
+            elaspedTime += Time.deltaTime;
+            foreach (var item in globalPathedObjectPool)
+            {
+                item.Value.MoveAllAlongPath(elaspedTime, pattern, backgroundSpeed, backgroundDirection);
+            }
         }
-
-        private void UpdateActiveBackgroundElements()
+        [Serializable]
+        public class EnemySchedule : IScheduleItem
         {
-            // Get Tracked list
-            // Move background items back based on Pattern
-            // Check if backgrond items leave x/y bounds
-            // Respawn items 
-        }
-
-        private void SpawnEnemy()
-        {
-            var scheduledEnemy = schedule[index];
-            var objectInPool = GetObjectPool(prefabs[scheduledEnemy.enemyIndex], 1, 999, this.transform);
-            objectInPool.InstantiateEnemy(scheduledEnemy.direction, scheduledEnemy.spawnPosition, xBounds, yBounds, this);
+            public bool flipOnX, flipOnY;
         }
 
         [Serializable]
-        public struct EnemySchedule
-        {
-            public bool active, flipOnX, flipOnY;
-            public int enemyIndex;
-            public float timeStamp;
-            public int spawnOnXEnemiesDefeated; 
-            public float2 direction;
-            public float2 spawnPosition;
-        }
-
-        [Serializable]
-        public struct BackgroundSchedule
+        public class BackgroundSchedule : IScheduleItem
         {
             public int waitOnEnemyScheduleIndex; //0 will require no waiting- refers to organized scheule rather than serialized one
-            public int spawnOnXEnemiesDefeated, stopSpawnOnXEnemiesDefeated, backgroundIndex;
-            public float timeStamp, respawnTime, stopAtTimeStamp;
+            public int stopSpawnOnXEnemiesDefeated;
+            public float respawnTime, stopAtTimeStamp;
             public int repeatCount; // Ignored if looped
-            public bool active, loop, randomizePosition;
+            public bool loop, randomizePosition;
+        }
 
-            public float2 direction, spawnPosition;
-
+        public abstract class IScheduleItem
+        {
+            public int spawnOnXEnemiesDefeated;
+            public float timeStamp;
+            public bool active;
+            public bool moveAlongPath;
+            public int index;
+            public float2 direction;
+            public float2 spawnPosition;
         }
 
     }
