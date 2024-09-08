@@ -31,7 +31,7 @@ public class Background_Pooling : IObjectPools
         backgroundPool = new ObjectPool<BackgroundItem>(backgroundPrefab.GetComponent<BackgroundItem>(), initialPoolSize, maxPoolSize, transform);
     }
 
-    public void InstantiateObject(float2 direction,float2 position, EnemyScheduler enemyScheduler)
+    public void InstantiateObject(float2 direction, float2 position, bool flippedX, bool flippedY, EnemyScheduler enemyScheduler)
     {
         BackgroundItem backgroundItem = backgroundPool.Get();
         SetUpBackgroundItem(backgroundItem, direction, position);

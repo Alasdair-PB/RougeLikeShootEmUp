@@ -16,8 +16,10 @@ namespace Enemies
         private StackManager<int> actionIndexStack = new StackManager<int>();
         private StackManager<float> actionTimeStampStack = new StackManager<float>();
         private Stack<float> ex_ElapsedTime = new Stack<float>(new float[] { 0.0f });
+        private bool flipOnX, flipOnY;
 
-
+        public bool GetFlippedX() => flipOnX;
+        public bool GetFlippedY() => flipOnY;
 
         private Stack<int>[] burstCounter = new Stack<int>[5];  // Layer max for formations
 
@@ -38,6 +40,12 @@ namespace Enemies
         {
             this.xBounds = xBounds;
             this.yBounds = yBounds;
+        }
+
+        public void SetFlipped(bool flippedOnX, bool flippedOnY)
+        {
+            flipOnX = flippedOnX;
+            flipOnY = flippedOnY;
         }
 
 

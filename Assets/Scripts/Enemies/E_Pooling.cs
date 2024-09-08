@@ -32,17 +32,18 @@ namespace Enemies
             this.yBounds = yBounds;
         }
 
-        public void InstantiateObject(float2 direction, float2 position, EnemyScheduler enemyScheduler)
+        public void InstantiateObject(float2 direction, float2 position, bool flippedX, bool flippedY, EnemyScheduler enemyScheduler)
         {
             E_Controller enemy = enemyPool.Get(new float3 (position.x, position.y, 0));
-            SetUpEnemy(enemy, direction, position, xBounds, yBounds, enemyScheduler);
+            SetUpEnemy(enemy, direction, position, xBounds, yBounds, flippedX, flippedY, enemyScheduler);
         }
 
-        private void SetUpEnemy(E_Controller enemy, float2 direction, float2 position, float2 xBounds, float2 yBounds, EnemyScheduler enemyScheduler)
+        private void SetUpEnemy(E_Controller enemy, float2 direction, float2 position, float2 xBounds, float2 yBounds, 
+            bool flippedX, bool flippedY, EnemyScheduler enemyScheduler)
         {
-
             var eActions = enemy.transform.GetComponent<E_Actions>();
             enemy.SetBounds(xBounds, yBounds);
+            enemy.SetFlipped(flippedX, flippedY);
             eActions.OnDeath = null;
             eActions.OnDeath += ReturnEnemy;
             eActions.OnDeath += enemyScheduler.CalculateEnemiesRemaining;

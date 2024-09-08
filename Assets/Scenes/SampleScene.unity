@@ -300,6 +300,8 @@ MonoBehaviour:
   - spawnOnXEnemiesDefeated: 0
     timeStamp: 3
     active: 1
+    flipOnX: 0
+    flipOnY: 0
     moveAlongPath: 0
     index: 1
     direction:
@@ -308,11 +310,11 @@ MonoBehaviour:
     spawnPosition:
       x: 6
       y: 6
-    flipOnX: 0
-    flipOnY: 0
   - spawnOnXEnemiesDefeated: 1
     timeStamp: 6
     active: 1
+    flipOnX: 0
+    flipOnY: 0
     moveAlongPath: 0
     index: 0
     direction:
@@ -321,11 +323,11 @@ MonoBehaviour:
     spawnPosition:
       x: 4
       y: 1
-    flipOnX: 0
-    flipOnY: 0
   - spawnOnXEnemiesDefeated: 0
     timeStamp: 6
     active: 1
+    flipOnX: 0
+    flipOnY: 0
     moveAlongPath: 0
     index: 0
     direction:
@@ -333,12 +335,25 @@ MonoBehaviour:
       y: 0
     spawnPosition:
       x: -4
-      y: 4
-    flipOnX: 0
-    flipOnY: 0
+      y: 1
   - spawnOnXEnemiesDefeated: 3
     timeStamp: 8
     active: 1
+    flipOnX: 1
+    flipOnY: 0
+    moveAlongPath: 0
+    index: 1
+    direction:
+      x: 0
+      y: 0
+    spawnPosition:
+      x: -6
+      y: 6
+  - spawnOnXEnemiesDefeated: 3
+    timeStamp: 8
+    active: 1
+    flipOnX: 0
+    flipOnY: 0
     moveAlongPath: 0
     index: 1
     direction:
@@ -347,24 +362,11 @@ MonoBehaviour:
     spawnPosition:
       x: 6
       y: 6
-    flipOnX: 0
-    flipOnY: 0
-  - spawnOnXEnemiesDefeated: 3
-    timeStamp: 8
-    active: 1
-    moveAlongPath: 0
-    index: 1
-    direction:
-      x: 0
-      y: 0
-    spawnPosition:
-      x: 6
-      y: 2
-    flipOnX: 0
-    flipOnY: 0
   - spawnOnXEnemiesDefeated: 5
     timeStamp: 9
     active: 1
+    flipOnX: 0
+    flipOnY: 0
     moveAlongPath: 0
     index: 2
     direction:
@@ -373,12 +375,12 @@ MonoBehaviour:
     spawnPosition:
       x: 0
       y: 1
-    flipOnX: 0
-    flipOnY: 0
   backgroundSchedule:
   - spawnOnXEnemiesDefeated: 0
     timeStamp: 2
     active: 1
+    flipOnX: 0
+    flipOnY: 0
     moveAlongPath: 0
     index: 0
     direction:
@@ -386,7 +388,7 @@ MonoBehaviour:
       y: 0
     spawnPosition:
       x: 0
-      y: 0
+      y: 7
     waitOnEnemyScheduleIndex: 0
     stopSpawnOnXEnemiesDefeated: 0
     respawnTime: 0

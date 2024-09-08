@@ -160,7 +160,7 @@ namespace Enemies
                 objectInPool = GetObjectPool(globalObjectPool, prefabs[item.index], 1, 999, enemy, this.transform);
             else
                 objectInPool = GetObjectPool(globalPathedObjectPool, backgroundPrefabs[item.index], 1, 999, enemy, this.transform);
-            objectInPool.InstantiateObject(item.direction, item.spawnPosition, this);
+            objectInPool.InstantiateObject(item.direction, item.spawnPosition, item.flipOnX, item.flipOnY, this);
         }
 
         private void UpdateActiveElementsOnPath()
@@ -172,10 +172,7 @@ namespace Enemies
             }
         }
         [Serializable]
-        public class EnemySchedule : IScheduleItem
-        {
-            public bool flipOnX, flipOnY;
-        }
+        public class EnemySchedule : IScheduleItem { }
 
         [Serializable]
         public class BackgroundSchedule : IScheduleItem
@@ -191,8 +188,7 @@ namespace Enemies
         {
             public int spawnOnXEnemiesDefeated;
             public float timeStamp;
-            public bool active;
-            public bool moveAlongPath;
+            public bool active, flipOnX, flipOnY, moveAlongPath;
             public int index;
             public float2 direction;
             public float2 spawnPosition;
