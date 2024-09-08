@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
+
 namespace Enemies
 {
     public class EnemyScheduler : MonoBehaviour
@@ -10,8 +11,8 @@ namespace Enemies
         [SerializeField] private GameObject[] prefabs;
         [SerializeField] private GameObject[] backgroundPrefabs;
 
-        [SerializeField] EnemySchedule[] schedule;
-        [SerializeField] BackgroundSchedule[] backgroundSchedule;
+        [SerializeField] SingleScheduleGroup[] schedule;
+        [SerializeField] ContinousScheduleGroup[] backgroundSchedule;
         private int[] activeBackgroundCount; 
 
         [SerializeField] Game game; 
@@ -20,9 +21,11 @@ namespace Enemies
         [SerializeField] float backgroundSpeed;
         [SerializeField] float2 backgroundDirection;
 
-        private int index, backgroundIndex, enemyCount, enemiesDestroyed;
-        private float startTime, pauseTime, bPauseTime, bStartTime, elaspedTime;
+        private int index, backgroundIndex, backgroundCheckIndex, enemyCount, enemiesDestroyed;
+        private float startTime, pauseTime, bPauseTime, bStartTime, elaspedTime, nextSpawnTime, lastSpawnTime;
+        private System.Random random;
 
+        private bool beginSpawn = false;
         private Dictionary<GameObject, IObjectPools> globalObjectPool = new Dictionary<GameObject, IObjectPools>();
         private Dictionary<GameObject, IObjectPools> globalPathedObjectPool = new Dictionary<GameObject, IObjectPools>();
 
@@ -63,11 +66,16 @@ namespace Enemies
         {
             enemiesDestroyed = 0;
             index = 0;
-            backgroundIndex = 0;
+            backgroundIndex = -1;
+            backgroundCheckIndex = 0;
             pauseTime = 0;
             bPauseTime = 0;
             startTime = Time.time;
             bStartTime = Time.time;
+            beginSpawn = false;
+            nextSpawnTime = 0;
+            lastSpawnTime = 0;
+            elaspedTime = 0;
         }
 
         private void Start()
@@ -81,23 +89,45 @@ namespace Enemies
             for (int i = 0; i < schedule.Length; i++)
             {
                 if (schedule[i].active)
-                    count++;
+                {
+                    for (int j = 0; j < schedule[i].group.GetPrefabGroup().Length; j ++) 
+                    {
+                        count++;
+                    }
+                }
+                   
             }
             return count;
         }
 
         private void FixedUpdate()
         {
-            if (index <= schedule.Length - 1)
-                SpawnItemOnSchedule(Time.time - startTime, ref pauseTime, ref startTime, ref index, schedule, true);
-            
-            if (backgroundIndex <= backgroundSchedule.Length - 1)
-                SpawnItemOnSchedule(Time.time - bStartTime, ref bPauseTime, ref bStartTime, ref backgroundIndex, backgroundSchedule, false);
+            if (index <= schedule.Length - 1 && UpdateItemSchedule(Time.time - startTime, 
+                ref pauseTime, ref startTime, ref index, schedule, true))
+            {
+                SpawnSingleObject(index, schedule, true);
+                index++;
+            }
+
+            if (backgroundCheckIndex <= backgroundSchedule.Length - 1)
+            {
+                if (UpdateItemSchedule(Time.time - bStartTime, ref bPauseTime, ref bStartTime,
+                    ref backgroundCheckIndex, backgroundSchedule, true))
+                {
+                    backgroundIndex++;
+                    backgroundCheckIndex++;
+                }
+            }
+            if (backgroundIndex <= backgroundSchedule.Length - 1) { 
+                if (backgroundIndex >= 0)
+                    SpawnContinuousObjects(backgroundIndex, backgroundSchedule, false);
+            }
 
             UpdateActiveElementsOnPath();
         }
 
-        public IObjectPools GetObjectPool(Dictionary<GameObject, IObjectPools> myObjectPool,GameObject prefab, int initialCapacity, int maxCapacity, bool enemy, Transform parent = null)
+        public IObjectPools GetObjectPool(Dictionary<GameObject, IObjectPools> myObjectPool,GameObject prefab, int initialCapacity, 
+            int maxCapacity, bool enemy, Transform parent = null)
         {
             if (!myObjectPool.ContainsKey(prefab))
             {
@@ -113,12 +143,13 @@ namespace Enemies
             return myObjectPool[prefab];
         }
 
-        private void SpawnItemOnSchedule(float time, ref float pauseTimer, ref float myStartTime, ref int indexVal, IScheduleItem[] mySchedule, bool enemy)
+        private bool UpdateItemSchedule(float time, ref float pauseTimer, ref float myStartTime, ref int indexVal, 
+            IScheduleItem[] mySchedule, bool enemy)
         {
             if (!mySchedule[indexVal].active)
             {
                 indexVal++;
-                return;
+                return false;
             }
 
             if (mySchedule[indexVal].timeStamp < time)
@@ -127,15 +158,17 @@ namespace Enemies
                 {
                     if (pauseTimer > 0)
                         myStartTime = (Time.time - pauseTimer) + myStartTime;
-
-                    SpawnObject(indexVal, mySchedule, enemy);
+                    
                     pauseTimer = 0;
-                    indexVal++;
+                    return true;
                 }
                 else if (!(pauseTimer > 0))
                     pauseTimer = Time.time;
             }
+
+            return false;
         }
+
 
         public void CalculateEnemiesRemaining(E_Controller e_Controller)
         {
@@ -150,17 +183,53 @@ namespace Enemies
             return mySchedule;
         }
 
-
-        private void SpawnObject(int indexVal, IScheduleItem[] mySchedule, bool enemy)
+        private void SpawnObject(bool enemy, PrefabGroup[] myGroup, int i, float2 positionModifier)
         {
-            var item = mySchedule[indexVal];
+            var info = myGroup[i];
             IObjectPools objectInPool;
 
             if (enemy)
-                objectInPool = GetObjectPool(globalObjectPool, prefabs[item.index], 1, 999, enemy, this.transform);
+                objectInPool = GetObjectPool(globalObjectPool, prefabs[info.index], 1, 999, enemy, this.transform);
             else
-                objectInPool = GetObjectPool(globalPathedObjectPool, backgroundPrefabs[item.index], 1, 999, enemy, this.transform);
-            objectInPool.InstantiateObject(item.direction, item.spawnPosition, item.flipOnX, item.flipOnY, this);
+                objectInPool = GetObjectPool(globalPathedObjectPool, backgroundPrefabs[info.index], 1, 999, enemy, this.transform);
+            objectInPool.InstantiateObject(info.direction, info.spawnPosition + positionModifier, info.flipOnX, info.flipOnY, this);
+        }
+
+        private void SpawnSingleObject(int indexVal, SingleScheduleGroup[] mySchedule, bool enemy)
+        {
+            var item = mySchedule[indexVal];
+            var myGroup = mySchedule[indexVal].group.GetPrefabGroup();
+
+            for (int i = 0; i < myGroup.Length; i ++)
+            {
+                SpawnObject(enemy, myGroup, i, float2.zero);
+            }
+        }
+
+        private void InitializeRandomSeed(int seed)
+        {
+            random = new System.Random(seed);
+        }
+
+        private void SpawnContinuousObjects(int indexVal, ContinousScheduleGroup[] mySchedule, bool enemy)
+        {
+            var item = mySchedule[indexVal];
+
+            if (Time.time - lastSpawnTime <= nextSpawnTime)
+                return;
+
+            InitializeRandomSeed((int)DateTime.Now.Ticks);
+            nextSpawnTime = (float)random.NextDouble() * (item.maxSpawnWait - item.minSpawnWait) + item.minSpawnWait;
+            lastSpawnTime = Time.time;
+            var myGroup = item.group.GetPrefabGroup();
+            var i = random.Next(0, myGroup.Length);
+
+            var myGroupAsCont = item.group.GetContPrefabGroup()[i];
+
+            var spawnModifierX = (float)random.NextDouble() * (myGroupAsCont.maxPos.x - myGroupAsCont.minPos.x) + myGroupAsCont.minPos.x;
+            var spawnModifierY = (float)random.NextDouble() * (myGroupAsCont.maxPos.y - myGroupAsCont.minPos.y) + myGroupAsCont.minPos.y;
+
+            SpawnObject(enemy, myGroup, i, new float2(spawnModifierX, spawnModifierY));
         }
 
         private void UpdateActiveElementsOnPath()
@@ -171,27 +240,29 @@ namespace Enemies
                 item.Value.MoveAllAlongPath(elaspedTime, pattern, backgroundSpeed, backgroundDirection);
             }
         }
-        [Serializable]
-        public class EnemySchedule : IScheduleItem { }
 
         [Serializable]
-        public class BackgroundSchedule : IScheduleItem
+        public class SingleScheduleGroup : IScheduleItem
         {
-            public int waitOnEnemyScheduleIndex; //0 will require no waiting- refers to organized scheule rather than serialized one
-            public int stopSpawnOnXEnemiesDefeated;
-            public float respawnTime, stopAtTimeStamp;
-            public int repeatCount; // Ignored if looped
-            public bool loop, randomizePosition;
+            public OneTimePrefabGroup group;
         }
 
-        public abstract class IScheduleItem
+        [Serializable]
+        public class ContinousScheduleGroup : IScheduleItem
+        {
+            public ContinuousPrefabGroup group;
+
+            // Backgroup specific
+            public bool stopOnTimeOut, stopOnEnemiesOut;
+            public int stopSpawnOnXEnemiesDefeated, stopAtXTime, minSpawnWait, maxSpawnWait;
+        }
+
+        [Serializable]
+        public abstract class IScheduleItem 
         {
             public int spawnOnXEnemiesDefeated;
             public float timeStamp;
-            public bool active, flipOnX, flipOnY, moveAlongPath;
-            public int index;
-            public float2 direction;
-            public float2 spawnPosition;
+            public bool active;
         }
 
     }

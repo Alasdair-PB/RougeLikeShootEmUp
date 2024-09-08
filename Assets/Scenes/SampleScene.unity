@@ -296,106 +296,36 @@ MonoBehaviour:
   - {fileID: 9028484030733915984, guid: 54b756c6241aaac498c0f0ea13598d71, type: 3}
   backgroundPrefabs:
   - {fileID: 5981572770958375158, guid: f2268362b80269c4892bb9eabd163412, type: 3}
+  - {fileID: 7693732585258650334, guid: bfdd5e5ea2aefcd4e89d7ca8a3a26b5f, type: 3}
+  - {fileID: 2645497802472518955, guid: bca8785ddd155bc4086f0af5854bf787, type: 3}
   schedule:
   - spawnOnXEnemiesDefeated: 0
     timeStamp: 3
     active: 1
-    flipOnX: 0
-    flipOnY: 0
-    moveAlongPath: 0
-    index: 1
-    direction:
-      x: 0
-      y: 0
-    spawnPosition:
-      x: 6
-      y: 6
+    group: {fileID: 11400000, guid: 64b40ba16055eee49825a52559bc5907, type: 2}
   - spawnOnXEnemiesDefeated: 1
     timeStamp: 6
     active: 1
-    flipOnX: 0
-    flipOnY: 0
-    moveAlongPath: 0
-    index: 0
-    direction:
-      x: 0
-      y: 0
-    spawnPosition:
-      x: 4
-      y: 1
-  - spawnOnXEnemiesDefeated: 0
-    timeStamp: 6
-    active: 1
-    flipOnX: 0
-    flipOnY: 0
-    moveAlongPath: 0
-    index: 0
-    direction:
-      x: 0
-      y: 0
-    spawnPosition:
-      x: -4
-      y: 1
+    group: {fileID: 11400000, guid: 9bf9e9b9acf6ea443918047928c733cb, type: 2}
   - spawnOnXEnemiesDefeated: 3
     timeStamp: 8
     active: 1
-    flipOnX: 1
-    flipOnY: 0
-    moveAlongPath: 0
-    index: 1
-    direction:
-      x: 0
-      y: 0
-    spawnPosition:
-      x: -6
-      y: 6
-  - spawnOnXEnemiesDefeated: 3
-    timeStamp: 8
-    active: 1
-    flipOnX: 0
-    flipOnY: 0
-    moveAlongPath: 0
-    index: 1
-    direction:
-      x: 0
-      y: 0
-    spawnPosition:
-      x: 6
-      y: 6
+    group: {fileID: 11400000, guid: 7250a23e6c63d4f4fb714d4b814840a8, type: 2}
   - spawnOnXEnemiesDefeated: 5
     timeStamp: 9
     active: 1
-    flipOnX: 0
-    flipOnY: 0
-    moveAlongPath: 0
-    index: 2
-    direction:
-      x: 0
-      y: 0
-    spawnPosition:
-      x: 0
-      y: 1
+    group: {fileID: 11400000, guid: c01b47cb77eacf64588f3aa119b2f742, type: 2}
   backgroundSchedule:
   - spawnOnXEnemiesDefeated: 0
     timeStamp: 2
     active: 1
-    flipOnX: 0
-    flipOnY: 0
-    moveAlongPath: 0
-    index: 0
-    direction:
-      x: 0
-      y: 0
-    spawnPosition:
-      x: 0
-      y: 7
-    waitOnEnemyScheduleIndex: 0
+    group: {fileID: 11400000, guid: 4738ce0142772d7489c0f686fd09c37e, type: 2}
+    stopOnTimeOut: 0
+    stopOnEnemiesOut: 0
     stopSpawnOnXEnemiesDefeated: 0
-    respawnTime: 0
-    stopAtTimeStamp: 0
-    repeatCount: 0
-    loop: 0
-    randomizePosition: 0
+    stopAtXTime: 0
+    minSpawnWait: 2
+    maxSpawnWait: 5
   game: {fileID: 1244212848}
   xBounds:
     x: -10
