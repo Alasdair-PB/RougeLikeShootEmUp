@@ -315,6 +315,10 @@ MonoBehaviour:
     timeStamp: 9
     active: 1
     group: {fileID: 11400000, guid: c01b47cb77eacf64588f3aa119b2f742, type: 2}
+  - spawnOnXEnemiesDefeated: 6
+    timeStamp: 10
+    active: 1
+    group: {fileID: 11400000, guid: 6e7f67733e1f059488b2b48873ef0e49, type: 2}
   backgroundSchedule:
   - spawnOnXEnemiesDefeated: 0
     timeStamp: 2
@@ -324,7 +328,7 @@ MonoBehaviour:
     stopOnEnemiesOut: 0
     stopSpawnOnXEnemiesDefeated: 0
     stopAtXTime: 0
-    minSpawnWait: 2
+    minSpawnWait: 3
     maxSpawnWait: 5
   game: {fileID: 1244212848}
   xBounds:

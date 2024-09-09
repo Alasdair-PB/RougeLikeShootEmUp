@@ -10,16 +10,46 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5b0573b1404f7744aa83e227a44f1d7, type: 3}
-  m_Name: EnemiesD
+  m_Name: EnemiesE
   m_EditorClassIdentifier: 
   group:
-  - index: 2
+  - index: 1
     direction:
       x: 0
       y: 0
     spawnPosition:
-      x: 0
+      x: 6
       y: 6
     flipOnX: 0
     flipOnY: 0
+    moveAlongPath: 0
+  - index: 1
+    direction:
+      x: 0
+      y: 0
+    spawnPosition:
+      x: -6
+      y: 6
+    flipOnX: 1
+    flipOnY: 0
+    moveAlongPath: 0
+  - index: 1
+    direction:
+      x: 0
+      y: 0
+    spawnPosition:
+      x: 6
+      y: -5.3
+    flipOnX: 0
+    flipOnY: 1
+    moveAlongPath: 0
+  - index: 1
+    direction:
+      x: 0
+      y: 0
+    spawnPosition:
+      x: -6
+      y: -5.3
+    flipOnX: 1
+    flipOnY: 1
     moveAlongPath: 0

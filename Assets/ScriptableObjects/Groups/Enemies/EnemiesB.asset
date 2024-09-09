@@ -19,7 +19,7 @@ MonoBehaviour:
       y: 0
     spawnPosition:
       x: -4
-      y: 2
+      y: 6
     flipOnX: 0
     flipOnY: 0
     moveAlongPath: 0
@@ -29,7 +29,7 @@ MonoBehaviour:
       y: 0
     spawnPosition:
       x: 4
-      y: 2
+      y: 6
     flipOnX: 0
     flipOnY: 0
     moveAlongPath: 0

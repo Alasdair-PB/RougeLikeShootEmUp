@@ -137,6 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   e_Actions:
   - {fileID: 11400000, guid: c668d44280e6a4246b9fcc85d11300f2, type: 2}
+  introAction: {fileID: 11400000, guid: d4798960a345404408ecbcc65288287d, type: 2}
   escapeAction: {fileID: 0}
   escapeTime: 15
   decisionTickMin: 1

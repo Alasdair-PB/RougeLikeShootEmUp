@@ -9,6 +9,7 @@ namespace Enemies
     public class E_StateMachine : MonoBehaviour
     {
         [SerializeField] private E_Action[] e_Actions;
+        [SerializeField] private E_Action introAction; 
         [SerializeField] private E_Action escapeAction;
         [SerializeField] private float escapeTime = 15, decisionTickMin = 1f, decisionTickMax = 4f;
         [SerializeField] private bool escapes;
@@ -17,7 +18,7 @@ namespace Enemies
 
         private float repeatPriorityModifier = 0, timeSinceLastDecision, timeAtSpawned, decisionTick = .5f;
         private int lastActionIndex, currentActionIndex;
-        private bool escaping = false;
+        private bool escaping = false, onIntro = false;
 
         private GlobalPooling pooling;
         [SerializeField] LayerMask layerMask;
@@ -28,19 +29,24 @@ namespace Enemies
             timeSinceLastDecision = 0;
             timeAtSpawned = Time.time;
             escaping = false;
+            onIntro = false;
 
-            var e_Action = e_Actions[currentActionIndex];
-            SetNewAction(e_Action);
+            if (introAction == null)
+                SetNewAction(e_Actions[currentActionIndex]);
+            else
+            {
+                SetSpecifiedAction(introAction);
+                onIntro = true;
+            }
         }
 
         private void Awake()
         {
             escaping = false;
+            onIntro = false;
+
             pooling = FindAnyObjectByType<GlobalPooling>();
             controller = GetComponent<E_Controller>();
-
-            //var e_Action = e_Actions[currentActionIndex];        
-            //SetNewAction(e_Action);
         }
 
         protected void FixedUpdate()
@@ -55,6 +61,15 @@ namespace Enemies
                 escapeAction.TakeAction(controller, elapsedTime, layerMask, pooling);
                 if (escapeAction.IsComplete(controller, elapsedTime))
                     EscapeSetUp();
+                return;
+            } else if (onIntro)
+            {
+                introAction.TakeAction(controller, elapsedTime, layerMask, pooling);
+                if (!introAction.IsComplete(controller, elapsedTime)) 
+                    return;
+                onIntro = false;
+
+                SetNewAction(e_Actions[currentActionIndex]);
                 return;
             }
 
@@ -75,11 +90,16 @@ namespace Enemies
         private void EscapeSetUp()
         {
             escaping = true;
+            SetSpecifiedAction(escapeAction);
+        }
+
+        private void SetSpecifiedAction(E_Action e_Action)
+        {
             timeSinceLastDecision = Time.time;
-            escapeAction.SetUpFormations(controller);
+            e_Action.SetUpFormations(controller);
             controller.ClearActionStack();
             controller.ClearActionTimeStack();
-            escapeAction.SetUp(controller);
+            e_Action.SetUp(controller);
         }
 
         private void SetNewAction(E_Action e_Action)
