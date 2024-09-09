@@ -294,6 +294,7 @@ MonoBehaviour:
   - {fileID: 9028484030733915984, guid: a2511e85c48fa9e41b5a444e2b5893cc, type: 3}
   - {fileID: 9028484030733915984, guid: a9f3578ca2d34634b9eedd00c1a062cf, type: 3}
   - {fileID: 9028484030733915984, guid: 54b756c6241aaac498c0f0ea13598d71, type: 3}
+  - {fileID: 8430921940856600829, guid: 3629dd8f3b94d3d4ba142fc3d42ec270, type: 3}
   backgroundPrefabs:
   - {fileID: 5981572770958375158, guid: f2268362b80269c4892bb9eabd163412, type: 3}
   - {fileID: 7693732585258650334, guid: bfdd5e5ea2aefcd4e89d7ca8a3a26b5f, type: 3}
@@ -319,10 +320,18 @@ MonoBehaviour:
     timeStamp: 10
     active: 1
     group: {fileID: 11400000, guid: 6e7f67733e1f059488b2b48873ef0e49, type: 2}
+  - spawnOnXEnemiesDefeated: 8
+    timeStamp: 11
+    active: 1
+    group: {fileID: 11400000, guid: db5a02ac2fad83f42bbbfae097e466f2, type: 2}
+  - spawnOnXEnemiesDefeated: 8
+    timeStamp: 13
+    active: 1
+    group: {fileID: 11400000, guid: 9bf9e9b9acf6ea443918047928c733cb, type: 2}
   backgroundSchedule:
   - spawnOnXEnemiesDefeated: 0
     timeStamp: 2
-    active: 1
+    active: 0
     group: {fileID: 11400000, guid: 4738ce0142772d7489c0f686fd09c37e, type: 2}
     stopOnTimeOut: 0
     stopOnEnemiesOut: 0
@@ -344,7 +353,7 @@ MonoBehaviour:
     x: -10
     y: 10
   pattern: {fileID: 11400000, guid: 4c3d8d848459d7242820ba88dfef723a, type: 2}
-  backgroundSpeed: 1.5
+  backgroundSpeed: 0.75
   backgroundDirection:
     x: 0
     y: -1

@@ -13,8 +13,16 @@ namespace Enemies
 
         private ObjectPool<E_Controller> enemyPool; // May want statemachine instead
         public void ClearPool() => enemyPool.ReturnAllToPool();
-        public void MoveAllAlongPath(float elaspedTime, PatternBase pattern, float speed, float2 direction) 
-            => enemyPool.MoveAllAlongPath(elaspedTime, pattern, speed, direction);
+        public void MoveAllAlongPath(float elapsedTime, PatternBase pattern, float speed, float2 direction)
+        {
+            var items = enemyPool.GetAllOfType();
+            foreach(var instance in items)
+            {
+                float2 nextPos = new float2(instance.transform.position.x, instance.transform.position.y);
+                nextPos = pattern.MoveInDirection(nextPos, direction, speed, elapsedTime);
+                instance.SetNextPosition(nextPos);
+            }
+        }
 
         public EnemyPooling(GameObject prefab, int initialCapacity, int maxCapacity, Transform parent, float2 xBounds, float2 yBounds)
         {

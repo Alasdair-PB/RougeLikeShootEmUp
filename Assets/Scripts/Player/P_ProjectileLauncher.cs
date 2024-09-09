@@ -2,7 +2,6 @@ using Player;
 using System;
 using Unity.Mathematics;
 using UnityEngine;
-using static Codice.Client.Common.Connection.AskCredentialsToUser;
 using static Player.P_ProjectileLauncher.PlayerWeapon;
 
 namespace Player

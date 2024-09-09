@@ -75,6 +75,7 @@ public class ObjectPool<T> where T : Component
         UpdatePosition(nextPos, instance.transform);
     }
 
+
     private void UpdatePosition(float2 nextPos, UnityEngine.Transform myTransform)
     {
         myTransform.position = new Vector3(nextPos.x, nextPos.y, myTransform.position.z);
@@ -91,6 +92,15 @@ public class ObjectPool<T> where T : Component
         {
             MoveAlongPath(instance, elapsedTime, pattern, speed, direction);
         }
+    }
+
+    public T[] GetAllOfType()
+    {
+        if (parent == null)
+            return null;
+
+        T[] instances = parent == null ? Object.FindObjectsOfType<T>() : parent.GetComponentsInChildren<T>(true);
+        return instances;
     }
 
 

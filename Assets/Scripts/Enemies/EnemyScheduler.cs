@@ -189,9 +189,15 @@ namespace Enemies
             IObjectPools objectInPool;
 
             if (enemy)
-                objectInPool = GetObjectPool(globalObjectPool, prefabs[info.index], 1, 999, enemy, this.transform);
+            {
+                if (info.moveAlongPath)
+                    objectInPool = GetObjectPool(globalPathedObjectPool, prefabs[info.index], 1, 999, enemy, this.transform);
+                else
+                    objectInPool = GetObjectPool(globalObjectPool, prefabs[info.index], 1, 999, enemy, this.transform);
+            }
             else
                 objectInPool = GetObjectPool(globalPathedObjectPool, backgroundPrefabs[info.index], 1, 999, enemy, this.transform);
+
             objectInPool.InstantiateObject(info.direction, info.spawnPosition + positionModifier, info.flipOnX, info.flipOnY, this);
         }
 
