@@ -67,6 +67,7 @@ namespace Player
         {
             this.gameObject.SetActive(true);
             transform.position = startPos;
+            pActions.OnTransformEvent?.Invoke(false);
             // Reset health
         }
 
@@ -147,7 +148,7 @@ namespace Player
         // Updates on input
         private void Update()
         {
-            UpdateRotation();
+            //UpdateRotation();
         }
 
         void FixedUpdate()
