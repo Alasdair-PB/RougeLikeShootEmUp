@@ -446,7 +446,7 @@ MonoBehaviour:
     x: -9
     y: 9
   yBounds:
-    x: -4.2
+    x: -4.4
     y: 5.5
 --- !u!114 &470575812
 MonoBehaviour:

@@ -129,8 +129,8 @@ namespace Player
         private void ApplyForces()
         {
             Vector3 totalVelocity = (moveVelocity + externalVelocity) * Time.deltaTime;
-            totalVelocity = ApplyBoundaries(totalVelocity);
-            transform.position += totalVelocity;
+            var nextPos = ApplyBoundaries(totalVelocity + transform.position);
+            transform.position = nextPos;
             externalVelocity = Vector3.Lerp(externalVelocity, Vector3.zero, pProps.worldFriction);
 
         }
@@ -142,16 +142,19 @@ namespace Player
 
 
         // Stops the player exiting a fixed boundary box
-        private float3 ApplyBoundaries(float3 totalVelocity)
+        private float3 ApplyBoundaries(float3 nextPos)
         {
-            var nextPos = new float3(transform.position.x, transform.position.y, transform.position.z) + totalVelocity;
-            if (nextPos.x < xBounds.x || nextPos.x > xBounds.y)
-                totalVelocity.x = 0;
+            if (nextPos.x < xBounds.x)
+                nextPos.x = xBounds.x;
+            else if (nextPos.x > xBounds.y)
+                nextPos.x = xBounds.y;
 
-            if (nextPos.y < yBounds.x || nextPos.y > yBounds.y)
-                totalVelocity.y = 0;
+            if (nextPos.y < yBounds.x)
+                nextPos.y = yBounds.x;
+            else if (nextPos.y > yBounds.y)
+                nextPos.y = yBounds.y;
 
-            return totalVelocity;
+            return nextPos;
         }
 
         // Updates on input
