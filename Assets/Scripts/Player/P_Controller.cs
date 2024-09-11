@@ -12,6 +12,8 @@ namespace Player
         [SerializeField] private P_Properties pProps;
         [SerializeField] private Game game;
 
+        [SerializeField] private float2 xBounds, yBounds;
+
         private P_Actions pActions;
         private bool isDashing, isTransformed;
 
@@ -126,9 +128,9 @@ namespace Player
         // Remove all vertical force when grounded otherwise slow momentum gradually and update position
         private void ApplyForces()
         {
-            Vector3 totalVelocity = moveVelocity + externalVelocity;
-
-            transform.position += totalVelocity * Time.deltaTime;
+            Vector3 totalVelocity = (moveVelocity + externalVelocity) * Time.deltaTime;
+            totalVelocity = ApplyBoundaries(totalVelocity);
+            transform.position += totalVelocity;
             externalVelocity = Vector3.Lerp(externalVelocity, Vector3.zero, pProps.worldFriction);
 
         }
@@ -140,9 +142,16 @@ namespace Player
 
 
         // Stops the player exiting a fixed boundary box
-        private void ApplyBoundaries()
+        private float3 ApplyBoundaries(float3 totalVelocity)
         {
+            var nextPos = new float3(transform.position.x, transform.position.y, transform.position.z) + totalVelocity;
+            if (nextPos.x < xBounds.x || nextPos.x > xBounds.y)
+                totalVelocity.x = 0;
 
+            if (nextPos.y < yBounds.x || nextPos.y > yBounds.y)
+                totalVelocity.y = 0;
+
+            return totalVelocity;
         }
 
         // Updates on input

@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 814032017864675329}
   - component: {fileID: 7026460749390218700}
   - component: {fileID: 7566192385758309611}
+  - component: {fileID: 9161739937515082789}
   - component: {fileID: 5732195720662176119}
   - component: {fileID: -7233866259906299165}
   m_Layer: 1
@@ -137,6 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   e_Actions:
   - {fileID: 11400000, guid: 533508d75dac4014da0e562a69a1c565, type: 2}
+  introAction: {fileID: 0}
   escapeAction: {fileID: 11400000, guid: 533508d75dac4014da0e562a69a1c565, type: 2}
   escapeTime: 15
   decisionTickMin: 1
@@ -199,6 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85775a24a2a57404da22e3904f177d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileSpawnOffset: {fileID: 0}
 --- !u!114 &7566192385758309611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,6 +218,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   my_Results: []
+--- !u!114 &9161739937515082789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9028484030733915984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb0ed188804697b4da36349c8e893400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  e_Actions: {fileID: 0}
+  e_Controller: {fileID: 0}
 --- !u!65 &5732195720662176119
 BoxCollider:
   m_ObjectHideFlags: 0

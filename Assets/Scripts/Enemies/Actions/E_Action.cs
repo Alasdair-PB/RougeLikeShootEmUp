@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.Mathematics;
 
 namespace Enemies
 {
@@ -69,8 +70,9 @@ namespace Enemies
                 {
                     continue;
                 }
+
                 burstCounts[i] = projectileFormations[i].UpdateFormation(layerMask, ref burstCounts[i], elapsedTime, pooling,
-                    my_controller.GetCurrentPosition(), ref ex_elapsedTime, false);
+                    my_controller.GetProjectileSpawn(), ref ex_elapsedTime, false);
             }
 
             my_controller.SetBurstCounter(burstCounts);

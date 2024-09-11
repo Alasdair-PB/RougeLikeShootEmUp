@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 447046351827655569}
   - component: {fileID: -1651809374154119523}
   - component: {fileID: -6598739581510397884}
+  - component: {fileID: 4949243376394969458}
   - component: {fileID: -2339712085410229232}
   - component: {fileID: -3685891303990379413}
   m_Layer: 1
@@ -173,6 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85775a24a2a57404da22e3904f177d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileSpawnOffset: {fileID: 0}
 --- !u!114 &447046351827655569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,6 +218,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   my_Results: []
+--- !u!114 &4949243376394969458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9028484030733915984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb0ed188804697b4da36349c8e893400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  e_Actions: {fileID: 0}
+  e_Controller: {fileID: 0}
 --- !u!65 &-2339712085410229232
 BoxCollider:
   m_ObjectHideFlags: 0

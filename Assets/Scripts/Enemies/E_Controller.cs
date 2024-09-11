@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.Plastic.Newtonsoft.Json.Bson;
 using UnityEngine;
 
 namespace Enemies
 {
-
     [RequireComponent(typeof(E_Actions))]
     public class E_Controller : MonoBehaviour
     {
+        [SerializeField] private Transform projectileSpawnOffset;
+
         private E_Actions e_Actions;
         private float tolerance = .05f, moveVelocity = 3, timeAtLastAction;
         private float2 targetPos = new float2(), nextPos = new float2(), startPos, xBounds = new float2(), yBounds = new float2();
@@ -48,15 +50,18 @@ namespace Enemies
             flipOnY = flippedOnY;
         }
 
-
-        void FixedUpdate()
+        // Switched to collider check
+        private void CheckBounds()
         {
             if (nextPos.x < xBounds.x || nextPos.x > xBounds.y || nextPos.y < yBounds.x || nextPos.y > yBounds.y)
             {
                 e_Actions.OnDeath?.Invoke(this);
                 return;
             }
+        }
 
+        void FixedUpdate()
+        {
             UpdatePosition();
         }
 
@@ -68,6 +73,9 @@ namespace Enemies
         //-------------------------------------Position edits-----------------------------------------
         public float2 GetCurrentPosition()
         => new float2(transform.position.x, transform.position.y);
+
+        public float2 GetProjectileSpawn()
+            =>  projectileSpawnOffset == null ? GetCurrentPosition() : new float2(projectileSpawnOffset.position.x, projectileSpawnOffset.position.y);
         public bool IsAtPosition(float2 currentPos, float2 expectedPos)
             => math.distance(currentPos, expectedPos) <= tolerance;
         public float2 GetTargetPosition() => targetPos;
