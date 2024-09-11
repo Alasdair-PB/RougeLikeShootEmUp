@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BurstWait
   m_EditorClassIdentifier: 
   projectileFormations:
-  - {fileID: 11400000, guid: 0d6d42021578dcf49ba699ecc0a0654b, type: 2}
+  - {fileID: 11400000, guid: 9e1a96b9e6c0d9d45a195e362ed3689b, type: 2}
   mustComplete: 1
+  completeOnFormationEnd: 0
   priority: 1
   time: 4

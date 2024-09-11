@@ -9,21 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40ce6b3b246dad948b8244ebe595ce59, type: 3}
-  m_Name: ClockLayer
+  m_Script: {fileID: 11500000, guid: 14a3cae9118111648852e6cdb04a7b1e, type: 3}
+  m_Name: Clock
   m_EditorClassIdentifier: 
   formation:
     positionOffset:
       x: 0
       y: 0
-    formations:
-    - formation_Base: {fileID: 11400000, guid: 0bfece2c10f216343bc1fb9c0b9d8f44, type: 2}
+    projectileObject:
+    - {fileID: 6246030807850434585, guid: 82d1643761205f74996d7ef1ef308b59, type: 3}
+    startDelay: 0
+    burstTime: 0.1
+    burstCount: 60
+    angleChange: 25
+    spawnInit:
+    - angle: 0
+      projectileIndex: 0
       positionOffset:
         x: 0
         y: 0
-      reversed: 0
-    - formation_Base: {fileID: 11400000, guid: d42f9af6462f0ec46865ecf51f8ae87d, type: 2}
-      positionOffset:
-        x: 0
-        y: 0
-      reversed: 0

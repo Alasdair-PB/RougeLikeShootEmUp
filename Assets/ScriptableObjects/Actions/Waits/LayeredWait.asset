@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LayeredWait
   m_EditorClassIdentifier: 
   projectileFormations:
-  - {fileID: 11400000, guid: 5b893602cc4e09245ba9744235f27743, type: 2}
+  - {fileID: 11400000, guid: 135b6fe3d78279b4bb37779c84c6f8f5, type: 2}
   mustComplete: 1
   completeOnFormationEnd: 1
   priority: 0

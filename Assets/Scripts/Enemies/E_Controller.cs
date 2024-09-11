@@ -35,6 +35,11 @@ namespace Enemies
             UpdatePosition();
         }
 
+        public void MoveOutOfBounds(E_Controller e_Controller)
+        {
+            SetNextPosition(new float2(15, 15));
+        }
+
         public Stack<float> GetEx_ElapsedTime() => ex_ElapsedTime;
         public void SetEx_ElapsedTime(Stack<float> newElapse) => ex_ElapsedTime = newElapse;
 

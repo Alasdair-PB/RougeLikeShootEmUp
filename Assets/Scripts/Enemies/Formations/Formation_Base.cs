@@ -3,7 +3,16 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public abstract class Formation_Base : ScriptableObject
+
+[Serializable]
+public abstract class Scriptable_FormationBase : ScriptableObject
+{
+    public abstract Formation_Base GetFormation();
+}
+
+
+[Serializable]
+public abstract class Formation_Base
 {
     [SerializeField] public float2 positionOffset;
 
@@ -32,7 +41,7 @@ public abstract class Formation_Base : ScriptableObject
 [Serializable]
 public struct FormationData
 {
-    public Formation_Base formation_Base;
+    public Scriptable_FormationBase formation_Base;
     public float2 positionOffset;
     public bool reversed;
 }

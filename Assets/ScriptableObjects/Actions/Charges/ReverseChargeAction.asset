@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: ReverseChargeAction
   m_EditorClassIdentifier: 
   projectileFormations:
-  - {fileID: 11400000, guid: 0d6d42021578dcf49ba699ecc0a0654b, type: 2}
+  - {fileID: 11400000, guid: 24374a1805cbcee449f755c4b754c81f, type: 2}
   mustComplete: 1
+  completeOnFormationEnd: 0
   priority: 0.5
   pattern: {fileID: 11400000, guid: 4c3d8d848459d7242820ba88dfef723a, type: 2}
   time: 8

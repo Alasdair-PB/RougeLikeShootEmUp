@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: MultiAction
   m_EditorClassIdentifier: 
   projectileFormations:
-  - {fileID: 11400000, guid: a1be225331687f74d8bad8d25eab2dfe, type: 2}
+  - {fileID: 11400000, guid: 0fcf7dfd920bdd34c8a7ef376567873f, type: 2}
   mustComplete: 1
+  completeOnFormationEnd: 0
   priority: 1
   actionList:
   - {fileID: 11400000, guid: feb68a94d6e071f4bbc8c158f9002d1f, type: 2}

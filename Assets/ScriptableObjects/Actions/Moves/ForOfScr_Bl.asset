@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: ForOfScr_Bl
   m_EditorClassIdentifier: 
   projectileFormations:
-  - {fileID: 11400000, guid: a1be225331687f74d8bad8d25eab2dfe, type: 2}
+  - {fileID: 11400000, guid: 0fcf7dfd920bdd34c8a7ef376567873f, type: 2}
   mustComplete: 1
+  completeOnFormationEnd: 0
   priority: 1
   pattern: {fileID: 11400000, guid: 4c3d8d848459d7242820ba88dfef723a, type: 2}
   time: 20

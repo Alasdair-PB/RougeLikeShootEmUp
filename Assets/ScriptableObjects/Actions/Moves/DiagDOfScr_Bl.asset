@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DiagDOfScr_Bl
   m_EditorClassIdentifier: 
   projectileFormations:
-  - {fileID: 11400000, guid: 988d6262bacc68343b94658d88d7ce06, type: 2}
+  - {fileID: 11400000, guid: b8e08b6111cb2274b86d0438fbc9fe46, type: 2}
   mustComplete: 1
   completeOnFormationEnd: 0
   priority: 1

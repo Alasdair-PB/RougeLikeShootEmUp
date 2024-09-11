@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: LayeredBurstClock
   m_EditorClassIdentifier: 
   projectileFormations:
-  - {fileID: 11400000, guid: 0d6d42021578dcf49ba699ecc0a0654b, type: 2}
-  - {fileID: 11400000, guid: d6786ed5e759aa94a89d39cd2cf95c04, type: 2}
+  - {fileID: 11400000, guid: 3b97e0bd14ba37042a4f57a7265d35f1, type: 2}
+  - {fileID: 11400000, guid: 3b97e0bd14ba37042a4f57a7265d35f1, type: 2}
   mustComplete: 1
+  completeOnFormationEnd: 0
   priority: 1
   time: 4

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 2ClockWait
   m_EditorClassIdentifier: 
   projectileFormations:
-  - {fileID: 11400000, guid: d6786ed5e759aa94a89d39cd2cf95c04, type: 2}
-  - {fileID: 11400000, guid: 92a7f9eb65d0bd44dacf38eed4b39bd4, type: 2}
+  - {fileID: 11400000, guid: 0bfece2c10f216343bc1fb9c0b9d8f44, type: 2}
+  - {fileID: 11400000, guid: d42f9af6462f0ec46865ecf51f8ae87d, type: 2}
   mustComplete: 1
   completeOnFormationEnd: 0
   priority: 1

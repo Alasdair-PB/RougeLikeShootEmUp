@@ -53,8 +53,10 @@ namespace Enemies
             enemy.SetBounds(xBounds, yBounds);
             enemy.SetFlipped(flippedX, flippedY);
             eActions.OnDeath = null;
+            //eActions.OnDeath += enemy.MoveOutOfBounds;
             eActions.OnDeath += ReturnEnemy;
             eActions.OnDeath += enemyScheduler.CalculateEnemiesRemaining;
+
         }
 
         public void ReturnEnemy(E_Controller enemy)

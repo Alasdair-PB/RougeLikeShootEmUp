@@ -6,7 +6,7 @@ namespace Enemies
 {
     public abstract class E_Action : ScriptableObject
     {
-        public Formation_Base[] projectileFormations;
+        public Scriptable_FormationBase[] projectileFormations;
 
         public bool mustComplete;
         public bool completeOnFormationEnd;
@@ -32,7 +32,7 @@ namespace Enemies
             Stack<int>[] burstCounts = my_controller.GetBurstCounter();
             for (int i = 0; i < projectileFormations.Length; i++)
             {
-                if (!projectileFormations[i].IsComplete(ref burstCounts[i]))
+                if (!projectileFormations[i].GetFormation().IsComplete(ref burstCounts[i]))
                 {
                     isComplete = false;
                     break;
@@ -54,7 +54,7 @@ namespace Enemies
                     burstCounts[i] = new Stack<int>();
                 my_controller.SetEx_ElapsedTime(new Stack<float>(new float[] { 0.0f }));
                 var exElaspedTime = my_controller.GetEx_ElapsedTime();
-                burstCounts[i] = projectileFormations[i].SetUp(ref burstCounts[i], ref exElaspedTime);
+                burstCounts[i] = projectileFormations[i].GetFormation().SetUp(ref burstCounts[i], ref exElaspedTime);
 
             }
             my_controller.SetBurstCounter(burstCounts);
@@ -66,12 +66,12 @@ namespace Enemies
 
             for (int i = 0; i < projectileFormations.Length; i++)
             {
-                if (projectileFormations[i].IsComplete(ref burstCounts[i]))
+                if (projectileFormations[i].GetFormation().IsComplete(ref burstCounts[i]))
                 {
                     continue;
                 }
 
-                burstCounts[i] = projectileFormations[i].UpdateFormation(layerMask, ref burstCounts[i], elapsedTime, pooling,
+                burstCounts[i] = projectileFormations[i].GetFormation().UpdateFormation(layerMask, ref burstCounts[i], elapsedTime, pooling,
                     my_controller.GetProjectileSpawn(), ref ex_elapsedTime, false);
             }
 
