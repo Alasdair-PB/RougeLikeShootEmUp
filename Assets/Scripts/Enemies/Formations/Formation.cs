@@ -7,7 +7,7 @@ using System;
 [CreateAssetMenu(fileName = "Formation", menuName = "Formations/Formation")]
 public class Formation : Formation_Base
 {
-    public GameObject projectileObject;
+    public GameObject[] projectileObject;
     public float startDelay, burstTime;
     public int burstCount, angleChange;
     public Variation[] spawnInit;
@@ -15,7 +15,7 @@ public class Formation : Formation_Base
     [Serializable]
     public struct Variation
     {
-        public int angle;
+        public int angle, projectileIndex;
         public float2 positionOffset;
     }
 
@@ -58,7 +58,7 @@ public class Formation : Formation_Base
 
         for (int i = reversed ? spawnInit.Length - 1 : 0; reversed? i >= 0 : i < spawnInit.Length; i += reversed? -1 : 1)
         {
-            var objectInPool = pooling.GetProjectilePool(projectileObject, 10, 999);
+            var objectInPool = pooling.GetProjectilePool(projectileObject[spawnInit[i].projectileIndex], 10, 999);
             float degrees = reversed ? spawnInit[i].angle - angleOffset: spawnInit[i].angle + angleOffset;
 
             float radians = degrees * Mathf.Deg2Rad;

@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a3cae9118111648852e6cdb04a7b1e, type: 3}
   m_Name: QuadClockQuick
   m_EditorClassIdentifier: 
-  projectileObject: {fileID: 6246030807850434585, guid: 82d1643761205f74996d7ef1ef308b59, type: 3}
+  positionOffset:
+    x: 0
+    y: 0
+  projectileObject:
+  - {fileID: 6246030807850434585, guid: 82d1643761205f74996d7ef1ef308b59, type: 3}
   startDelay: 0
   burstTime: 0.3
   burstCount: 4

@@ -15,7 +15,8 @@ MonoBehaviour:
   positionOffset:
     x: 0
     y: 0
-  projectileObject: {fileID: 6246030807850434585, guid: 560e8950ee8dca54cb33c4ce37c2e602, type: 3}
+  projectileObject:
+  - {fileID: 6246030807850434585, guid: 82d1643761205f74996d7ef1ef308b59, type: 3}
   startDelay: 0
   burstTime: 0.1
   burstCount: 60
