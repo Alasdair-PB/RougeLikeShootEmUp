@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using NPC;
 
-namespace Player
+namespace NPC
 {
     [RequireComponent(typeof(Menu_Actions))]
     public class DialogueManager : MonoBehaviour
     {
+
+        [SerializeField] Game game;
         public Action OnPerformanceComplete;
         private Menu_Actions m_Actions;
         private int choiceIndex, optionsCount;
@@ -69,12 +71,17 @@ namespace Player
 
                 RemoveChoiceBindings();
                 selectContinue = false;
+
+                TriggerPerformanceEvents(performer);
                 StartCoroutine(PerformInteraction(options[choiceIndex].overrideInteraction));
             }
         }
 
+
         private void FinishPerformance(InteractionBase performer)
         {
+            TriggerPerformanceEvents(performer);
+
             if (performer.nextInteraction == null)
             {
                 DisablePerformance();
@@ -86,6 +93,28 @@ namespace Player
             {
                 StartCoroutine(PerformInteraction(performer.nextInteraction));
             }
+        }
+
+        private void TriggerPerformanceEvents(InteractionBase performer)
+        {
+            if (game == null)
+                return;
+
+            foreach (var dialogueEvent in performer.onComplete)
+            {
+                if (dialogueEvent != null)
+                    dialogueEvent.OnEventCalled(game);
+            }
+
+            foreach (var option in performer.options)
+            {
+                foreach (var dialogueEvent in option.actionEvent)
+                {
+                    if (dialogueEvent != null)
+                        dialogueEvent.OnEventCalled(game);
+                }
+            }
+
         }
 
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace Player
+namespace NPC
 {
 
     public class Menu_Actions : MonoBehaviour

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -31,5 +32,10 @@ public class Game : MonoBehaviour
         yield return new WaitForSeconds(1);
         StartGame?.Invoke();
 
+    }
+
+    public void LoadNewScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
