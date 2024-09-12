@@ -19,9 +19,11 @@ MonoBehaviour:
     projectileObject:
     - {fileID: 6246030807850434585, guid: 82d1643761205f74996d7ef1ef308b59, type: 3}
     startDelay: 0
-    burstTime: 0.1
+    burstTime:
+    - 0.1
+    angleChange:
+    - 25
     burstCount: 60
-    angleChange: 25
     spawnInit:
     - angle: 0
       projectileIndex: 0

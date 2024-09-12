@@ -331,7 +331,7 @@ MonoBehaviour:
   backgroundSchedule:
   - spawnOnXEnemiesDefeated: 0
     timeStamp: 2
-    active: 0
+    active: 1
     group: {fileID: 11400000, guid: 4738ce0142772d7489c0f686fd09c37e, type: 2}
     stopOnTimeOut: 0
     stopOnEnemiesOut: 0

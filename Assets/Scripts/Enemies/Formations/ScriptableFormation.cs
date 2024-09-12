@@ -17,8 +17,9 @@ public class ScriptableFormation : Scriptable_FormationBase
 public class Formation : Formation_Base
 {
     public GameObject[] projectileObject;
-    public float startDelay, burstTime;
-    public int burstCount, angleChange;
+    public float startDelay;
+    public float[] burstTime, angleChange;
+    public int burstCount;
     public Variation[] spawnInit;
 
     [Serializable]
@@ -44,14 +45,60 @@ public class Formation : Formation_Base
 
     public override bool IncrementElapsedTime() => true;
 
+
+    // Could be manually set in the scriptable object to save performance
+    private int GetBurstTriggered(float my_ElapsedTime)
+    {
+        int burstsTriggered = 0;
+        float remainingTime = my_ElapsedTime;
+
+        float fullCycleTime = 0;
+        for (int i = 0; i < burstTime.Length; i++)
+        {
+            fullCycleTime += burstTime[i];
+        }
+
+        int fullCycles = Mathf.FloorToInt(remainingTime / fullCycleTime);
+        burstsTriggered += fullCycles * burstTime.Length;
+        remainingTime -= fullCycles * fullCycleTime;
+
+        for (int i = 0; i < burstTime.Length && remainingTime >= burstTime[i]; i++)
+        {
+            remainingTime -= burstTime[i];
+            burstsTriggered++;
+        }
+
+        return burstsTriggered;
+    }
+
+    private float GetAngleOffset(int burstsTriggered)
+    {
+        float angleOffset = 0;
+
+        float fullCycleAngleChange = 0;
+        for (int i = 0; i < angleChange.Length; i++)
+        {
+            fullCycleAngleChange += angleChange[i];
+        }
+
+        int fullCycles = burstsTriggered / angleChange.Length;
+        angleOffset += fullCycles * fullCycleAngleChange;
+
+        for (int i = 0; i < burstsTriggered % angleChange.Length; i++)
+        {
+            angleOffset += angleChange[i];
+        }
+        return angleOffset;
+    }
+
     public override Stack<int> UpdateFormation(LayerMask layerMask, ref Stack<int> occurredBursts, float elapsedTime, GlobalPooling pooling,
         float2 position, ref Stack<float> ex_elapsedTime, bool reversed)
     {
         position += positionOffset;
         var my_occuredBursts = occurredBursts.Pop();
-        float my_ElapsedTime = elapsedTime - ex_elapsedTime.Peek();
 
-        int burstsTriggered = Mathf.FloorToInt(my_ElapsedTime / burstTime);
+        float my_ElapsedTime = elapsedTime - ex_elapsedTime.Peek();
+        var burstsTriggered = GetBurstTriggered(my_ElapsedTime);
 
         if (my_occuredBursts > burstsTriggered || my_ElapsedTime < startDelay)
         {
@@ -63,7 +110,7 @@ public class Formation : Formation_Base
             return occurredBursts;
         }
 
-        var angleOffset = angleChange * burstsTriggered;
+        float angleOffset = GetAngleOffset(burstsTriggered);
 
         for (int i = reversed ? spawnInit.Length - 1 : 0; reversed ? i >= 0 : i < spawnInit.Length; i += reversed ? -1 : 1)
         {
