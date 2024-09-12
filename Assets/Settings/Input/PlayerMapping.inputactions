@@ -217,9 +217,27 @@
             "id": "769030b1-02c8-440d-8721-e405324e0b6f",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "CursorUp",
                     "type": "Button",
                     "id": "cddc2d34-2219-4171-a4c9-54e0a9ea689b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CursorDown",
+                    "type": "Button",
+                    "id": "1e6e65ae-2552-4f21-99b3-8a17004c7c53",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "473b4026-5171-4ab0-bf66-c5976ee6ab93",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -230,11 +248,33 @@
                 {
                     "name": "",
                     "id": "cdbe29c9-0c2a-4314-9752-928807620d45",
-                    "path": "",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "CursorUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4eb94b7d-35d0-4b93-ad37-d354b805e7de",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CursorDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "061a7aab-fdd4-41fb-a033-286696495aa4",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

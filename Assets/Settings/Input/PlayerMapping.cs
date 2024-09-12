@@ -239,9 +239,27 @@ public partial class @PlayerMapping: IInputActionCollection2, IDisposable
             ""id"": ""769030b1-02c8-440d-8721-e405324e0b6f"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""CursorUp"",
                     ""type"": ""Button"",
                     ""id"": ""cddc2d34-2219-4171-a4c9-54e0a9ea689b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CursorDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""1e6e65ae-2552-4f21-99b3-8a17004c7c53"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""473b4026-5171-4ab0-bf66-c5976ee6ab93"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -252,11 +270,33 @@ public partial class @PlayerMapping: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""cdbe29c9-0c2a-4314-9752-928807620d45"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""CursorUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4eb94b7d-35d0-4b93-ad37-d354b805e7de"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CursorDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""061a7aab-fdd4-41fb-a033-286696495aa4"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -278,7 +318,9 @@ public partial class @PlayerMapping: IInputActionCollection2, IDisposable
         m_SideOnPilot_Newaction = m_SideOnPilot.FindAction("New action", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
-        m_Menu_Newaction = m_Menu.FindAction("New action", throwIfNotFound: true);
+        m_Menu_CursorUp = m_Menu.FindAction("CursorUp", throwIfNotFound: true);
+        m_Menu_CursorDown = m_Menu.FindAction("CursorDown", throwIfNotFound: true);
+        m_Menu_Select = m_Menu.FindAction("Select", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -472,12 +514,16 @@ public partial class @PlayerMapping: IInputActionCollection2, IDisposable
     // Menu
     private readonly InputActionMap m_Menu;
     private List<IMenuActions> m_MenuActionsCallbackInterfaces = new List<IMenuActions>();
-    private readonly InputAction m_Menu_Newaction;
+    private readonly InputAction m_Menu_CursorUp;
+    private readonly InputAction m_Menu_CursorDown;
+    private readonly InputAction m_Menu_Select;
     public struct MenuActions
     {
         private @PlayerMapping m_Wrapper;
         public MenuActions(@PlayerMapping wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Menu_Newaction;
+        public InputAction @CursorUp => m_Wrapper.m_Menu_CursorUp;
+        public InputAction @CursorDown => m_Wrapper.m_Menu_CursorDown;
+        public InputAction @Select => m_Wrapper.m_Menu_Select;
         public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -487,16 +533,28 @@ public partial class @PlayerMapping: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_MenuActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_MenuActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
+            @CursorUp.started += instance.OnCursorUp;
+            @CursorUp.performed += instance.OnCursorUp;
+            @CursorUp.canceled += instance.OnCursorUp;
+            @CursorDown.started += instance.OnCursorDown;
+            @CursorDown.performed += instance.OnCursorDown;
+            @CursorDown.canceled += instance.OnCursorDown;
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
         }
 
         private void UnregisterCallbacks(IMenuActions instance)
         {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
+            @CursorUp.started -= instance.OnCursorUp;
+            @CursorUp.performed -= instance.OnCursorUp;
+            @CursorUp.canceled -= instance.OnCursorUp;
+            @CursorDown.started -= instance.OnCursorDown;
+            @CursorDown.performed -= instance.OnCursorDown;
+            @CursorDown.canceled -= instance.OnCursorDown;
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
         }
 
         public void RemoveCallbacks(IMenuActions instance)
@@ -529,6 +587,8 @@ public partial class @PlayerMapping: IInputActionCollection2, IDisposable
     }
     public interface IMenuActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnCursorUp(InputAction.CallbackContext context);
+        void OnCursorDown(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
     }
 }

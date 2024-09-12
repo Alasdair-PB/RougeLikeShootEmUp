@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70086de7e2e72de4caff89025bdd930f, type: 3}
+  m_Name: A_StartMission
+  m_EditorClassIdentifier: 
+  interaction:
+    dialogue: Are you ready now?
+    characterID: 0
+    emotionID: 0
+    backgroundID: 0
+    textSpeed: 1
+    textSize: 1
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+    endsTextBox: 1
+    options:
+    - option: I'm not ready
+      overrideInteraction: {fileID: 11400000, guid: d57182b2419228f42ba37c1ce3a55f28, type: 2}
+      actionEvent:
+        m_PersistentCalls:
+          m_Calls: []
+    - option: I'm Ready
+      overrideInteraction: {fileID: 11400000, guid: ac98db2eaa819e14e999bc2a1b9282db, type: 2}
+      actionEvent:
+        m_PersistentCalls:
+          m_Calls: []
+    nextInteraction: {fileID: 0}
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []

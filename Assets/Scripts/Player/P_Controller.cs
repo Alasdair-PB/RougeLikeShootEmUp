@@ -13,6 +13,7 @@ namespace Player
         [SerializeField] private Game game;
 
         [SerializeField] private float2 xBounds, yBounds;
+        [SerializeField] private bool pointsToDirection;
 
         private P_Actions pActions;
         private bool isDashing, isTransformed;
@@ -58,7 +59,6 @@ namespace Player
             pActions.OnDeath -= DestroySelf;
             pActions.OnTransformEvent -= SetTransformed;
         }
-
 
         private void OnDestroy()
         {
@@ -160,7 +160,8 @@ namespace Player
         // Updates on input
         private void Update()
         {
-            //UpdateRotation();
+            if (pointsToDirection)
+                UpdateRotation();
         }
 
         void FixedUpdate()
