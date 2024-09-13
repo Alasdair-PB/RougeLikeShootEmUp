@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using Conditions;
 
 
 namespace NPC
@@ -18,6 +19,7 @@ namespace NPC
         public string option; // As displayed in text box
         public Interaction overrideInteraction; // Can be null
         public DialogueEventsScriptable[] actionEvent;
+        public Condition unlockCondition;
     }
 
     [Serializable] 
@@ -25,8 +27,8 @@ namespace NPC
     {
         public string dialogue;
         public int characterID, emotionID, backgroundID;
-        public float textSpeed, textSize;
-        public Color textColor;
+        public float textSpeed = 1, textSize = 1;
+        public Color textColor = Color.black;
         public bool endsTextBox;
 
         public OptionalInteraction[] options;

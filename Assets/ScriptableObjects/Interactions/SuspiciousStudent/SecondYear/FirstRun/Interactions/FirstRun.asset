@@ -10,31 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70086de7e2e72de4caff89025bdd930f, type: 3}
-  m_Name: IntroC
+  m_Name: FirstRun
   m_EditorClassIdentifier: 
   interaction:
-    dialogue: Talk to me again when you're ready to begin
+    dialogue: I can't believe that was a whole year.. just how does time work in
+      this place?
     characterID: 0
     emotionID: 0
     backgroundID: 0
     textSpeed: 1
     textSize: 1
     textColor: {r: 0, g: 0, b: 0, a: 0}
-    endsTextBox: 1
+    endsTextBox: 0
     options: []
     nextInteraction: {fileID: 0}
-    onComplete:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+    onComplete: []

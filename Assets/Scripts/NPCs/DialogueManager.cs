@@ -16,8 +16,6 @@ namespace NPC
         private int choiceIndex, optionsCount;
         private bool selectContinue = false;
 
-        private float selectThreshold = 0.75f;
-
         private void Awake()
         {
             m_Actions = GetComponent<Menu_Actions>();
@@ -36,7 +34,6 @@ namespace NPC
             m_Actions.MoveCusorUp += MoveCursorUp;
             m_Actions.MoveCursorDown += MoveCursorDown;
         }
-
 
         private void RemoveChoiceBindings()
         {
@@ -66,8 +63,18 @@ namespace NPC
                     Debug.Log(option.option);
                 }
 
-                while (selectContinue == false)
-                    yield return null;
+                var completed = false;
+
+                while (!completed)
+                {
+                    while (selectContinue == false)
+                        yield return null;
+
+                    if (!(options[choiceIndex].unlockCondition == null) && !(options[choiceIndex].unlockCondition.IsUnlocked(game)))
+                        selectContinue = false;
+                    else 
+                        completed = true;
+                }
 
                 RemoveChoiceBindings();
                 selectContinue = false;

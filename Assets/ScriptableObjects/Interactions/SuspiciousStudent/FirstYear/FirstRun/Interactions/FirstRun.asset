@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70086de7e2e72de4caff89025bdd930f, type: 3}
+  m_Name: FirstRun
+  m_EditorClassIdentifier: 
+  interaction:
+    dialogue: What's with this academy? It's so strange here..
+    characterID: 0
+    emotionID: 0
+    backgroundID: 0
+    textSpeed: 1
+    textSize: 1
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+    endsTextBox: 0
+    options: []
+    nextInteraction: {fileID: 0}
+    onComplete: []

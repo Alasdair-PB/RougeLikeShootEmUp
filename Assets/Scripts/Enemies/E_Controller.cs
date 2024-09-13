@@ -12,7 +12,7 @@ namespace Enemies
         [SerializeField] private Transform projectileSpawnOffset;
 
         private E_Actions e_Actions;
-        private float tolerance = .05f, moveVelocity = 3, timeAtLastAction;
+        private float tolerance = .05f, timeAtLastAction;
         private float2 targetPos = new float2(), nextPos = new float2(), startPos, xBounds = new float2(), yBounds = new float2();
 
         private StackManager<int> actionIndexStack = new StackManager<int>();

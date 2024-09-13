@@ -2,21 +2,47 @@ using UnityEngine;
 using System;
 namespace Enemies
 {
+
+    /// <summary>
+    /// Plays a animation and then time event actions to specific points in the animation 
+    /// </summary>
+
     [CreateAssetMenu(fileName = "AnimListen", menuName = "Actions/AnimListen_Act")]
     public class AnimListen_Act : E_Action
     {
-        public Animation rigAnim; // Or sprite based idk
+        public Animation rigAnim; // Or sprite based idk or maybe even id
         public bool lockProjectilesToEvent; // Use default burst timings of projectiles or change to fire them only on events
-        public animEvtItem[] animEvtSchedule;
+        public AnimEventItem[] animEvtSchedule;
         public E_Action[] e_Actions; // This is not designed to be recursive
 
         [Serializable]
-        public struct animEvtItem  {
+        public struct AnimEventItem  {
             public float triggerTime;
-            public evtActions[] actions;
+            public EventActions[] actions;
+            public QuickActions[] action;
         }
 
-        [Serializable] public enum evtActions { EndAction, FireProjectile, EnterParryState, ExitParryState }
+        public struct QuickActions
+        {
+            public E_Action action;
+            public float endTriggerTime; 
+        }
+
+        [Serializable] public enum EventActions { EndAction, FireProjectile, EnterParryState, ExitParryState }
+
+
+        // Fo
+        public void OnControllerAwake()
+        {
+            // Build animation graph?
+        }
+
+        // 
+        public void OnActionCancelled(E_Controller my_controller)
+        {
+            my_controller.ClearActionStack();
+            // May only be needed on this action => clear action stack of all items below this one
+        }
 
         public override bool StateIsComplete(E_Controller my_controller, float elapsedTime)
         {
@@ -51,6 +77,7 @@ namespace Enemies
             if ()
             */
 
+            // Actions used on events will still fire projectiles!!
             if (!lockProjectilesToEvent)
                 base.TakeAction(my_controller, elapsedTime, layerMask, pooling);
             else
@@ -58,26 +85,6 @@ namespace Enemies
                     // 
 
             }
-        }
-
-        private void EndAction(E_Controller my_controller)
-        {
-
-        }
-
-        private void FireProjectile(E_Controller my_controller, float elapsedTime, LayerMask layerMask, GlobalPooling pooling)
-        {
-
-        }
-
-        private void EnterParryState(E_Controller my_controller)
-        {
-
-        }
-
-        private void ExitParryState(E_Controller my_controller)
-        {
-
         }
     }
 }

@@ -10,19 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70086de7e2e72de4caff89025bdd930f, type: 3}
-  m_Name: IntroA
+  m_Name: IntroB
   m_EditorClassIdentifier: 
   interaction:
-    dialogue: Welcome!
+    dialogue: 'You''re the last one to arrive, but there no problem with that. '
     characterID: 0
     emotionID: 0
     backgroundID: 0
     textSpeed: 1
     textSize: 1
     textColor: {r: 0, g: 0, b: 0, a: 0}
-    endsTextBox: 0
+    endsTextBox: 1
     options: []
-    nextInteraction: {fileID: 11400000, guid: d210eac5557cb6949a39e2ee2982dcd2, type: 2}
+    nextInteraction: {fileID: 11400000, guid: d57182b2419228f42ba37c1ce3a55f28, type: 2}
     onComplete:
-      m_PersistentCalls:
-        m_Calls: []
+    - {fileID: 0}

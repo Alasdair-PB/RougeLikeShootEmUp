@@ -2,7 +2,8 @@
     "name": "NPC",
     "rootNamespace": "",
     "references": [
-        "GUID:c0e6f0c957748914f8228ec7fb7c5e1f"
+        "GUID:c0e6f0c957748914f8228ec7fb7c5e1f",
+        "GUID:75ede24ba890eb14c803239ff0af9dbb"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

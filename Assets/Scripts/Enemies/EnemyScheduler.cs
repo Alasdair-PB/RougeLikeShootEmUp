@@ -72,7 +72,7 @@ namespace Enemies
             bPauseTime = 0;
             startTime = Time.time;
             bStartTime = Time.time;
-            beginSpawn = false;
+            beginSpawn = true;
             nextSpawnTime = 0;
             lastSpawnTime = 0;
             elaspedTime = 0;
@@ -102,6 +102,10 @@ namespace Enemies
 
         private void FixedUpdate()
         {
+            if (!beginSpawn)
+                return;
+
+
             if (index <= schedule.Length - 1 && UpdateItemSchedule(Time.time - startTime, 
                 ref pauseTime, ref startTime, ref index, schedule, true))
             {
