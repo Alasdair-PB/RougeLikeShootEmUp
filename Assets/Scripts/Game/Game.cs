@@ -3,11 +3,21 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+[RequireComponent(typeof(LocalSaveData))]
 public class Game : MonoBehaviour
 {
     public Action StartGame;
     public Action<bool> EndGame;
-    public Action Reset; 
+    public Action Reset;
+
+    private LocalSaveData my_localSaveData;
+
+
+    private void Awake()
+    {
+        my_localSaveData = GetComponent<LocalSaveData>();
+    }
 
     private void OnEnable()
     {
@@ -32,6 +42,24 @@ public class Game : MonoBehaviour
         yield return new WaitForSeconds(1);
         StartGame?.Invoke();
 
+    }
+
+    public void UpdateSavedValue(string itemId, string saveFile, string newValue)
+    {
+        my_localSaveData.UpdateDataPermanent(itemId, saveFile, newValue);
+    }
+
+    public string GetSavedData(string itemID, string saveFile, string newValueOnUnInitialized)
+    {
+        var itemCount = my_localSaveData.GetSaveDataPermanent(itemID, saveFile);
+
+        if (itemCount == null)
+        {
+            my_localSaveData.CreateDataPermanent(itemID, newValueOnUnInitialized, saveFile);
+            itemCount = newValueOnUnInitialized;
+        }
+
+        return  itemCount;
     }
 
     public void LoadNewScene(string sceneName)

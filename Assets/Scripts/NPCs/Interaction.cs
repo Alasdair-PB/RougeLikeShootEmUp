@@ -19,7 +19,7 @@ namespace NPC
         public string option; // As displayed in text box
         public Interaction overrideInteraction; // Can be null
         public DialogueEventsScriptable[] actionEvent;
-        public Condition unlockCondition;
+        public ScriptableCondition unlockCondition;
     }
 
     [Serializable] 

@@ -70,7 +70,8 @@ namespace NPC
                     while (selectContinue == false)
                         yield return null;
 
-                    if (!(options[choiceIndex].unlockCondition == null) && !(options[choiceIndex].unlockCondition.IsUnlocked(game)))
+                    if (!(options[choiceIndex].unlockCondition == null) && 
+                        !(options[choiceIndex].unlockCondition.GetCondition().IsUnlocked(game)))
                         selectContinue = false;
                     else 
                         completed = true;

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70086de7e2e72de4caff89025bdd930f, type: 3}
+  m_Name: CheckSocialized
+  m_EditorClassIdentifier: 
+  interaction:
+    dialogue: Have you talked to Baba yet?
+    characterID: 0
+    emotionID: 0
+    backgroundID: 0
+    textSpeed: 1
+    textSize: 1
+    textColor: {r: 0, g: 0, b: 0, a: 1}
+    endsTextBox: 1
+    options:
+    - option: Just spoke to him
+      overrideInteraction: {fileID: 11400000, guid: 89933efd8fb113b44bffd6670e0c5cc4, type: 2}
+      actionEvent: []
+      unlockCondition: {fileID: 11400000, guid: 5c16ec062ad44fd4d867f52909facfe8, type: 2}
+    - option: Not yet
+      overrideInteraction: {fileID: 11400000, guid: b7fe581499311c149a943ba56eb073ac, type: 2}
+      actionEvent: []
+      unlockCondition: {fileID: 0}
+    nextInteraction: {fileID: 0}
+    onComplete: []

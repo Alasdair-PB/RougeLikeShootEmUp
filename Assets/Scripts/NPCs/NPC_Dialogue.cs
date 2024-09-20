@@ -48,7 +48,8 @@ namespace NPC
                 return;
 
 
-            if (tree.endInteractiblityOnComplete) { 
+            if (tree.endInteractiblityOnComplete) {
+                interactable = false;
                 currentInteraction = null;
                 return;
             } else if (tree.followUpInteractionTree == null)
