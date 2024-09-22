@@ -20,20 +20,19 @@ namespace Conditions
         public override bool IsUnlocked(Game game) 
         {
             var invObj = inventoryObject.inventoryObject;
-            var myValue = game.GetSavedData(invObj.stringName, invObj.saveFile, "0");
-            var myValueAsFloat = invObj.GetSavedDataAsFloat(myValue);
+            float myValue = game.GetSavedData<float>(invObj.stringName, invObj.saveFile);
             switch (evaluation)
             {
                 case Evaluation.Greater:
-                    return myValueAsFloat > comparedValue;
+                    return myValue > comparedValue;
                 case Evaluation.Less:
-                    return myValueAsFloat < comparedValue;
+                    return myValue < comparedValue;
                 case Evaluation.Equal:
-                    return myValueAsFloat == comparedValue;
+                    return myValue == comparedValue;
                 case Evaluation.LessEqual:
-                    return myValueAsFloat <= comparedValue;
+                    return myValue <= comparedValue;
                 case Evaluation.GreaterEqual:
-                    return myValueAsFloat >= comparedValue;
+                    return myValue >= comparedValue;
                 default:
                     return false;
             }

@@ -4,19 +4,28 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-[RequireComponent(typeof(LocalSaveData))]
 public class Game : MonoBehaviour
 {
     public Action StartGame;
     public Action<bool> EndGame;
     public Action Reset;
 
-    private LocalSaveData my_localSaveData;
-
+    private FileDataHandler my_localSaveData;
+    private GameData localData;
+    private string profileID = "Ali";
 
     private void Awake()
     {
-        my_localSaveData = GetComponent<LocalSaveData>();
+        my_localSaveData = new FileDataHandler("saveData", "mySaveData", false);
+        localData = my_localSaveData.Load(profileID);
+
+        if (localData == null)
+        {
+            localData = new GameData();
+            Debug.Log("was null");
+        }
+
+        my_localSaveData.Save(localData, profileID);
     }
 
     private void OnEnable()
@@ -41,26 +50,13 @@ public class Game : MonoBehaviour
         Reset?.Invoke();
         yield return new WaitForSeconds(1);
         StartGame?.Invoke();
-
     }
 
-    public void UpdateSavedValue(string itemId, string saveFile, string newValue) => 
-        my_localSaveData.UpdateDataPermanent(itemId, saveFile, newValue);
-    
-    public void SaveGameState() => my_localSaveData.SaveAllDataPermanent();
 
-    public string GetSavedData(string itemID, string saveFile, string newValueOnUnInitialized)
-    {
-        var itemCount = my_localSaveData.GetSaveDataPermanent(itemID, saveFile);
-
-        if (itemCount == null)
-        {
-            my_localSaveData.CreateDataPermanent(itemID, newValueOnUnInitialized, saveFile);
-            itemCount = newValueOnUnInitialized;
-        }
-
-        return  itemCount;
-    }
+    // May want to update to include saveFile
+    public void UpdateSavedValue<T>(string itemId, string saveFile, T newValue) => localData.UpdateValue(itemId, newValue);
+    public void SaveGameState() => my_localSaveData.Save(localData, profileID);
+    public T GetSavedData<T>(string itemID, string saveFile) => localData.GetValue<T>(itemID);
 
     public void LoadNewScene(string sceneName)
     {

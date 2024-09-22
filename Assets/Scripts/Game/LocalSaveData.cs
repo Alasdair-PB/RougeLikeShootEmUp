@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class LocalSaveData : MonoBehaviour
 {
+
     private Dictionary<string, SaveData> localSaveDataPermanent = new Dictionary<string, SaveData>();
 
     private struct SaveData
@@ -70,6 +71,9 @@ public class LocalSaveData : MonoBehaviour
         string path = Path.Combine(Application.persistentDataPath, saveFile);
         try
         {
+            Directory.CreateDirectory(Path.GetDirectoryName(path)); 
+            string dataToStore = JsonUtility.ToJson(path, true);   
+            
 
         } catch (Exception e)
         {

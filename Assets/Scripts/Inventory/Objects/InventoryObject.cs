@@ -15,18 +15,6 @@ public class InventoryObjectBase
     public float maxCount, minCount;
     public bool descreaseOnlyOnFullCount;
 
-
-    public float GetSavedDataAsFloat(string data)
-    {
-        return (float)Convert.ToDouble(data);
-    }
-
-    public string GetSavedDataAsString(float data)
-    {
-        return (string)Convert.ToString(data);
-    }
-
-
     public bool CheckCanModify(float change, float itemCount)
     {
         if (change == 0)

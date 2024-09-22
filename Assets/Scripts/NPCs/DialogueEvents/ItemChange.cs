@@ -11,14 +11,12 @@ namespace NPC
         public override void OnEventCalled(Game game)
         {
             var myItemObject = itemChange.item.inventoryObject;
-            string savedData = game.GetSavedData(myItemObject.stringName, myItemObject.saveFile, "0");
-            float savedDataAsFloat = myItemObject.GetSavedDataAsFloat(savedData);
+            float savedData = game.GetSavedData<float>(myItemObject.stringName, myItemObject.saveFile);
 
-            var canModify = myItemObject.CheckCanModify(itemChange.valueChange, savedDataAsFloat);
-            savedDataAsFloat += itemChange.valueChange;
+            var canModify = myItemObject.CheckCanModify(itemChange.valueChange, savedData);
+            savedData += itemChange.valueChange;
 
-            string savedDataAsString = myItemObject.GetSavedDataAsString(savedDataAsFloat);
-            game.UpdateSavedValue(myItemObject.stringName, myItemObject.saveFile, savedDataAsString);
+            game.UpdateSavedValue(myItemObject.stringName, myItemObject.saveFile, savedData);
         }
     }
 
