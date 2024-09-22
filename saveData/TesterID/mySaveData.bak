@@ -13,48 +13,60 @@
             "SocialPoints"
         ],
         "values": [
-            3.0
+            9.0
         ]
     },
-    "indexPairsData": {
+    "intData": {
         "keys": [
-            "Sophie 2",
-            "Sophie 1",
-            "HeadMaster",
-            "GateKeeper",
-            "Sophie"
+            "termDate"
+        ],
+        "values": [
+            0
+        ]
+    },
+    "NPCData": {
+        "keys": [
+            "Sophie 2TermData",
+            "Sophie 1TermData",
+            "HeadMasterTermData",
+            "GateKeeperTermData",
+            "SophieTermData"
         ],
         "values": [
             {
-                "values": [
-                    0,
-                    0
-                ]
+                "termDateAtLastSave": 0,
+                "mainIndex": 0,
+                "termOptional": 0,
+                "optional": 0
             },
             {
-                "values": [
-                    0,
-                    0
-                ]
+                "termDateAtLastSave": 0,
+                "mainIndex": 0,
+                "termOptional": 0,
+                "optional": 0
             },
             {
-                "values": [
-                    0,
-                    0
-                ]
+                "termDateAtLastSave": 0,
+                "mainIndex": 0,
+                "termOptional": 0,
+                "optional": 0
             },
             {
-                "values": [
-                    0,
-                    0
-                ]
+                "termDateAtLastSave": 0,
+                "mainIndex": 0,
+                "termOptional": 0,
+                "optional": 0
             },
             {
-                "values": [
-                    0,
-                    0
-                ]
+                "termDateAtLastSave": 0,
+                "mainIndex": 0,
+                "termOptional": 0,
+                "optional": 0
             }
         ]
+    },
+    "indexPairsData": {
+        "keys": [],
+        "values": []
     }
 }

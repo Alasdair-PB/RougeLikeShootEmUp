@@ -17,6 +17,10 @@ namespace NPC
     {
         public string characterName;
         public ConversationGroup[] storyConversationsInOrder;
+        public ConversationGroup[] termBasedOptionalConversations;
+
+        public InteractionTree[] fillerDialogue; // Not by term
         public InteractionTree[] optionalConversations; 
+
     }
 }

@@ -13,7 +13,7 @@ public class Game : MonoBehaviour
 
     private FileDataHandler my_localSaveData;
     private GameData localData;
-    private readonly string profileID = "TesterID", dataDirPath = "saveData", dataFileName = "mySaveData", myTermSaveData;
+    private readonly string profileID = "TesterID", dataDirPath = "saveData", dataFileName = "mySaveData", myTermSaveData = "termDate";
 
     private void Awake()
     {

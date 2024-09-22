@@ -16,4 +16,7 @@ MonoBehaviour:
     characterName: Sophie
     storyConversationsInOrder:
     - {fileID: 11400000, guid: 655b82fd7a4c96c47954388a38156040, type: 2}
+    termBasedOptionalConversations: []
+    fillerDialogue:
+    - {fileID: 11400000, guid: ff5519517dbc5794faac442c1a14befe, type: 2}
     optionalConversations: []

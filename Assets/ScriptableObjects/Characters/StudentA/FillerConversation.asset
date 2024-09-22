@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b3e555ef3c3ab84a8a227b6f7cae04f, type: 3}
-  m_Name: NewStudent
+  m_Name: FillerConversation
   m_EditorClassIdentifier: 
   interactionTreeBase:
-    interaction: {fileID: 11400000, guid: d1f9667402b2f8c4eac89ffc2a8aa30f, type: 2}
-    repeatDialogue: 0
-    lockThisTreeOnComplete: 1
+    interaction: {fileID: 11400000, guid: 6c78ee89176c1fd48a544c96e74db68c, type: 2}
+    repeatDialogue: 1
+    lockThisTreeOnComplete: 0
     followUpInteractionTree: {fileID: 0}
     endInteractiblityOnComplete: 1
     conversationUnlocks: []
