@@ -44,10 +44,10 @@ public class Game : MonoBehaviour
 
     }
 
-    public void UpdateSavedValue(string itemId, string saveFile, string newValue)
-    {
+    public void UpdateSavedValue(string itemId, string saveFile, string newValue) => 
         my_localSaveData.UpdateDataPermanent(itemId, saveFile, newValue);
-    }
+    
+    public void SaveGameState() => my_localSaveData.SaveAllDataPermanent();
 
     public string GetSavedData(string itemID, string saveFile, string newValueOnUnInitialized)
     {

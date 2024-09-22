@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70086de7e2e72de4caff89025bdd930f, type: 3}
+  m_Name: SaveQuestion
+  m_EditorClassIdentifier: 
+  interaction:
+    dialogue: Would you like to save your game?
+    characterID: 0
+    emotionID: 0
+    backgroundID: 0
+    textSpeed: 1
+    textSize: 1
+    textColor: {r: 0, g: 0, b: 0, a: 1}
+    endsTextBox: 1
+    options:
+    - option: Save
+      overrideInteraction: {fileID: 11400000, guid: 05c930668f943664ab39bf7700181880, type: 2}
+      actionEvent: []
+      unlockCondition: {fileID: 0}
+    - option: Don't save
+      overrideInteraction: {fileID: 11400000, guid: 3ba8d9a02d45b11499fdc3f792e94b44, type: 2}
+      actionEvent: []
+      unlockCondition: {fileID: 0}
+    nextInteraction: {fileID: 0}
+    onComplete: []
