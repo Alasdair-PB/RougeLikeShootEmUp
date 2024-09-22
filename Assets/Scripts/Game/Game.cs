@@ -5,16 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
+    public static Game Instance { get; private set; }  
+
     public Action StartGame;
     public Action<bool> EndGame;
     public Action Reset;
 
     private FileDataHandler my_localSaveData;
     private GameData localData;
-    private readonly string profileID = "TesterID", dataDirPath = "saveData", dataFileName = "mySaveData";
+    private readonly string profileID = "TesterID", dataDirPath = "saveData", dataFileName = "mySaveData", myTermSaveData;
 
     private void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+        else
+        {
+            Destroy(gameObject); 
+            return;
+        }
+
         my_localSaveData = new FileDataHandler(dataDirPath, dataFileName, false);
         localData = my_localSaveData.Load(profileID);
 
@@ -40,19 +50,18 @@ public class Game : MonoBehaviour
     private void EndGameState(bool playerVictory)
     {
         Debug.Log(playerVictory ? "Player victorious" : "Player Down");
-        StartCoroutine("DelayedRestart");
+        StartCoroutine(DelayedRestart());
     }
 
     private IEnumerator DelayedRestart()
-    {        
+    {
         yield return new WaitForSeconds(3);
         Reset?.Invoke();
         yield return new WaitForSeconds(1);
         StartGame?.Invoke();
     }
 
-
-    // May want to update to include saveFile
+    public int GetTermDate() => GetSavedData<int>(myTermSaveData, "");
     public void UpdateSavedValue<T>(string itemId, string saveFile, T newValue) => localData.UpdateValue(itemId, newValue);
     public void SaveGameState() => my_localSaveData.Save(localData, profileID);
     public T GetSavedData<T>(string itemID, string saveFile) => localData.GetValue<T>(itemID);

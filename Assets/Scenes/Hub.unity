@@ -268,8 +268,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 199049225}
-  - component: {fileID: 199049227}
   - component: {fileID: 199049226}
+  - component: {fileID: 199049227}
   m_Layer: 0
   m_Name: SaveCube
   m_TagString: Talkable
@@ -323,9 +323,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 199049224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6ef0e0aa94dc04e88d0dca4da8b087, type: 3}
+  m_Script: {fileID: 11500000, guid: f0cf7c5c2abd47843a68fa0270295b60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  game: {fileID: 0}
   possibleInteractions:
   - {fileID: 11400000, guid: 300c1fb8545899a4e84ffac96d70bce9, type: 2}
   interactable: 1
@@ -396,9 +397,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6ef0e0aa94dc04e88d0dca4da8b087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  game: {fileID: 0}
   possibleInteractions:
   - {fileID: 11400000, guid: 9085565f18448d046afac19c735a9078, type: 2}
   interactable: 1
+  saveConversationHistory: 0
+  character: {fileID: 11400000, guid: f4d2469b7935f4545833e7e5a4de5c66, type: 2}
 --- !u!1 &292223096
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,9 +695,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6ef0e0aa94dc04e88d0dca4da8b087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  game: {fileID: 0}
   possibleInteractions:
   - {fileID: 11400000, guid: 9085565f18448d046afac19c735a9078, type: 2}
   interactable: 1
+  saveConversationHistory: 0
+  character: {fileID: 11400000, guid: 27f449021a092c540ba51647320c94ea, type: 2}
 --- !u!1 &1042939222
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,10 +1048,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6ef0e0aa94dc04e88d0dca4da8b087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  game: {fileID: 0}
   possibleInteractions:
   - {fileID: 11400000, guid: e78c088bd81febf48b8589bec3c00c7f, type: 2}
   - {fileID: 11400000, guid: fec5b5b3792be7244a64092b953b07dd, type: 2}
   interactable: 1
+  saveConversationHistory: 0
+  character: {fileID: 11400000, guid: 4e47ed2aa77ec534eb2c1fa28f21927f, type: 2}
 --- !u!4 &1477272071
 Transform:
   m_ObjectHideFlags: 0
@@ -1420,9 +1430,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6ef0e0aa94dc04e88d0dca4da8b087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  game: {fileID: 0}
   possibleInteractions:
   - {fileID: 11400000, guid: 370864956a20f6a4ba673551df8daa17, type: 2}
   interactable: 1
+  saveConversationHistory: 0
+  character: {fileID: 11400000, guid: e5a2659969cdea54e9da849abd4433d6, type: 2}
 --- !u!1 &1790044511
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,9 +1503,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6ef0e0aa94dc04e88d0dca4da8b087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  game: {fileID: 0}
   possibleInteractions:
   - {fileID: 11400000, guid: 9085565f18448d046afac19c735a9078, type: 2}
   interactable: 1
+  saveConversationHistory: 0
+  character: {fileID: 11400000, guid: 0cdf12bb4430d8749b3dbd61a3a560d2, type: 2}
 --- !u!1 &1974754145
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ namespace NPC
 
         [SerializeField] Game game;
         public Action OnPerformanceComplete;
+       
         private Menu_Actions m_Actions;
         private int choiceIndex, optionsCount;
         private bool selectContinue = false;

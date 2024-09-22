@@ -66,7 +66,7 @@ namespace Player
             {
                 StopCoroutine(interactCoroutine);
                 interacting = false;
-                var interactor = other.GetComponent<NPC_Dialogue>();
+                var interactor = other.GetComponent<InteractableDialogue>();
 
                 if (interactor == null || !interactor.IsInteractable())
                     return;

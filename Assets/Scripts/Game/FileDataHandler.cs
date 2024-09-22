@@ -82,7 +82,10 @@ public class FileDataHandler
         try
         {
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+
+            Debug.Log(data);
             string dataToStore = JsonUtility.ToJson(data, true);
+            Debug.Log(dataToStore);
 
             if (useEncryption)
                 dataToStore = EncryptDecrypt(dataToStore);
@@ -154,7 +157,6 @@ public class FileDataHandler
                 profileDictionary.Add(profileId, profileData);
             else
                 Debug.LogError("Tried to load profile but something went wrong. ProfileId: " + profileId);
-            
         }
 
         return profileDictionary;

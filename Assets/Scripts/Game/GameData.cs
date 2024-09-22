@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class GameData
     public SerializableDictionary<string, Vector3> positionData;
     public SerializableDictionary<string, string> stringData;
     public SerializableDictionary<string, float> floatData;
+    public SerializableDictionary<string, SerializableList<int>> indexPairsData;
 
 
     public GameData()
@@ -16,6 +18,7 @@ public class GameData
         positionData = new SerializableDictionary<string, Vector3>();
         stringData = new SerializableDictionary<string, string>();
         floatData = new SerializableDictionary<string, float>();
+        indexPairsData = new SerializableDictionary<string, SerializableList<int>>();
     }
 
     public T GetValue<T>(string id)
@@ -26,6 +29,11 @@ public class GameData
             return (T)(object)(stringData.ContainsKey(id) ? stringData[id] : stringData[id] = string.Empty);
         else if (typeof(T) == typeof(float))
             return (T)(object)(floatData.ContainsKey(id) ? floatData[id] : floatData[id] = 0);
+        else if (typeof(T) == typeof(SerializableList<int>))
+        {
+            var newArray = new SerializableList<int>() { 0, 0};
+            return (T)(object)(floatData.ContainsKey(id) ? indexPairsData[id] : indexPairsData[id] = newArray);
+        }
         else
             return default(T);
     }
@@ -38,5 +46,7 @@ public class GameData
             stringData[id] = (string)(object)newValue;
         else if (typeof(T) == typeof(float))
             floatData[id] = (float)(object)newValue;
+        else if (typeof(T) == typeof(SerializableList<int>))
+            indexPairsData[id] = (SerializableList<int>)(object)newValue;
     }
 }

@@ -3,45 +3,46 @@ using UnityEngine;
 
 namespace NPC
 {
-    public class NPC_Dialogue : MonoBehaviour
+    public class NPC_Dialogue : InteractableDialogue
     {
-        [SerializeField] private InteractionTree[] possibleInteractions;
-        [SerializeField] private bool interactable;
+        [SerializeField] private bool saveConversationHistory;
+        [SerializeField] private Character character;
+        private int termDate;
+        private SerializableList<int> dialogueUnlocks; 
 
-        private InteractionTree currentInteraction;
         Stack<InteractionTree> removalTreeStack = new Stack<InteractionTree>();
 
-        public bool IsInteractable() => interactable;
-
-        public void Awake()
+        public new void Start() 
         {
+            game = Game.Instance;
+            termDate = game.GetTermDate();
+
+            if (!(character == null))
+                dialogueUnlocks = game.GetSavedData<SerializableList<int>>(character.name, "");
+
+
             SetNextInteraction();
         }
 
-        private void OnDisable()
-        {
-            // Remove removalStack from future options
-        }
-
-        // Going to be a complicated save file retrieval data things with scriptable object references
         private void GetPossibleInteractions()
         {
             InteractionTree[] savedPossibleInteractions = new InteractionTree[0];
             possibleInteractions = savedPossibleInteractions;
         }
 
-        private void SetNextInteraction()
+        private new void SetNextInteraction()
         {
-            InteractionTree interaction = possibleInteractions[0];
+            var index = 0; // dialogueUnlocks[0]
+            var chara = character.GetCharacter();
+            InteractionTree interaction = chara.storyConversationsInOrder[termDate].conversations[index];
             currentInteraction = interaction;
         }
 
-        public void OnInteractionComplete()
+        public new void OnInteractionComplete()
         {
             var tree = currentInteraction.interactionTreeBase;
-            // More needed here
 
-            if (tree.removeOnScreenFade)
+            if (tree.lockThisTreeOnComplete)
                 removalTreeStack.Push(currentInteraction);
 
             if (tree.repeatDialogue)
@@ -58,7 +59,5 @@ namespace NPC
                 currentInteraction = tree.followUpInteractionTree;
 
         }
-
-        public Interaction GetInteraction() => currentInteraction.interactionTreeBase.interaction;
     }
 }
