@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class Game : MonoBehaviour
 {
     public Action StartGame;
@@ -12,11 +11,11 @@ public class Game : MonoBehaviour
 
     private FileDataHandler my_localSaveData;
     private GameData localData;
-    private string profileID = "Ali";
+    private readonly string profileID = "TesterID", dataDirPath = "saveData", dataFileName = "mySaveData";
 
     private void Awake()
     {
-        my_localSaveData = new FileDataHandler("saveData", "mySaveData", false);
+        my_localSaveData = new FileDataHandler(dataDirPath, dataFileName, false);
         localData = my_localSaveData.Load(profileID);
 
         if (localData == null)

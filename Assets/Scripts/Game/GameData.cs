@@ -6,9 +6,9 @@ using UnityEngine;
 public class GameData
 {
     public long lastUpdated;
-    public Dictionary<string, Vector3> positionData;
-    public Dictionary<string, string> stringData;
-    public Dictionary<string, float> floatData;
+    public SerializableDictionary<string, Vector3> positionData;
+    public SerializableDictionary<string, string> stringData;
+    public SerializableDictionary<string, float> floatData;
 
 
     public GameData()
