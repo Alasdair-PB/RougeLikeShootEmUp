@@ -13,7 +13,7 @@
             "SocialPoints"
         ],
         "values": [
-            9.0
+            1.0
         ]
     },
     "intData": {
@@ -41,7 +41,7 @@
             },
             {
                 "termDateAtLastSave": 0,
-                "mainIndex": 0,
+                "mainIndex": -1,
                 "termOptional": 0,
                 "optional": 0
             },

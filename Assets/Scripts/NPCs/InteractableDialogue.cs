@@ -26,8 +26,9 @@ namespace NPC
             currentInteraction = interaction;
         }
 
-        public void OnInteractionComplete()
+        public virtual void OnInteractionComplete()
         {
+            Debug.Log("Interaction complete");
             var tree = currentInteraction.interactionTreeBase;
 
             if (tree.lockThisTreeOnComplete)
@@ -53,3 +54,4 @@ namespace NPC
         public Interaction GetInteraction() => currentInteraction.interactionTreeBase.interaction;
     }
 }
+

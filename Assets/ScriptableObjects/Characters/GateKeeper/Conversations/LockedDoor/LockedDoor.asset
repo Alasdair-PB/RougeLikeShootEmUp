@@ -15,6 +15,7 @@ MonoBehaviour:
   interactionTreeBase:
     interaction: {fileID: 11400000, guid: cbf5a3667af44644cb0d4bd52fc288b9, type: 2}
     repeatDialogue: 1
-    removeOnScreenFade: 0
+    lockThisTreeOnComplete: 1
     followUpInteractionTree: {fileID: 0}
     endInteractiblityOnComplete: 1
+    conversationUnlocks: []

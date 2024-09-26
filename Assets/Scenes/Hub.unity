@@ -401,7 +401,7 @@ MonoBehaviour:
   possibleInteractions:
   - {fileID: 11400000, guid: 9085565f18448d046afac19c735a9078, type: 2}
   interactable: 1
-  saveConversationHistory: 0
+  saveConversationHistory: 1
   character: {fileID: 11400000, guid: f4d2469b7935f4545833e7e5a4de5c66, type: 2}
 --- !u!1 &292223096
 GameObject:
@@ -699,7 +699,7 @@ MonoBehaviour:
   possibleInteractions:
   - {fileID: 11400000, guid: 9085565f18448d046afac19c735a9078, type: 2}
   interactable: 1
-  saveConversationHistory: 0
+  saveConversationHistory: 1
   character: {fileID: 11400000, guid: 27f449021a092c540ba51647320c94ea, type: 2}
 --- !u!1 &1042939222
 GameObject:
@@ -1053,7 +1053,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e78c088bd81febf48b8589bec3c00c7f, type: 2}
   - {fileID: 11400000, guid: fec5b5b3792be7244a64092b953b07dd, type: 2}
   interactable: 1
-  saveConversationHistory: 0
+  saveConversationHistory: 1
   character: {fileID: 11400000, guid: 4e47ed2aa77ec534eb2c1fa28f21927f, type: 2}
 --- !u!4 &1477272071
 Transform:
@@ -1434,7 +1434,7 @@ MonoBehaviour:
   possibleInteractions:
   - {fileID: 11400000, guid: 370864956a20f6a4ba673551df8daa17, type: 2}
   interactable: 1
-  saveConversationHistory: 0
+  saveConversationHistory: 1
   character: {fileID: 11400000, guid: e5a2659969cdea54e9da849abd4433d6, type: 2}
 --- !u!1 &1790044511
 GameObject:
@@ -1507,7 +1507,7 @@ MonoBehaviour:
   possibleInteractions:
   - {fileID: 11400000, guid: 9085565f18448d046afac19c735a9078, type: 2}
   interactable: 1
-  saveConversationHistory: 0
+  saveConversationHistory: 1
   character: {fileID: 11400000, guid: 0cdf12bb4430d8749b3dbd61a3a560d2, type: 2}
 --- !u!1 &1974754145
 GameObject:

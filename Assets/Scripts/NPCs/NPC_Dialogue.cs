@@ -42,9 +42,7 @@ namespace NPC
             }
         }
 
-        private string GetTermIndexSaveDataFileName() => character.name + "TermIndex";
         private string GetTermSaveDataFileName() => character.name + "TermData";
-        private string GetOptionalSaveDataFileName() => character.name + "OptionalData";
 
 
         private void GetPossibleInteractions()
@@ -75,6 +73,7 @@ namespace NPC
                     else if (!(myGameData.mainIndex == -1))
                         myGameData.mainIndex++;
 
+                    game.UpdateSavedValue(GetTermSaveDataFileName(), "", myGameData);
                     break;
                 case IndexReferenceType.termOptionals:
                     // Implement using binary shifts
@@ -85,7 +84,7 @@ namespace NPC
             }
         }
 
-        public new void OnInteractionComplete()
+        public override void OnInteractionComplete()
         {
             var tree = currentInteraction.interactionTreeBase;
 
@@ -115,10 +114,13 @@ namespace NPC
 
             InteractionTree nextDialogue;
 
-            if (!(myGameData.mainIndex == -1))
-                nextDialogue = mainConversations[myGameData.mainIndex];
-            else
+            Debug.Log(myGameData.mainIndex);
+
+            if (myGameData.mainIndex == -1)
                 nextDialogue = chara.fillerDialogue[0];
+            else
+                nextDialogue = mainConversations[myGameData.mainIndex];
+
 
             // Check nextStory scene conditions have been met
 
