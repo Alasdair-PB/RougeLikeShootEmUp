@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FillerInteraction
   m_EditorClassIdentifier: 
   interaction:
-    dialogue: We've talked alreayd be gone
+    dialogue: I've got nothing more to say to you
     characterID: 0
     emotionID: 0
     backgroundID: 0

@@ -5,13 +5,14 @@ using UnityEngine;
 
 namespace NPC
 {
+    public enum IndexReferenceType { mainIndex, termOptionals, optionals };
+
     public class NPC_Dialogue : InteractableDialogue
     {
         [SerializeField] private bool saveConversationHistory;
         [SerializeField] private Character character;
         private int termDate;
 
-        private enum IndexReferenceType { mainIndex, termOptionals, optionals };
         private IndexReferenceType indexType;
         private int interactionIndex;
         
@@ -23,7 +24,7 @@ namespace NPC
             termDate = game.GetTermDate();
 
             if (!(character == null))
-                myGameData = game.GetSavedData<NPC_GameData>(GetTermSaveDataFileName(), "");
+                myGameData = game.GetSavedData<NPC_GameData>(character.GetCharacter().GetTermSaveDataFileName(), "");
 
             UpdateDataToCurrentTerm();
             SetNextInteraction();
@@ -38,11 +39,9 @@ namespace NPC
                 newGameData.termDateAtLastSave = termDate;
                 newGameData.mainIndex = 0;
                 newGameData.termOptional = 0;
-                game.UpdateSavedValue<NPC_GameData>(GetTermSaveDataFileName(), "", newGameData);
+                game.UpdateSavedValue<NPC_GameData>(character.GetCharacter().GetTermSaveDataFileName(), "", newGameData);
             }
         }
-
-        private string GetTermSaveDataFileName() => character.name + "TermData";
 
 
         private void GetPossibleInteractions()
@@ -73,7 +72,7 @@ namespace NPC
                     else if (!(myGameData.mainIndex == -1))
                         myGameData.mainIndex++;
 
-                    game.UpdateSavedValue(GetTermSaveDataFileName(), "", myGameData);
+                    game.UpdateSavedValue(chara.GetTermSaveDataFileName(), "", myGameData);
                     break;
                 case IndexReferenceType.termOptionals:
                     // Implement using binary shifts
@@ -113,8 +112,6 @@ namespace NPC
                 myGameData.mainIndex = mainConversations.Length - 1;
 
             InteractionTree nextDialogue;
-
-            Debug.Log(myGameData.mainIndex);
 
             if (myGameData.mainIndex == -1)
                 nextDialogue = chara.fillerDialogue[0];

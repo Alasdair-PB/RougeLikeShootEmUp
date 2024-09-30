@@ -13,7 +13,7 @@
             "SocialPoints"
         ],
         "values": [
-            1.0
+            3.0
         ]
     },
     "intData": {
@@ -26,28 +26,14 @@
     },
     "NPCData": {
         "keys": [
-            "Sophie 2TermData",
-            "Sophie 1TermData",
-            "HeadMasterTermData",
-            "GateKeeperTermData",
-            "SophieTermData"
+            "SophieTermData",
+            "MarcusTermData",
+            "GateKeeperTermData"
         ],
         "values": [
             {
                 "termDateAtLastSave": 0,
-                "mainIndex": 0,
-                "termOptional": 0,
-                "optional": 0
-            },
-            {
-                "termDateAtLastSave": 0,
                 "mainIndex": -1,
-                "termOptional": 0,
-                "optional": 0
-            },
-            {
-                "termDateAtLastSave": 0,
-                "mainIndex": 0,
                 "termOptional": 0,
                 "optional": 0
             },

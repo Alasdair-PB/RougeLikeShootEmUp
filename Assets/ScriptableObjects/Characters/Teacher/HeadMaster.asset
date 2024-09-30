@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: HeadMaster
   m_EditorClassIdentifier: 
   character:
-    characterName: Sophie
+    characterName: Marcus
     storyConversationsInOrder:
     - {fileID: 11400000, guid: 48775ced49b6b1a49a1f358d374d8c72, type: 2}
+    termBasedOptionalConversations: []
+    fillerDialogue: []
     optionalConversations: []

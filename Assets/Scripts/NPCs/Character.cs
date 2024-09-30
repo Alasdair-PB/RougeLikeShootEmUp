@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.TextCore.Text;
 
 namespace NPC
 {
@@ -20,7 +21,29 @@ namespace NPC
         public ConversationGroup[] termBasedOptionalConversations;
 
         public InteractionTree[] fillerDialogue; // Not by term
-        public InteractionTree[] optionalConversations; 
+        public InteractionTree[] optionalConversations;
+
+        public string GetTermSaveDataFileName() => characterName + "TermData";
+
+        public int GetUnlockIndex(IndexReferenceType referenceType, int TermDate)
+        {
+            switch (referenceType)
+            {
+                case IndexReferenceType.mainIndex:
+                    return GetUnlockIndexFromConversationPool(storyConversationsInOrder[TermDate].conversations);
+                case IndexReferenceType.termOptionals:
+                    return GetUnlockIndexFromConversationPool(termBasedOptionalConversations[TermDate].conversations);
+                case IndexReferenceType.optionals:
+                    return GetUnlockIndexFromConversationPool(optionalConversations);
+                default:
+                    return 0;
+            }
+        }
+
+        private int GetUnlockIndexFromConversationPool(InteractionTree[] conversations)
+        {
+            return 0;
+        }
 
     }
 }

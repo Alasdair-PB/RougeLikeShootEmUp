@@ -10,10 +10,12 @@ public class Game : MonoBehaviour
     public Action StartGame;
     public Action<bool> EndGame;
     public Action Reset;
+    public Action OnGameDataUpdate;
 
     private FileDataHandler my_localSaveData;
     private GameData localData;
-    private readonly string profileID = "TesterID", dataDirPath = "saveData", dataFileName = "mySaveData", myTermSaveData = "termDate";
+    private readonly string profileID = "TesterID", dataDirPath = "saveData", 
+        dataFileName = "mySaveData", myTermSaveData = "termDate";
 
     private void Awake()
     {
@@ -62,7 +64,12 @@ public class Game : MonoBehaviour
     }
 
     public int GetTermDate() => GetSavedData<int>(myTermSaveData, "");
-    public void UpdateSavedValue<T>(string itemId, string saveFile, T newValue) => localData.UpdateValue(itemId, newValue);
+    public void UpdateSavedValue<T>(string itemId, string saveFile, T newValue) 
+    {
+        localData.UpdateValue(itemId, newValue);
+        OnGameDataUpdate?.Invoke();
+    }
+
     public void SaveGameState() => my_localSaveData.Save(localData, profileID);
     public T GetSavedData<T>(string itemID, string saveFile) => localData.GetValue<T>(itemID);
 
