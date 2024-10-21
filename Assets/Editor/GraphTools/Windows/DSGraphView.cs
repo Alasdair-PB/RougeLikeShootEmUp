@@ -14,8 +14,6 @@ namespace DS.Windows
         public DSGraphView() {
             AddManipulators();
             AddGridBackground();
-
-            //CreateNode();
             AddStyles();
         }
 
@@ -59,7 +57,11 @@ namespace DS.Windows
         private void AddStyles()
         {
             StyleSheet styleSheet = (StyleSheet) EditorGUIUtility.Load("GraphTools/DSGraphViewStyles.uss");
+            StyleSheet nodeStyleSheet = (StyleSheet)EditorGUIUtility.Load("GraphTools/DSNodeStyles.uss");
+
             styleSheets.Add(styleSheet);
+            styleSheets.Add(nodeStyleSheet);
+
         }
     }
 
