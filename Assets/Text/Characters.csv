@@ -1,4 +1,6 @@
 #LocKey,#Desc,#English,#FakeTestLanguage
+# Reference below for setup
+#https://www.pixelcrushers.com/dialogue_system/manual2x/html/csv.html
 ,Noun,The Prince,El Prince
 ,,,
 ,,,
@@ -7,7 +9,7 @@
 ,,,
 ,,,
 #Dialogue,,,
-#Term1,,Are you ready now?,¿Estás listo? 
+#Term1,,Are you ready now?,ï¿½Estï¿½s listo? 
 ,,I'm not ready,
 ,,I'm ready,
 ,,,
